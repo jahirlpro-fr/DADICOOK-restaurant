@@ -1,0 +1,11 @@
+# Robots.txt pour DADICOOK
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.dadicook.fr/sitemap.xml
+
+# Désactiver l'indexation des fichiers sensibles
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
