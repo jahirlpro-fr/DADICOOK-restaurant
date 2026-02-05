@@ -2,6 +2,7 @@ import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import Link from "next/link";
 
 export default function MentionsLegales() {
   return (
@@ -95,9 +96,9 @@ export default function MentionsLegales() {
                     <p>
                       Pour toute information concernant le traitement de vos données personnelles, 
                       veuillez consulter notre{" "}
-                      <a href="/politique-confidentialite" className="text-primary hover:underline">
+                      <Link href="/politique-confidentialite" className="text-primary hover:underline">
                         Politique de confidentialité
-                      </a>.
+                      </Link>.
                     </p>
                   </div>
 

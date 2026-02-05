@@ -12,39 +12,34 @@
 
 @layer base {
   :root {
-    --radius: 0.25rem;
-    --background: 0 0% 100%;
-    --foreground: 25 35% 30%;
-    --card: 0 0% 100%;
-    --card-foreground: 25 35% 30%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 35% 30%;
-    --primary: 22 52% 52%;
-    --primary-foreground: 42 45% 85%;
-    --secondary: 42 45% 85%;
-    --secondary-foreground: 25 35% 30%;
-    --muted: 38 35% 92%;
-    --muted-foreground: 25 20% 45%;
-    --accent: 42 45% 85%;
-    --accent-foreground: 25 35% 30%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 38 25% 85%;
-    --input: 38 25% 85%;
-    --ring: 22 52% 52%;
-    --chart-1: 22 52% 52%;
-    --chart-2: 42 45% 85%;
-    --chart-3: 25 35% 30%;
-    --chart-4: 38 35% 92%;
-    --chart-5: 35 40% 70%;
-    --sidebar: 38 35% 92%;
-    --sidebar-foreground: 25 35% 30%;
-    --sidebar-primary: 22 52% 52%;
-    --sidebar-primary-foreground: 42 45% 85%;
-    --sidebar-accent: 42 45% 85%;
-    --sidebar-accent-foreground: 25 35% 30%;
-    --sidebar-border: 38 25% 85%;
-    --sidebar-ring: 22 52% 52%;
+    --radius: 0rem;
+    --background: 40 20% 97%; /* Blanc cassé */
+    --foreground: 25 25% 20%; /* Marron foncé pour texte standard */
+    
+    --card: 40 20% 97%;
+    --card-foreground: 25 25% 20%;
+    
+    --popover: 40 20% 97%;
+    --popover-foreground: 25 25% 20%;
+    
+    --primary: 25 45% 50%; /* Marron clair / Orange foncé (Couleur Principale) */
+    --primary-foreground: 45 60% 85%; /* Jaune cassé (pour écriture sur fond marron) */
+    
+    --secondary: 45 30% 90%; /* Ton nude très clair */
+    --secondary-foreground: 25 45% 50%; /* Marron clair pour texte sur fond nude */
+    
+    --muted: 40 15% 92%;
+    --muted-foreground: 25 10% 45%;
+    
+    --accent: 45 50% 60%; /* Jaune cassé plus soutenu pour éléments graphiques */
+    --accent-foreground: 25 25% 20%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 40 20% 97%;
+
+    --border: 25 20% 85%;
+    --input: 25 20% 85%;
+    --ring: 25 45% 50%;
   }
 
   .dark {

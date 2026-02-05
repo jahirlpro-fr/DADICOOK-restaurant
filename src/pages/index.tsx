@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ChefHat, UtensilsCrossed, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 
 const reviews = [
   {
@@ -42,8 +43,66 @@ const reviews = [
 ];
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "DADICOOK",
+    "image": "https://www.dadicook.fr/og-image.png",
+    "url": "https://www.dadicook.fr",
+    "telephone": "+33000000000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Rue de la Gastronomie",
+      "addressLocality": "Paris",
+      "postalCode": "75001",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.8566,
+      "longitude": 2.3522
+    },
+    "servesCuisine": "Cuisine du monde",
+    "priceRange": "€€",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "12:00",
+        "closes": "14:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "19:00",
+        "closes": "22:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "12:00",
+        "closes": "15:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "19:00",
+        "closes": "23:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.thefork.fr/restaurant/dadicook-r815372"
+    ]
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <SEO
         title="DADICOOK - Restaurant Bistronomique | Cuisine du Monde"
         description="Découvrez DADICOOK, restaurant bistronomique proposant une cuisine du monde raffinée dans une ambiance chaleureuse et conviviale. Réservez votre table en ligne."
@@ -65,16 +124,18 @@ export default function Home() {
             </div>
             
             <div className="relative z-10 container text-center">
-              <div className="inline-block bg-primary px-12 py-6 mb-8">
-                <h1 className="font-serif text-5xl md:text-7xl font-bold text-secondary">
+              <div className="inline-block bg-primary/90 backdrop-blur-sm px-12 py-8 mb-8 border border-primary-foreground/20">
+                <h1 className="font-serif text-5xl md:text-7xl font-bold text-primary-foreground tracking-wide">
                   DADICOOK
                 </h1>
+                <div className="h-px w-24 bg-primary mx-auto my-4 opacity-60"></div>
+                <p className="font-sans text-xl md:text-2xl text-primary-foreground tracking-widest uppercase">
+                  Cuisine du monde
+                </p>
               </div>
-              <p className="font-sans text-xl md:text-2xl text-secondary mb-8 max-w-2xl mx-auto">
-                Cuisine du monde
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-primary text-secondary hover:bg-primary/90 font-sans text-lg px-8 py-6">
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-sans text-lg px-10 py-7 uppercase tracking-wider rounded-none">
                   <a
                     href="https://www.thefork.fr/restaurant/dadicook-r815372"
                     target="_blank"
@@ -83,7 +144,7 @@ export default function Home() {
                     Réserver une table
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="font-sans text-lg px-8 py-6 border-secondary text-secondary hover:bg-secondary/10">
+                <Button asChild size="lg" variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-sans text-lg px-10 py-7 uppercase tracking-wider rounded-none">
                   <Link href="/menu">
                     Découvrir le menu
                   </Link>
@@ -92,13 +153,15 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="py-20 bg-background">
+          <section className="py-24 bg-background">
             <div className="container">
-              <div className="text-center mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  Notre Philosophie
+              <div className="text-center mb-20">
+                <span className="text-primary uppercase tracking-widest text-sm font-semibold mb-4 block">Notre Philosophie</span>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-8">
+                  Un Voyage Culinaire
                 </h2>
-                <p className="font-sans text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <div className="w-16 h-1 bg-primary mx-auto mb-8"></div>
+                <p className="font-sans text-lg text-muted-foreground max-w-3xl mx-auto leading-loose">
                   Chez DADICOOK, nous célébrons la diversité culinaire mondiale dans une ambiance chaleureuse 
                   et conviviale. Chaque plat est une invitation au voyage, préparé avec passion et des produits 
                   de qualité soigneusement sélectionnés.

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
 import Image from "next/image";
 import { Leaf } from "lucide-react";
+import Head from "next/head";
 
 interface MenuItem {
   name: string;
@@ -139,8 +140,33 @@ const menuData: MenuSection[] = [
 ];
 
 export default function Menu() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "Menu DADICOOK",
+    "mainEntityOfPage": "https://www.dadicook.fr/menu",
+    "inLanguage": "fr",
+    "hasMenuSection": menuData.map(section => ({
+      "@type": "MenuSection",
+      "name": section.title,
+      "hasMenuItem": section.items.map(item => ({
+        "@type": "MenuItem",
+        "name": item.name,
+        "description": item.description,
+        "price": item.price,
+        "priceCurrency": "EUR"
+      }))
+    }))
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <SEO
         title="Notre Menu - DADICOOK | Cuisine du Monde"
         description="Découvrez notre carte : entrées raffinées, plats savoureux, desserts gourmands. Cuisine du monde avec des produits frais et de qualité."

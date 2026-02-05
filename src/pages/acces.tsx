@@ -4,10 +4,58 @@ import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MapPin, Phone, Mail, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Head from "next/head";
 
 export default function Acces() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "DADICOOK",
+    "image": "https://www.dadicook.fr/og-image.png",
+    "telephone": "+33000000000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Rue de la Gastronomie",
+      "addressLocality": "Paris",
+      "postalCode": "75001",
+      "addressCountry": "FR"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "12:00",
+        "closes": "14:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "19:00",
+        "closes": "22:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "12:00",
+        "closes": "15:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "19:00",
+        "closes": "23:00"
+      }
+    ]
+  };
+
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <SEO
         title="Horaires & Accès - DADICOOK | Nous Trouver"
         description="Horaires d'ouverture, adresse et plan d'accès du restaurant DADICOOK. Venez nous rendre visite !"
@@ -105,7 +153,7 @@ export default function Acces() {
                   </div>
 
                   <div className="text-center">
-                    <Button asChild size="lg" className="bg-primary text-secondary hover:bg-primary/90 font-sans text-lg px-8 py-6">
+                    <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans text-lg px-8 py-6 rounded-none uppercase tracking-wide">
                       <a
                         href="https://www.thefork.fr/restaurant/dadicook-r815372"
                         target="_blank"
