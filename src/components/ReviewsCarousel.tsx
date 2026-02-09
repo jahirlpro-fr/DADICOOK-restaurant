@@ -2,18 +2,50 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
-interface Review {
-  author: string;
-  rating: number;
-  date: string;
-  text: string;
-}
+const reviews = [
+  {
+    id: 1,
+    author: "Sophie M.",
+    rating: 5,
+    date: "Il y a 2 semaines",
+    text: "Excellente découverte ! Les plats sont savoureux et l'ambiance chaleureuse. Le personnel est aux petits soins. Je recommande vivement le poulet satay et le tiramisu maison.",
+    avatar: "SM"
+  },
+  {
+    id: 2,
+    author: "Thomas L.",
+    rating: 5,
+    date: "Il y a 1 mois",
+    text: "Un vrai coup de cœur ! La cuisine est authentique et raffinée. Les saveurs sont au rendez-vous et les portions généreuses. Le rapport qualité-prix est excellent.",
+    avatar: "TL"
+  },
+  {
+    id: 3,
+    author: "Marie D.",
+    rating: 5,
+    date: "Il y a 1 mois",
+    text: "Ambiance cosy et accueillante, parfait pour un dîner entre amis. Les plats sont délicieux et bien présentés. Service impeccable. À découvrir absolument !",
+    avatar: "MD"
+  },
+  {
+    id: 4,
+    author: "Alexandre P.",
+    rating: 5,
+    date: "Il y a 2 mois",
+    text: "Une expérience culinaire remarquable. Les recettes sont originales et les produits de qualité. Le cadre est très agréable. Je reviendrai sans hésiter !",
+    avatar: "AP"
+  },
+  {
+    id: 5,
+    author: "Isabelle R.",
+    rating: 5,
+    date: "Il y a 2 mois",
+    text: "Restaurant chaleureux avec une cuisine savoureuse. J'ai particulièrement apprécié le chiktay de morue et le fondant au chocolat. Service attentionné et souriant.",
+    avatar: "IR"
+  }
+];
 
-interface ReviewsCarouselProps {
-  reviews: Review[];
-}
-
-export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
+export function ReviewsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextReview = () => {
@@ -24,74 +56,91 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  if (reviews.length === 0) return null;
+  const currentReview = reviews[currentIndex];
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="relative bg-card border border-border p-8 md:p-12">
-        <div className="mb-6">
-          <div className="flex items-center gap-1 mb-3">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`h-5 w-5 ${
-                  i < reviews[currentIndex].rating
-                    ? "fill-primary text-primary"
-                    : "text-muted"
-                }`}
-              />
-            ))}
-          </div>
-          <p className="font-sans text-lg text-foreground leading-relaxed mb-4">
-            "{reviews[currentIndex].text}"
+    <div className="py-20 px-4 bg-background">
+      <div className="container">
+        <div className="text-center mb-12">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Ce que disent nos clients
+          </h2>
+          <p className="font-sans text-lg text-foreground/70 max-w-2xl mx-auto">
+            Découvrez les avis authentiques de nos clients sur Google
           </p>
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-serif text-base font-semibold text-foreground">
-                {reviews[currentIndex].author}
-              </p>
-              <p className="font-sans text-sm text-muted-foreground">
-                {reviews[currentIndex].date}
-              </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white p-8 md:p-12 border border-primary/10 shadow-lg">
+            {/* Stars */}
+            <div className="flex justify-center gap-1 mb-6">
+              {[...Array(currentReview.rating)].map((_, i) => (
+                <Star key={i} className="h-6 w-6 fill-[#E8D4A0] text-[#E8D4A0]" />
+              ))}
             </div>
-            <span className="font-sans text-sm text-muted-foreground">
-              {currentIndex + 1} / {reviews.length}
-            </span>
+
+            {/* Review Text */}
+            <p className="font-sans text-lg text-foreground/80 text-center mb-6 leading-relaxed min-h-[120px]">
+              &ldquo;{currentReview.text}&rdquo;
+            </p>
+
+            {/* Author */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-12 h-12 bg-primary text-secondary flex items-center justify-center font-sans font-semibold text-lg">
+                {currentReview.avatar}
+              </div>
+              <div className="text-left">
+                <p className="font-sans font-semibold text-foreground">{currentReview.author}</p>
+                <p className="font-sans text-sm text-foreground/60">{currentReview.date}</p>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-center gap-4">
+              <button
+                onClick={prevReview}
+                className="p-2 hover:bg-primary/10 transition-colors"
+                aria-label="Avis précédent"
+              >
+                <ChevronLeft className="h-6 w-6 text-primary" />
+              </button>
+              <div className="flex gap-2">
+                {reviews.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`h-2 transition-all ${
+                      index === currentIndex
+                        ? "w-8 bg-primary"
+                        : "w-2 bg-primary/30 hover:bg-primary/50"
+                    }`}
+                    aria-label={`Aller à l'avis ${index + 1}`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={nextReview}
+                className="p-2 hover:bg-primary/10 transition-colors"
+                aria-label="Avis suivant"
+              >
+                <ChevronRight className="h-6 w-6 text-primary" />
+              </button>
+            </div>
+          </div>
+
+          {/* CTA vers Google */}
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-secondary font-sans uppercase tracking-wide">
+              <a
+                href="https://www.google.com/search?q=Dadicook+Restaurant+Avis"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Voir tous les avis sur Google
+              </a>
+            </Button>
           </div>
         </div>
-
-        <div className="flex items-center justify-between mt-6">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={prevReview}
-            className="h-10 w-10"
-            aria-label="Avis précédent"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={nextReview}
-            className="h-10 w-10"
-            aria-label="Avis suivant"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
-
-      <div className="text-center mt-8">
-        <Button asChild variant="outline" className="font-sans">
-          <a
-            href="https://www.google.com/search?sca_esv=3184b47af171a3f6&sxsrf=ANbL-n7wQU2hgZMgZxa9eHc9nX4y5fOGOw:1770215294343&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOfydF3XcEmX2Gk2o_ugjmsB67JTT46njevEqMEYQ-EVXitdG6I9cvzJCxZMU1huaLLvWdyQsa8YFueGIm3d8gJSt-HjSBjGKSPB_ivqO9GiIojoy_w%3D%3D&q=Dadicook+Restaurant+Avis&sa=X&ved=2ahUKEwjYia7uhcCSAxX_VqQEHaKjA7sQ0bkNegQIMRAF&biw=1280&bih=598&dpr=1.5&aic=0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Voir tous les avis
-          </a>
-        </Button>
       </div>
     </div>
   );

@@ -1,0 +1,20 @@
+<svg width="638" height="96" viewBox="0 0 638 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond marron -->
+  <rect width="638" height="96" fill="#A67C52"/>
+  
+  <!-- Logo et texte en couleur jaune cassé (#E8D4A0) -->
+  <!-- Logo circulaire -->
+  <circle cx="48" cy="48" r="30" stroke="#E8D4A0" stroke-width="2" fill="none"/>
+  <path d="M30 38 Q48 23 66 38" stroke="#E8D4A0" stroke-width="2" fill="none"/>
+  <circle cx="48" cy="23" r="3" fill="#E8D4A0"/>
+  <line x1="25" y1="73" x2="71" y2="73" stroke="#E8D4A0" stroke-width="2"/>
+  
+  <!-- Texte DADICOOK horizontal -->
+  <text x="110" y="58" font-family="serif" font-size="36" font-weight="600" fill="#E8D4A0" letter-spacing="4">DADICOOK</text>
+  
+  <!-- Séparateur -->
+  <line x1="400" y1="30" x2="400" y2="66" stroke="#E8D4A0" stroke-width="1"/>
+  
+  <!-- Texte RESTAURANT -->
+  <text x="430" y="58" font-family="serif" font-size="24" font-weight="300" fill="#E8D4A0" letter-spacing="3">RESTAURANT</text>
+</svg>

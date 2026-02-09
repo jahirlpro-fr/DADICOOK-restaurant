@@ -1,97 +1,107 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted">
+    <footer className="bg-primary text-secondary border-t border-secondary/20">
       <div className="container py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="bg-primary px-6 py-3 inline-block mb-4">
-              <span className="font-serif text-2xl font-bold text-secondary">DADICOOK</span>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo et description */}
+          <div className="space-y-4">
+            <div className="flex flex-col items-start space-y-2">
+              <Image
+                src="/LOGO2.svg"
+                alt="DADICOOK Restaurant"
+                width={220}
+                height={33}
+                className="h-auto"
+              />
             </div>
-            <p className="font-sans text-sm text-muted-foreground">
-              Cuisine du monde dans une ambiance chaleureuse et conviviale.
+            <p className="text-sm text-accent/80 leading-relaxed max-w-xs">
+              Restaurant bistronomique proposant une cuisine du monde dans une ambiance chaleureuse et conviviale.
             </p>
           </div>
 
+          {/* Navigation */}
           <div>
             <h3 className="font-serif text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2 font-sans text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/" className="text-secondary/80 hover:text-secondary transition-colors">
                   Accueil
                 </Link>
               </li>
               <li>
-                <Link href="/menu" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/menu" className="text-secondary/80 hover:text-secondary transition-colors">
                   Menu
                 </Link>
               </li>
               <li>
-                <Link href="/galerie" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/galerie" className="text-secondary/80 hover:text-secondary transition-colors">
                   Galerie
                 </Link>
               </li>
               <li>
-                <Link href="/acces" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/acces" className="text-secondary/80 hover:text-secondary transition-colors">
                   Horaires & Accès
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/contact" className="text-secondary/80 hover:text-secondary transition-colors">
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
-            <h3 className="font-serif text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-3 font-sans text-sm">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground">Adresse à définir</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <a href="tel:+33000000000" className="text-muted-foreground hover:text-primary transition-colors">
-                  +33 0 00 00 00 00
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <a href="mailto:contact@dadicook.fr" className="text-muted-foreground hover:text-primary transition-colors">
-                  contact@dadicook.fr
-                </a>
-              </li>
-            </ul>
+            <h3 className="text-accent text-xl font-serif mb-4">Contact</h3>
+            <div className="space-y-2 text-accent/80">
+              <p>+33 7 49 49 95 55</p>
+              <p>contact@dadicook.fr</p>
+            </div>
           </div>
 
+          {/* Horaires */}
           <div>
-            <h3 className="font-serif text-lg font-semibold mb-4">Horaires</h3>
-            <ul className="space-y-2 font-sans text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p>Lundi - Vendredi : 12h - 14h30 & 19h - 22h30</p>
-                  <p>Samedi - Dimanche : 12h - 15h & 19h - 23h</p>
-                </div>
+            <h3 className="font-serif text-lg font-semibold mb-4 flex items-center gap-2">
+              <Clock className="h-5 w-5" />
+              Horaires
+            </h3>
+            <ul className="space-y-2 font-sans text-sm text-secondary/80">
+              <li>
+                <span className="font-medium text-secondary">Lundi :</span> Fermé
+              </li>
+              <li>
+                <span className="font-medium text-secondary">Mar-Ven :</span> 12h-14h30, 19h-22h30
+              </li>
+              <li>
+                <span className="font-medium text-secondary">Samedi :</span> 12h-15h, 19h-23h
+              </li>
+              <li>
+                <span className="font-medium text-secondary">Dimanche :</span> Fermé
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="font-sans text-sm text-muted-foreground text-center md:text-left">
-              © {new Date().getFullYear()} DADICOOK. Tous droits réservés.
-            </p>
-            <div className="flex gap-6 font-sans text-sm">
-              <Link href="/mentions-legales" className="text-muted-foreground hover:text-primary transition-colors">
+        {/* Bottom Bar */}
+        <div className="mt-8 pt-8 border-t border-secondary/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 font-sans text-sm text-secondary/70">
+            <p>© {new Date().getFullYear()} DADICOOK. Tous droits réservés.</p>
+            <div className="flex gap-6">
+              <Link
+                href="/mentions-legales"
+                className="hover:text-secondary transition-colors"
+              >
                 Mentions légales
               </Link>
-              <Link href="/politique-confidentialite" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="/politique-confidentialite"
+                className="hover:text-secondary transition-colors"
+              >
                 Politique de confidentialité
               </Link>
             </div>

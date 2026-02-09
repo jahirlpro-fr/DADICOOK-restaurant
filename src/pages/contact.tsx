@@ -2,283 +2,231 @@ import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { Send, MapPin, Phone, Mail, Clock } from "lucide-react";
+import Link from "next/link";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-    consent: false,
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setSubmitStatus("success");
-      setIsSubmitting(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-        consent: false,
-      });
-
-      setTimeout(() => setSubmitStatus("idle"), 5000);
-    }, 1500);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
-    }));
-  };
-
   return (
     <>
       <SEO
-        title="Contact - DADICOOK | Contactez-nous"
-        description="Contactez le restaurant DADICOOK pour toute question, demande de renseignement ou réservation de groupe."
+        title="Contact - DADICOOK | Contactez Notre Restaurant à Montpellier"
+        description="Contactez DADICOOK pour toute demande d'information, réservation ou événement privé. Nous sommes à votre écoute."
+        image="/Image_interieur_restaurant.jpg"
       />
-      <div className="flex min-h-screen flex-col">
+
+      <div className="min-h-screen bg-background">
         <Header />
-        <main className="flex-1">
-          <section className="py-16 bg-background">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
-                  Contactez-nous
+
+        <main>
+          {/* Hero Section - Elegant Header */}
+          <section className="relative bg-primary py-32 overflow-hidden">
+            {/* Subtle Pattern Overlay */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(232, 212, 160, 0.1) 35px, rgba(232, 212, 160, 0.1) 70px)`
+              }}></div>
+            </div>
+            
+            <div className="container mx-auto px-4 max-w-4xl relative z-10">
+              <div className="text-center space-y-6">
+                <p className="text-accent/80 uppercase tracking-[0.4em] text-xs font-light">
+                  Contact
+                </p>
+                <h1 className="font-serif text-6xl md:text-7xl text-accent mb-6 font-light tracking-tight">
+                  Nous Contacter
                 </h1>
-                <p className="font-sans text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Une question ? Une demande particulière ? N'hésitez pas à nous contacter
+                <div className="flex items-center justify-center gap-4 mb-8">
+                  <div className="w-16 h-px bg-accent/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-accent/40"></div>
+                  <div className="w-16 h-px bg-accent/40"></div>
+                </div>
+                <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
+                  Une question, une réservation ou un événement ? Nous sommes à votre écoute
                 </p>
               </div>
+            </div>
+          </section>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-                <div className="lg:col-span-2">
-                  <div className="bg-muted border border-border p-8 md:p-12">
-                    <h2 className="font-serif text-3xl font-semibold mb-6">
-                      Envoyez-nous un message
-                    </h2>
-
-                    {submitStatus === "success" && (
-                      <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-800 font-sans text-sm">
-                        Merci ! Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.
-                      </div>
-                    )}
-
-                    {submitStatus === "error" && (
-                      <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 font-sans text-sm">
-                        Une erreur est survenue. Veuillez réessayer ou nous contacter directement par téléphone.
-                      </div>
-                    )}
-
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="name" className="font-sans text-sm font-medium mb-2 block">
-                            Nom complet *
-                          </Label>
-                          <Input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="font-sans"
-                            placeholder="Votre nom"
-                          />
-                        </div>
-
-                        <div>
-                          <Label htmlFor="email" className="font-sans text-sm font-medium mb-2 block">
-                            Email *
-                          </Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="font-sans"
-                            placeholder="votre@email.com"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="phone" className="font-sans text-sm font-medium mb-2 block">
-                            Téléphone
-                          </Label>
-                          <Input
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className="font-sans"
-                            placeholder="+33 0 00 00 00 00"
-                          />
-                        </div>
-
-                        <div>
-                          <Label htmlFor="subject" className="font-sans text-sm font-medium mb-2 block">
-                            Objet *
-                          </Label>
-                          <Input
-                            id="subject"
-                            name="subject"
-                            type="text"
-                            required
-                            value={formData.subject}
-                            onChange={handleChange}
-                            className="font-sans"
-                            placeholder="Sujet de votre message"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="message" className="font-sans text-sm font-medium mb-2 block">
-                          Message *
-                        </Label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          required
-                          value={formData.message}
-                          onChange={handleChange}
-                          className="font-sans min-h-[200px]"
-                          placeholder="Votre message..."
-                        />
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <input
-                          id="consent"
-                          name="consent"
-                          type="checkbox"
-                          required
-                          checked={formData.consent}
-                          onChange={handleChange}
-                          className="mt-1"
-                        />
-                        <Label htmlFor="consent" className="font-sans text-sm text-muted-foreground">
-                          J'accepte que mes données soient utilisées pour me recontacter dans le cadre de ma demande.
-                          Consultez notre{" "}
-                          <a href="/politique-confidentialite" className="text-primary hover:underline">
-                            politique de confidentialité
-                          </a>.
-                        </Label>
-                      </div>
-
-                      <Button
-                        type="submit"
-                        size="lg"
-                        disabled={isSubmitting}
-                        className="w-full md:w-auto bg-primary text-secondary hover:bg-primary/90 font-sans"
-                      >
-                        <Send className="mr-2 h-5 w-5" />
-                        {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
-                      </Button>
-                    </form>
+          {/* Contact Section */}
+          <section className="py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <div className="grid md:grid-cols-2 gap-16">
+                {/* Left Column - Contact Form */}
+                <div className="space-y-8">
+                  <div>
+                    <h2 className="font-serif text-3xl text-accent mb-2">Envoyez-nous un message</h2>
+                    <p className="text-muted-foreground">
+                      Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
+                    </p>
                   </div>
+
+                  <form className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
+                          Prénom
+                        </label>
+                        <Input
+                          id="firstName"
+                          type="text"
+                          placeholder="Votre prénom"
+                          className="w-full"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
+                          Nom
+                        </label>
+                        <Input
+                          id="lastName"
+                          type="text"
+                          placeholder="Votre nom"
+                          className="w-full"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="votre@email.com"
+                        className="w-full"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                        Téléphone (optionnel)
+                      </label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="06 12 34 56 78"
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                        Sujet
+                      </label>
+                      <Input
+                        id="subject"
+                        type="text"
+                        placeholder="Sujet de votre message"
+                        className="w-full"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                        Message
+                      </label>
+                      <Textarea
+                        id="message"
+                        placeholder="Votre message..."
+                        rows={6}
+                        className="w-full"
+                        required
+                      />
+                    </div>
+
+                    <div className="text-sm text-muted-foreground">
+                      En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre demande conformément à notre{" "}
+                      <Link href="/politique-confidentialite" className="text-accent hover:underline">
+                        politique de confidentialité
+                      </Link>
+                      .
+                    </div>
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-lg font-semibold"
+                    >
+                      Envoyer le message
+                    </Button>
+                  </form>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="bg-muted border border-border p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-serif text-xl font-semibold mb-2">Adresse</h3>
-                        <address className="font-sans text-sm text-muted-foreground not-italic">
-                          <p>123 Rue de la Gastronomie</p>
-                          <p>75001 Paris, France</p>
-                        </address>
-                      </div>
-                    </div>
+                {/* Right Column - Contact Info */}
+                <div className="space-y-8">
+                  <div>
+                    <h2 className="font-serif text-3xl text-accent mb-6">Nos Coordonnées</h2>
                   </div>
 
-                  <div className="bg-muted border border-border p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <Phone className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-serif text-xl font-semibold mb-2">Téléphone</h3>
-                        <a
-                          href="tel:+33000000000"
-                          className="font-sans text-sm text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          +33 0 00 00 00 00
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-muted border border-border p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <Mail className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-serif text-xl font-semibold mb-2">Email</h3>
-                        <a
-                          href="mailto:contact@dadicook.fr"
-                          className="font-sans text-sm text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          contact@dadicook.fr
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-muted border border-border p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-serif text-xl font-semibold mb-2">Horaires</h3>
-                        <div className="font-sans text-sm text-muted-foreground space-y-1">
-                          <p>Lun - Ven : 12h - 14h30 & 19h - 22h30</p>
-                          <p>Sam - Dim : 12h - 15h & 19h - 23h</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-primary p-6 text-center">
-                    <h3 className="font-serif text-2xl font-semibold text-secondary mb-4">
-                      Réservez votre table
-                    </h3>
-                    <Button asChild variant="outline" className="border-secondary text-secondary hover:bg-secondary hover:text-primary font-sans w-full">
-                      <a
-                        href="https://www.thefork.fr/restaurant/dadicook-r815372"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  {/* Téléphone */}
+                  <div className="flex items-start gap-4">
+                    <Phone className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-serif text-xl text-accent mb-2">Téléphone</h3>
+                      <a 
+                        href="tel:+33749499555"
+                        className="text-muted-foreground hover:text-accent transition-colors text-lg"
                       >
-                        Réserver sur TheFork
+                        07 49 49 95 55
                       </a>
-                    </Button>
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex items-start gap-4">
+                    <Mail className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-serif text-xl text-accent mb-2">Email</h3>
+                      <a 
+                        href="mailto:contact@dadicook.fr"
+                        className="text-muted-foreground hover:text-accent transition-colors text-lg"
+                      >
+                        contact@dadicook.fr
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Adresse */}
+                  <div className="flex items-start gap-4">
+                    <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-serif text-xl text-accent mb-2">Adresse</h3>
+                      <p className="text-muted-foreground text-lg leading-relaxed">
+                        26 Rue de l'Université<br />
+                        34000 Montpellier<br />
+                        France
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Réservation */}
+                  <div className="mt-12 p-8 bg-muted/30">
+                    <h3 className="font-serif text-2xl text-accent mb-4">Réserver une table</h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      Pour réserver une table, utilisez notre système de réservation en ligne via TheFork.
+                    </p>
+                    <a
+                      href="https://www.thefork.fr/restaurant/dadicook-r815372"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-primary text-primary-foreground px-8 py-4 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg"
+                    >
+                      Réserver maintenant
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </section>
         </main>
+
         <Footer />
         <CookieConsent />
       </div>

@@ -1,0 +1,21 @@
+<svg width="228" height="134" viewBox="0 0 228 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond marron -->
+  <rect width="228" height="134" fill="#A67C52"/>
+  
+  <!-- Logo et texte en couleur jaune cassé (#E8D4A0) -->
+  <!-- Cercle principal -->
+  <circle cx="114" cy="50" r="35" stroke="#E8D4A0" stroke-width="2" fill="none"/>
+  
+  <!-- Couvercle/dôme -->
+  <path d="M90 35 Q114 15 138 35" stroke="#E8D4A0" stroke-width="2" fill="none"/>
+  <circle cx="114" cy="15" r="4" fill="#E8D4A0"/>
+  
+  <!-- Plateau -->
+  <line x1="80" y1="85" x2="148" y2="85" stroke="#E8D4A0" stroke-width="2"/>
+  
+  <!-- Texte DADICOOK -->
+  <text x="114" y="105" font-family="serif" font-size="20" font-weight="600" fill="#E8D4A0" text-anchor="middle" letter-spacing="3">DADICOOK</text>
+  
+  <!-- Texte CUISINE DU MONDE -->
+  <text x="114" y="125" font-family="serif" font-size="12" font-weight="300" fill="#E8D4A0" text-anchor="middle" letter-spacing="2">CUISINE DU MONDE</text>
+</svg>

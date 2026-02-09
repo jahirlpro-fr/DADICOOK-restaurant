@@ -6,127 +6,137 @@ import Image from "next/image";
 import { useState } from "react";
 import { X } from "lucide-react";
 
-interface GalleryImage {
-  src: string;
-  alt: string;
-  category: "plats" | "ambiance" | "equipe";
-}
-
-const galleryImages: GalleryImage[] = [
-  { src: "/DADICOOK-MENU-1.jpg", alt: "Plat signature DADICOOK", category: "plats" },
-  { src: "/DADICOOK-MENU-2.jpg", alt: "Plat DADICOOK", category: "plats" },
-  { src: "/DADICOOK-MENU-3.jpg", alt: "Création culinaire DADICOOK", category: "plats" },
-  { src: "/Bannie_re_late_rale.jpg", alt: "Ambiance restaurant DADICOOK", category: "ambiance" },
+const galleryImages = [
+  { src: "/Poulet_satay.jpg", alt: "Poulet Satay" },
+  { src: "/Salade_boulgour.jpg", alt: "Salade Boulgour" },
+  { src: "/Hampe_de_boeuf_sauce_poivre.jpg", alt: "Hampe de Bœuf Sauce Poivre" },
+  { src: "/Khychin.jpg", alt: "Khychin" },
+  { src: "/Le_batbout.jpg", alt: "Le Batbout" },
+  { src: "/Maakouda.jpg", alt: "Maakouda" },
+  { src: "/Le_chiktay_de_morue.jpg", alt: "Le Chiktay de Morue" },
+  { src: "/Cheescake_vanille_Rhubarbe.jpg", alt: "Cheesecake Vanille Rhubarbe" },
+  { src: "/Fondant_au_chocolat_noisettes.avif", alt: "Fondant au Chocolat Noisettes" },
+  { src: "/Tarte_mangue_passion_cacahue_te.jpg", alt: "Tarte Mangue Passion Cacahuète" },
+  { src: "/Tiramisu.jpg", alt: "Tiramisu" },
+  { src: "/Mocktail_Dadi.jpg", alt: "Mocktail Dadi" },
+  { src: "/Mocktail_Didine.jpg", alt: "Mocktail Didine" },
+  { src: "/Image_interieur_restaurant.jpg", alt: "Intérieur du restaurant" },
+  { src: "/Image_random_1.avif", alt: "Ambiance restaurant" },
+  { src: "/Image_random_2.jpg", alt: "Décoration" },
+  { src: "/image_random_3.jpg", alt: "Atmosphère" }
 ];
 
 export default function Galerie() {
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("tous");
-
-  const filteredImages = selectedCategory === "tous"
-    ? galleryImages
-    : galleryImages.filter(img => img.category === selectedCategory);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <>
       <SEO
-        title="Galerie Photos - DADICOOK | Nos Plats et Ambiance"
-        description="Découvrez en images nos plats, notre restaurant et notre équipe. Plongez dans l'univers chaleureux et savoureux de DADICOOK."
+        title="Galerie - DADICOOK | Découvrez Nos Créations Culinaires"
+        description="Explorez notre galerie photo : plats signature, desserts maison, et l'ambiance chaleureuse de notre restaurant à Montpellier."
+        image="/Poulet_satay.jpg"
       />
-      <div className="flex min-h-screen flex-col">
+
+      <div className="min-h-screen bg-background">
         <Header />
-        <main className="flex-1">
-          <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/DADICOOK-MENU-3.jpg"
-                alt="Galerie DADICOOK"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+
+        <main>
+          {/* Hero Section - Elegant Header */}
+          <section className="relative bg-primary py-32 overflow-hidden">
+            {/* Subtle Pattern Overlay */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(232, 212, 160, 0.1) 35px, rgba(232, 212, 160, 0.1) 70px)`
+              }}></div>
             </div>
             
-            <div className="relative z-10 container text-center">
-              <h1 className="font-serif text-5xl md:text-6xl font-bold text-secondary mb-4">
-                Galerie Photos
-              </h1>
-              <p className="font-sans text-xl text-secondary/90 max-w-2xl mx-auto">
-                Découvrez l'univers DADICOOK en images
-              </p>
+            <div className="container mx-auto px-4 max-w-4xl relative z-10">
+              <div className="text-center space-y-6">
+                <p className="text-accent/80 uppercase tracking-[0.4em] text-xs font-light">
+                  Galerie
+                </p>
+                <h1 className="font-serif text-6xl md:text-7xl text-accent mb-6 font-light tracking-tight">
+                  Nos Créations
+                </h1>
+                <div className="flex items-center justify-center gap-4 mb-8">
+                  <div className="w-16 h-px bg-accent/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-accent/40"></div>
+                  <div className="w-16 h-px bg-accent/40"></div>
+                </div>
+                <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
+                  Découvrez en images notre univers culinaire et l'ambiance chaleureuse de notre restaurant
+                </p>
+              </div>
             </div>
           </section>
 
-          <section className="py-16 bg-background">
-            <div className="container">
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                {["tous", "plats", "ambiance", "equipe"].map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-6 py-3 font-sans text-sm font-medium transition-colors ${
-                      selectedCategory === category
-                        ? "bg-primary text-secondary"
-                        : "bg-muted text-foreground hover:bg-primary/10"
-                    }`}
-                  >
-                    {category === "tous" && "Tous"}
-                    {category === "plats" && "Nos Plats"}
-                    {category === "ambiance" && "Ambiance"}
-                    {category === "equipe" && "Notre Équipe"}
-                  </button>
-                ))}
-              </div>
-
+          {/* Gallery Grid */}
+          <section className="py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredImages.map((image, index) => (
+                {galleryImages.map((image, index) => (
                   <div
                     key={index}
-                    className="relative aspect-square cursor-pointer overflow-hidden group"
-                    onClick={() => setSelectedImage(image)}
+                    className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                    onClick={() => setSelectedImage(image.src)}
                   >
                     <Image
                       src={image.src}
                       alt={image.alt}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover transition-all duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
+                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <p className="text-accent text-lg font-serif">Voir</p>
+                    </div>
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
 
-              {filteredImages.length === 0 && (
-                <div className="text-center py-16">
-                  <p className="font-sans text-lg text-muted-foreground">
-                    Aucune image dans cette catégorie pour le moment.
-                  </p>
-                </div>
-              )}
+          {/* CTA Section */}
+          <section className="py-24 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
+                Réservez Votre Expérience
+              </h2>
+              <p className="text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+                Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant votre table pour une expérience culinaire inoubliable.
+              </p>
+              <a
+                href="https://www.thefork.fr/restaurant/dadicook-r815372"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary text-primary-foreground px-12 py-5 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg tracking-wide"
+              >
+                Réserver une table
+              </a>
             </div>
           </section>
         </main>
+
         <Footer />
         <CookieConsent />
       </div>
 
+      {/* Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <button
-            className="absolute top-4 right-4 text-white hover:text-primary transition-colors"
+            className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
             onClick={() => setSelectedImage(null)}
-            aria-label="Fermer"
           >
-            <X className="h-8 w-8" />
+            <X size={32} />
           </button>
-          <div className="relative max-w-6xl max-h-[90vh] w-full h-full">
+          <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
             <Image
-              src={selectedImage.src}
-              alt={selectedImage.alt}
+              src={selectedImage}
+              alt="Image agrandie"
               fill
               className="object-contain"
             />

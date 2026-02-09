@@ -13,69 +13,60 @@
 @layer base {
   :root {
     --radius: 0rem;
-    --background: 40 20% 97%; /* Blanc cassé */
-    --foreground: 25 25% 20%; /* Marron foncé pour texte standard */
     
-    --card: 40 20% 97%;
-    --card-foreground: 25 25% 20%;
+    /* Palette DADICOOK - Tons nude et chauds */
+    --background: 40 25% 96%; /* Blanc cassé nude */
+    --foreground: 30 15% 25%; /* Marron très foncé pour textes */
     
-    --popover: 40 20% 97%;
-    --popover-foreground: 25 25% 20%;
+    --card: 40 25% 96%;
+    --card-foreground: 30 15% 25%;
     
-    --primary: 25 45% 50%; /* Marron clair / Orange foncé (Couleur Principale) */
-    --primary-foreground: 45 60% 85%; /* Jaune cassé (pour écriture sur fond marron) */
+    --popover: 40 25% 96%;
+    --popover-foreground: 30 15% 25%;
     
-    --secondary: 45 30% 90%; /* Ton nude très clair */
-    --secondary-foreground: 25 45% 50%; /* Marron clair pour texte sur fond nude */
+    /* Couleur principale: Marron chaud */
+    --primary: 25 35% 52%; /* #A67C52 - Marron principal */
+    --primary-foreground: 45 60% 85%; /* #E8D4A0 - Jaune cassé */
     
-    --muted: 40 15% 92%;
-    --muted-foreground: 25 10% 45%;
+    /* Couleur secondaire: Jaune cassé pour accents */
+    --secondary: 45 60% 85%; /* #E8D4A0 - Jaune cassé */
+    --secondary-foreground: 25 35% 52%; /* Marron pour texte sur jaune */
     
-    --accent: 45 50% 60%; /* Jaune cassé plus soutenu pour éléments graphiques */
-    --accent-foreground: 25 25% 20%;
+    --muted: 40 20% 92%; /* Beige très clair */
+    --muted-foreground: 30 10% 45%;
     
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 40 20% 97%;
+    --accent: 45 55% 75%; /* Jaune cassé plus doux */
+    --accent-foreground: 30 15% 25%;
+    
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 25% 96%;
 
-    --border: 25 20% 85%;
-    --input: 25 20% 85%;
-    --ring: 25 45% 50%;
+    --border: 30 20% 85%;
+    --input: 30 20% 85%;
+    --ring: 25 35% 52%;
   }
 
   .dark {
-    --radius: 0.25rem;
-    --background: 25 35% 12%;
-    --foreground: 42 45% 85%;
-    --card: 25 30% 18%;
-    --card-foreground: 42 45% 85%;
-    --popover: 25 30% 18%;
-    --popover-foreground: 42 45% 85%;
-    --primary: 22 52% 52%;
-    --primary-foreground: 42 45% 85%;
-    --secondary: 25 30% 25%;
-    --secondary-foreground: 42 45% 85%;
-    --muted: 25 25% 25%;
-    --muted-foreground: 42 30% 65%;
-    --accent: 25 30% 25%;
-    --accent-foreground: 42 45% 85%;
-    --destructive: 0 84% 60%;
+    --radius: 0rem;
+    --background: 25 30% 15%;
+    --foreground: 45 60% 85%;
+    --card: 25 25% 20%;
+    --card-foreground: 45 60% 85%;
+    --popover: 25 25% 20%;
+    --popover-foreground: 45 60% 85%;
+    --primary: 25 35% 52%;
+    --primary-foreground: 45 60% 85%;
+    --secondary: 45 60% 85%;
+    --secondary-foreground: 25 35% 52%;
+    --muted: 25 20% 25%;
+    --muted-foreground: 45 45% 65%;
+    --accent: 45 55% 75%;
+    --accent-foreground: 30 15% 25%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 25 25% 30%;
-    --input: 25 25% 30%;
-    --ring: 22 52% 52%;
-    --chart-1: 22 52% 52%;
-    --chart-2: 42 45% 85%;
-    --chart-3: 35 40% 70%;
-    --chart-4: 25 30% 25%;
-    --chart-5: 38 35% 50%;
-    --sidebar: 25 30% 18%;
-    --sidebar-foreground: 42 45% 85%;
-    --sidebar-primary: 22 52% 52%;
-    --sidebar-primary-foreground: 42 45% 85%;
-    --sidebar-accent: 25 30% 25%;
-    --sidebar-accent-foreground: 42 45% 85%;
-    --sidebar-border: 25 25% 30%;
-    --sidebar-ring: 22 52% 52%;
+    --border: 25 20% 30%;
+    --input: 25 20% 30%;
+    --ring: 25 35% 52%;
   }
 }
 
@@ -91,5 +82,10 @@
 @layer components {
   .container {
     @apply mx-auto px-4 md:px-6 lg:px-8 max-w-7xl w-full;
+  }
+  
+  /* Filtre pour transformer le noir/blanc en couleur accent (#E8D4A0) */
+  .filter-gold {
+    filter: brightness(0) saturate(100%) invert(88%) sepia(18%) saturate(594%) hue-rotate(352deg) brightness(96%) contrast(90%);
   }
 }

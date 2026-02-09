@@ -2,272 +2,264 @@ import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
-import Image from "next/image";
-import { Leaf } from "lucide-react";
 import Head from "next/head";
 
-interface MenuItem {
-  name: string;
-  description: string;
-  price: string;
-  allergens?: string[];
-  vegetarian?: boolean;
-  image?: string;
-}
+const menuStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "name": "Menu DADICOOK",
+  "description": "Menu du restaurant DADICOOK - Cuisine du monde",
+  "hasMenuSection": [
+    {
+      "@type": "MenuSection",
+      "name": "Entrées",
+      "hasMenuItem": [
+        {
+          "@type": "MenuItem",
+          "name": "Le Batbout",
+          "description": "Pain marocain farci, herbes fraîches, épices douces",
+          "offers": { "@type": "Offer", "price": "8", "priceCurrency": "EUR" }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Maakouda",
+          "description": "Beignets de pommes de terre croustillants, sauce harissa",
+          "offers": { "@type": "Offer", "price": "7", "priceCurrency": "EUR" }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Le Chiktay de Morue",
+          "description": "Morue fraîche, citron confit, coriandre, huile d'olive",
+          "offers": { "@type": "Offer", "price": "12", "priceCurrency": "EUR" }
+        },
+        {
+          "@type": "MenuItem",
+          "name": "Salade Boulgour",
+          "description": "Boulgour, légumes croquants, menthe fraîche, vinaigrette citron",
+          "offers": { "@type": "Offer", "price": "9", "priceCurrency": "EUR" }
+        }
+      ]
+    }
+  ]
+};
 
-interface MenuSection {
-  title: string;
-  items: MenuItem[];
-}
-
-const menuData: MenuSection[] = [
+const menuCategories = [
   {
-    title: "Entrées",
+    id: "entrees",
+    name: "Entrées",
     items: [
       {
-        name: "Salade César revisitée",
-        description: "Romaine croquante, poulet grillé, parmesan, croûtons maison, sauce César",
+        name: "Le Batbout",
+        description: "Pain marocain farci, herbes fraîches, épices douces",
+        price: "8€"
+      },
+      {
+        name: "Maakouda",
+        description: "Beignets de pommes de terre croustillants, sauce harissa",
+        price: "7€"
+      },
+      {
+        name: "Le Chiktay de Morue",
+        description: "Morue fraîche, citron confit, coriandre, huile d'olive",
         price: "12€",
-        allergens: ["Gluten", "Œufs", "Lait"],
+        allergens: "Poisson"
       },
       {
-        name: "Tartare de saumon",
-        description: "Saumon frais, avocat, citron vert, coriandre, toast de pain grillé",
-        price: "14€",
-        allergens: ["Poisson", "Gluten"],
-      },
-      {
-        name: "Velouté de légumes",
-        description: "Velouté de saison, crème fraîche, herbes aromatiques",
+        name: "Salade Boulgour",
+        description: "Boulgour, légumes croquants, menthe fraîche, vinaigrette citron",
         price: "9€",
-        allergens: ["Lait"],
-        vegetarian: true,
-      },
-      {
-        name: "Carpaccio de bœuf",
-        description: "Fines tranches de bœuf, roquette, copeaux de parmesan, huile de truffe",
-        price: "15€",
-        allergens: ["Lait"],
-      },
-    ],
+        allergens: "Gluten"
+      }
+    ]
   },
   {
-    title: "Plats",
+    id: "plats",
+    name: "Plats",
     items: [
       {
-        name: "Filet de bœuf",
-        description: "Filet de bœuf grillé, purée de pommes de terre, légumes de saison, sauce au poivre",
-        price: "28€",
-        allergens: ["Lait"],
+        name: "Poulet Satay",
+        description: "Brochettes de poulet mariné, sauce cacahuète onctueuse, légumes grillés",
+        price: "18€",
+        allergens: "Cacahuètes"
       },
       {
-        name: "Risotto aux champignons",
-        description: "Risotto crémeux, champignons de saison, parmesan, truffe",
-        price: "22€",
-        allergens: ["Lait"],
-        vegetarian: true,
+        name: "Hampe de Bœuf Sauce Poivre",
+        description: "Hampe de bœuf tendre, sauce poivre noir, pommes grenaille rôties",
+        price: "22€"
       },
       {
-        name: "Pavé de saumon",
-        description: "Saumon grillé, écrasé de pommes de terre, légumes verts, beurre citronné",
-        price: "24€",
-        allergens: ["Poisson", "Lait"],
-      },
-      {
-        name: "Tajine d'agneau",
-        description: "Agneau confit, légumes mijotés, fruits secs, semoule parfumée",
-        price: "26€",
-        allergens: ["Gluten"],
-      },
-      {
-        name: "Curry de légumes",
-        description: "Légumes de saison, lait de coco, épices douces, riz basmati",
-        price: "19€",
-        vegetarian: true,
-      },
-    ],
+        name: "Khychin",
+        description: "Galette caucasienne farcie, pommes de terre, fromage, herbes",
+        price: "16€",
+        allergens: "Gluten, Produits laitiers"
+      }
+    ]
   },
   {
-    title: "Desserts",
+    id: "desserts",
+    name: "Desserts",
     items: [
       {
-        name: "Tiramisu maison",
-        description: "Biscuits imbibés de café, mascarpone, cacao",
-        price: "8€",
-        allergens: ["Gluten", "Œufs", "Lait"],
-      },
-      {
-        name: "Fondant au chocolat",
-        description: "Cœur coulant, glace vanille, coulis de fruits rouges",
+        name: "Cheesecake Vanille Rhubarbe",
+        description: "Cheesecake crémeux, compotée de rhubarbe, biscuit croquant",
         price: "9€",
-        allergens: ["Gluten", "Œufs", "Lait"],
+        allergens: "Gluten, Œufs, Produits laitiers"
       },
       {
-        name: "Tarte citron meringuée",
-        description: "Pâte sablée, crème citron, meringue italienne",
+        name: "Fondant au Chocolat Noisettes",
+        description: "Cœur coulant chocolat noir, éclats de noisettes torréfiées, glace vanille",
+        price: "10€",
+        allergens: "Gluten, Œufs, Fruits à coque"
+      },
+      {
+        name: "Tarte Mangue Passion Cacahuète",
+        description: "Tarte exotique, mangue fraîche, passion acidulée, crumble cacahuète",
+        price: "9€",
+        allergens: "Gluten, Œufs, Cacahuètes"
+      },
+      {
+        name: "Tiramisu",
+        description: "Tiramisu traditionnel, mascarpone onctueux, café italien, cacao amer",
         price: "8€",
-        allergens: ["Gluten", "Œufs", "Lait"],
-      },
-      {
-        name: "Salade de fruits frais",
-        description: "Fruits de saison, sirop léger, menthe fraîche",
-        price: "7€",
-        vegetarian: true,
-      },
-    ],
+        allergens: "Gluten, Œufs, Produits laitiers"
+      }
+    ]
   },
   {
-    title: "Formules",
+    id: "boissons",
+    name: "Boissons",
     items: [
       {
-        name: "Formule Déjeuner",
-        description: "Entrée + Plat ou Plat + Dessert",
-        price: "24€",
+        name: "Mocktail Dadi",
+        description: "Cocktail sans alcool maison, fruits frais, sirop artisanal",
+        price: "7€"
       },
       {
-        name: "Formule Découverte",
-        description: "Entrée + Plat + Dessert",
-        price: "32€",
-      },
-      {
-        name: "Menu Dégustation",
-        description: "5 plats surprise du chef avec accord mets et vins",
-        price: "55€",
-        allergens: ["Variable selon le menu du jour"],
-      },
-    ],
-  },
+        name: "Mocktail Didine",
+        description: "Cocktail sans alcool signature, agrumes, menthe, gingembre",
+        price: "7€"
+      }
+    ]
+  }
 ];
 
 export default function Menu() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Menu",
-    "name": "Menu DADICOOK",
-    "mainEntityOfPage": "https://www.dadicook.fr/menu",
-    "inLanguage": "fr",
-    "hasMenuSection": menuData.map(section => ({
-      "@type": "MenuSection",
-      "name": section.title,
-      "hasMenuItem": section.items.map(item => ({
-        "@type": "MenuItem",
-        "name": item.name,
-        "description": item.description,
-        "price": item.price,
-        "priceCurrency": "EUR"
-      }))
-    }))
-  };
-
   return (
     <>
       <Head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(menuStructuredData) }}
         />
       </Head>
       <SEO
-        title="Notre Menu - DADICOOK | Cuisine du Monde"
-        description="Découvrez notre carte : entrées raffinées, plats savoureux, desserts gourmands. Cuisine du monde avec des produits frais et de qualité."
+        title="Notre Menu - DADICOOK | Cuisine du Monde à Montpellier"
+        description="Découvrez notre carte : entrées authentiques, plats savoureux et desserts gourmands. Cuisine du monde avec des produits frais et de qualité."
+        image="/DADICOOK-MENU-1.jpg"
       />
-      <div className="flex min-h-screen flex-col">
+
+      <div className="min-h-screen bg-background">
         <Header />
-        <main className="flex-1">
-          <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/DADICOOK-MENU-2.jpg"
-                alt="Menu DADICOOK"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-            </div>
-            
-            <div className="relative z-10 container text-center">
-              <h1 className="font-serif text-5xl md:text-6xl font-bold text-secondary mb-4">
-                Notre Menu
-              </h1>
-              <p className="font-sans text-xl text-secondary/90 max-w-2xl mx-auto">
-                Découvrez nos créations culinaires, préparées avec passion et des produits de qualité
-              </p>
+
+        <main>
+          {/* Hero Section - Elegant Header */}
+          <section className="relative bg-primary py-32">
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/95 to-primary"></div>
+            <div className="container mx-auto px-4 max-w-4xl relative z-10">
+              <div className="text-center">
+                <p className="text-accent/80 uppercase tracking-[0.3em] text-sm mb-6 font-light">
+                  Notre Menu
+                </p>
+                <h1 className="font-serif text-5xl md:text-7xl text-accent mb-6 font-light">
+                  Découvrez nos Créations
+                </h1>
+                <div className="w-24 h-px bg-accent mx-auto mb-8"></div>
+                <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
+                  Une sélection de plats inspirés des quatre coins du monde, préparés avec passion et des ingrédients d'exception
+                </p>
+              </div>
             </div>
           </section>
 
-          <section className="py-16 bg-background">
-            <div className="container">
-              <div className="max-w-6xl mx-auto space-y-16">
-                {menuData.map((section, sectionIndex) => (
-                  <div key={sectionIndex}>
-                    <div className="text-center mb-12">
-                      <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-                        {section.title}
-                      </h2>
-                      <div className="w-24 h-1 bg-primary mx-auto" />
-                    </div>
+          {/* Menu Categories */}
+          <section className="py-24 bg-background">
+            <div className="container mx-auto px-4 max-w-5xl">
+              {menuCategories.map((category, categoryIndex) => (
+                <div
+                  key={category.id}
+                  className={`${categoryIndex !== 0 ? "mt-24" : ""}`}
+                >
+                  {/* Category Title with Underline Animation */}
+                  <div className="mb-16">
+                    <h2 className="font-serif text-4xl md:text-5xl text-accent mb-4 inline-block relative group">
+                      {category.name}
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent transform scale-x-100 transition-transform duration-300"></span>
+                    </h2>
+                  </div>
 
-                    <div className="grid gap-8">
-                      {section.items.map((item, itemIndex) => (
-                        <div
-                          key={itemIndex}
-                          className="bg-muted border border-border p-6 md:p-8 hover:border-primary transition-colors"
-                        >
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-3">
-                                <h3 className="font-serif text-2xl font-semibold text-foreground">
-                                  {item.name}
-                                </h3>
-                                {item.vegetarian && (
-                                  <Leaf className="h-5 w-5 text-green-600" aria-label="Végétarien" />
-                                )}
-                              </div>
-                              <p className="font-sans text-base text-muted-foreground leading-relaxed mb-3">
-                                {item.description}
+                  {/* Menu Items */}
+                  <div className="space-y-10">
+                    {category.items.map((item, itemIndex) => (
+                      <div
+                        key={itemIndex}
+                        className="group relative"
+                      >
+                        <div className="flex items-start justify-between gap-8">
+                          {/* Left: Name & Description */}
+                          <div className="flex-1">
+                            <h3 className="font-serif text-2xl md:text-3xl text-accent mb-3 relative inline-block">
+                              {item.name}
+                              <span className="absolute bottom-0 left-0 w-0 h-px bg-accent/50 group-hover:w-full transition-all duration-500"></span>
+                            </h3>
+                            <p className="text-muted-foreground leading-relaxed mb-2">
+                              {item.description}
+                            </p>
+                            {item.allergens && (
+                              <p className="text-xs text-muted-foreground/70 italic">
+                                Allergènes : {item.allergens}
                               </p>
-                              {item.allergens && item.allergens.length > 0 && (
-                                <p className="font-sans text-sm text-muted-foreground italic">
-                                  Allergènes : {item.allergens.join(", ")}
-                                </p>
-                              )}
-                            </div>
-                            <div className="md:text-right">
-                              <span className="font-sans text-2xl font-bold text-primary">
-                                {item.price}
-                              </span>
-                            </div>
+                            )}
+                          </div>
+
+                          {/* Right: Price with Different Font */}
+                          <div className="flex-shrink-0">
+                            <span className="font-mono text-2xl md:text-3xl text-accent font-semibold">
+                              {item.price}
+                            </span>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
 
-              <div className="mt-16 p-8 bg-muted border border-border max-w-4xl mx-auto">
-                <h3 className="font-serif text-2xl font-semibold text-center mb-4">
-                  Informations importantes
-                </h3>
-                <div className="space-y-3 font-sans text-sm text-muted-foreground">
-                  <p>
-                    • Tous nos plats sont préparés sur place avec des produits frais et de saison.
-                  </p>
-                  <p>
-                    • Les prix sont susceptibles de varier selon la disponibilité des produits.
-                  </p>
-                  <p>
-                    • Pour toute allergie ou régime alimentaire spécifique, n'hésitez pas à nous consulter.
-                  </p>
-                  <p>
-                    • Nos formules sont disponibles du lundi au vendredi midi uniquement.
-                  </p>
+                        {/* Decorative Line */}
+                        <div className="mt-6 h-px bg-border"></div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
+                Réservez votre Table
+              </h2>
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant votre table pour une expérience culinaire inoubliable.
+              </p>
+              <a
+                href="https://www.thefork.fr/restaurant/dadicook-r815372"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary text-primary-foreground px-10 py-4 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg"
+              >
+                Réserver maintenant
+              </a>
             </div>
           </section>
         </main>
+
         <Footer />
         <CookieConsent />
       </div>
