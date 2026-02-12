@@ -40,7 +40,7 @@ export default function QRMenu() {
     try {
       const [menuData, menuJourData] = await Promise.all([
         menuService.getCategoriesWithItems("published"),
-        menuService.getActiveMenuDuJour()
+        menuService.getMenuDuJour()
       ]);
       setCategories(menuData as any);
       setMenuDuJour(menuJourData as any);
