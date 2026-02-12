@@ -209,7 +209,7 @@ export default function Contact() {
                   {/* Réservation */}
                   <div className="mt-12 p-8 bg-muted/30">
                     <h3 className="font-serif text-2xl text-accent mb-4">Réserver une table</h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                    <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
                       Pour réserver une table, utilisez notre système de réservation en ligne via TheFork.
                     </p>
                     <a

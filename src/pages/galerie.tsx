@@ -263,7 +263,7 @@ export default function Galerie() {
               <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
                 Réservez Votre Expérience
               </h2>
-              <p className="text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
                 Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant votre table pour une expérience culinaire inoubliable.
               </p>
               <a

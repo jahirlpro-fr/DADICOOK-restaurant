@@ -167,12 +167,12 @@ export default function QRMenu() {
                     <div key={item.id} className="border-b border-muted/20 pb-5">
                       {/* Item Header */}
                       <div className="flex justify-between items-baseline mb-2">
-                        <h3 className="font-serif text-lg text-primary flex-1 pr-3">
+                        <h3 className="font-serif text-xl text-primary flex-1 pr-3">
                           {item.title}
                         </h3>
                         <div className="flex-shrink-0 flex items-center gap-2">
                           <div className="flex-1 border-b border-dotted border-muted/40 min-w-[30px]"></div>
-                          <span className="font-serif text-lg text-primary whitespace-nowrap">
+                          <span className="font-serif text-xl text-primary whitespace-nowrap">
                             {item.price.toFixed(2)}€
                           </span>
                         </div>
@@ -180,7 +180,7 @@ export default function QRMenu() {
 
                       {/* Description */}
                       {item.description && (
-                        <p className="text-muted-foreground text-xs leading-relaxed mb-2">
+                        <p className="text-muted-foreground text-sm leading-relaxed mb-2">
                           {item.description}
                         </p>
                       )}

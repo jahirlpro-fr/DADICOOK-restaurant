@@ -269,7 +269,7 @@ export default function Home() {
             <div className="flex gap-4">
               <Link 
                 href="/menu"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
+                className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Voir le menu
               </Link>
@@ -277,7 +277,7 @@ export default function Home() {
                 href="https://module.lafourchette.com/fr_FR/module/463969-a9311"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
+                className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Réserver une table
               </Link>

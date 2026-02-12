@@ -59,7 +59,7 @@ export default function Acces() {
                       <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                       <div>
                         <h2 className="font-serif text-2xl text-accent mb-2">Adresse</h2>
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-muted-foreground text-lg leading-relaxed">
                           26 Rue de l'Université<br />
                           34000 Montpellier<br />
                           France
@@ -76,7 +76,7 @@ export default function Acces() {
                         <h2 className="font-serif text-2xl text-accent mb-2">Téléphone</h2>
                         <a 
                           href="tel:+33749499555"
-                          className="text-muted-foreground hover:text-accent transition-colors"
+                          className="text-muted-foreground text-lg hover:text-accent transition-colors"
                         >
                           07 49 49 95 55
                         </a>
@@ -92,7 +92,7 @@ export default function Acces() {
                         <h2 className="font-serif text-2xl text-accent mb-2">Email</h2>
                         <a 
                           href="mailto:contact@dadicook.fr"
-                          className="text-muted-foreground hover:text-accent transition-colors"
+                          className="text-muted-foreground text-lg hover:text-accent transition-colors"
                         >
                           contact@dadicook.fr
                         </a>
@@ -111,8 +111,8 @@ export default function Acces() {
                       <div className="space-y-4">
                         {/* Mercredi */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Mercredi</span>
-                          <div className="text-right text-muted-foreground">
+                          <span className="text-foreground font-medium text-lg">Mercredi</span>
+                          <div className="text-right text-muted-foreground text-lg">
                             <div>11:30 - 14:30</div>
                             <div>19:00 - 23:00</div>
                           </div>
@@ -120,8 +120,8 @@ export default function Acces() {
 
                         {/* Jeudi */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Jeudi</span>
-                          <div className="text-right text-muted-foreground">
+                          <span className="text-foreground font-medium text-lg">Jeudi</span>
+                          <div className="text-right text-muted-foreground text-lg">
                             <div>11:30 - 14:30</div>
                             <div>19:00 - 23:00</div>
                           </div>
@@ -129,16 +129,16 @@ export default function Acces() {
 
                         {/* Vendredi */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Vendredi</span>
-                          <div className="text-right text-muted-foreground">
+                          <span className="text-foreground font-medium text-lg">Vendredi</span>
+                          <div className="text-right text-muted-foreground text-lg">
                             <div>19:00 - 23:00</div>
                           </div>
                         </div>
 
                         {/* Samedi */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Samedi</span>
-                          <div className="text-right text-muted-foreground">
+                          <span className="text-foreground font-medium text-lg">Samedi</span>
+                          <div className="text-right text-muted-foreground text-lg">
                             <div>11:30 - 14:30</div>
                             <div>19:00 - 23:00</div>
                           </div>
@@ -146,8 +146,8 @@ export default function Acces() {
 
                         {/* Dimanche */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Dimanche</span>
-                          <div className="text-right text-muted-foreground">
+                          <span className="text-foreground font-medium text-lg">Dimanche</span>
+                          <div className="text-right text-muted-foreground text-lg">
                             <div>11:30 - 14:30</div>
                             <div>19:00 - 23:00</div>
                           </div>
@@ -155,8 +155,8 @@ export default function Acces() {
 
                         {/* Lundi & Mardi */}
                         <div className="flex justify-between items-start py-3 border-b border-border">
-                          <span className="text-foreground font-medium">Lundi & Mardi</span>
-                          <span className="text-muted-foreground italic">Fermé</span>
+                          <span className="text-foreground font-medium text-lg">Lundi & Mardi</span>
+                          <span className="text-muted-foreground italic text-lg">Fermé</span>
                         </div>
                       </div>
 

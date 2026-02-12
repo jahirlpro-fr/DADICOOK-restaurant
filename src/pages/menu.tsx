@@ -113,15 +113,15 @@ export default function Menu() {
                   {/* Menu Items List - Simple Format */}
                   <div className="space-y-8">
                     {category.menu_items.map((item) => (
-                      <div key={item.id} className="border-b border-muted/20 pb-6">
+                      <div key={item.id} className="pb-8">
                         {/* Item Header */}
-                        <div className="flex justify-between items-baseline mb-3">
-                          <h3 className="font-serif text-xl text-primary flex-1">
+                        <div className="flex justify-between items-baseline mb-4">
+                          <h3 className="font-serif text-3xl text-primary flex-1">
                             {item.title}
                           </h3>
                           <div className="flex-shrink-0 ml-4 flex items-center gap-3">
                             <div className="flex-1 border-b border-dotted border-muted/40 min-w-[40px]"></div>
-                            <span className="font-serif text-xl text-primary whitespace-nowrap">
+                            <span className="font-serif text-3xl text-primary whitespace-nowrap">
                               {item.price.toFixed(2)}€
                             </span>
                           </div>
@@ -129,17 +129,24 @@ export default function Menu() {
 
                         {/* Description */}
                         {item.description && (
-                          <p className="text-muted-foreground text-sm leading-relaxed mb-2">
+                          <p className="text-muted-foreground text-xl leading-relaxed mb-3">
                             {item.description}
                           </p>
                         )}
 
                         {/* Allergens */}
                         {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
-                          <p className="text-xs text-muted-foreground/60 italic">
+                          <p className="text-base text-muted-foreground/60 italic mb-4">
                             Allergènes : {item.allergens.join(", ")}
                           </p>
                         )}
+
+                        {/* Elegant Separator */}
+                        <div className="flex items-center justify-center mt-6">
+                          <div className="h-px bg-primary/10 flex-1 max-w-[100px]"></div>
+                          <div className="w-1.5 h-1.5 bg-primary/20 rotate-45 mx-4"></div>
+                          <div className="h-px bg-primary/10 flex-1 max-w-[100px]"></div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -149,12 +156,12 @@ export default function Menu() {
           </section>
 
           {/* Reservation CTA */}
-          <section className="py-24 bg-primary">
+          <section className="py-24 bg-gray-100">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="font-serif text-4xl md:text-5xl text-accent mb-6">
+              <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6">
                 Réservez votre Table
               </h2>
-              <p className="text-accent/90 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-primary/80 text-lg mb-8 max-w-2xl mx-auto">
                 Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant
                 pour une expérience culinaire inoubliable.
               </p>
