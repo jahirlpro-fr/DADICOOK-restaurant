@@ -43,7 +43,7 @@ export function Header() {
             <Link
               key={item.name}
               href={item.href}
-              className="font-sans text-sm font-medium text-secondary/90 hover:text-secondary transition-colors tracking-wide uppercase"
+              className="font-sans text-sm font-medium text-[#E8DCC4] hover:text-[#E8DCC4]/80 transition-colors tracking-wide uppercase"
             >
               {item.name}
             </Link>
@@ -81,7 +81,7 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-4 py-3 font-sans text-base font-medium text-secondary/90 hover:text-secondary hover:bg-primary-dark transition-colors uppercase tracking-wide"
+                className="block px-4 py-3 font-sans text-base font-medium text-[#E8DCC4] hover:text-[#E8DCC4]/80 hover:bg-primary-dark transition-colors uppercase tracking-wide"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}

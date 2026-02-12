@@ -2,7 +2,6 @@ import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { menuService } from "@/services/menuService";
 import { Utensils } from "lucide-react";
 
@@ -11,7 +10,6 @@ interface MenuItem {
   title: string;
   description: string | null;
   price: number;
-  image_url: string | null;
   allergens: string[] | null;
 }
 
@@ -96,64 +94,52 @@ export default function Menu() {
             </div>
           </section>
 
-          {/* Menu Categories */}
+          {/* Menu Categories - Simple & Elegant */}
           <section className="py-24">
-            <div className="container mx-auto px-4 max-w-6xl">
+            <div className="container mx-auto px-4 max-w-4xl">
               {categories.map((category, categoryIndex) => (
-                <div key={category.id} className={categoryIndex > 0 ? "mt-24" : ""}>
-                  {/* Category Title with Underline Animation */}
-                  <div className="text-center mb-16">
-                    <h2 className="font-serif text-4xl md:text-5xl text-primary mb-4 inline-block relative">
+                <div key={category.id} className={categoryIndex > 0 ? "mt-20" : ""}>
+                  {/* Category Title */}
+                  <div className="text-center mb-12">
+                    <h2 className="font-serif text-4xl text-primary mb-2">
                       {category.name}
-                      <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary/20"></span>
                     </h2>
                     {category.description && (
-                      <p className="text-muted-foreground mt-4 text-lg">{category.description}</p>
+                      <p className="text-muted-foreground text-sm mt-2">{category.description}</p>
                     )}
+                    <div className="w-20 h-px bg-primary/20 mx-auto mt-4"></div>
                   </div>
 
-                  {/* Menu Items Grid */}
-                  <div className="grid md:grid-cols-2 gap-8">
+                  {/* Menu Items List - Simple Format */}
+                  <div className="space-y-8">
                     {category.menu_items.map((item) => (
-                      <div 
-                        key={item.id}
-                        className="group"
-                      >
-                        {/* Image */}
-                        {item.image_url && (
-                          <div className="relative h-64 mb-6 overflow-hidden">
-                            <Image
-                              src={item.image_url}
-                              alt={item.title}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                        )}
-
-                        {/* Content */}
-                        <div className="space-y-3">
-                          <div className="flex justify-between items-start gap-4">
-                            <h3 className="font-serif text-2xl text-primary group-hover:text-primary/80 transition-colors">
-                              {item.title}
-                            </h3>
-                            <span className="font-serif text-2xl text-primary whitespace-nowrap">
+                      <div key={item.id} className="border-b border-muted/20 pb-6">
+                        {/* Item Header */}
+                        <div className="flex justify-between items-baseline mb-3">
+                          <h3 className="font-serif text-xl text-primary flex-1">
+                            {item.title}
+                          </h3>
+                          <div className="flex-shrink-0 ml-4 flex items-center gap-3">
+                            <div className="flex-1 border-b border-dotted border-muted/40 min-w-[40px]"></div>
+                            <span className="font-serif text-xl text-primary whitespace-nowrap">
                               {item.price.toFixed(2)}€
                             </span>
                           </div>
-
-                          {item.description && (
-                            <p className="text-muted-foreground leading-relaxed">
-                              {item.description}
-                            </p>
-                          )}
-
-                          {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
-                            <p className="text-xs text-muted-foreground/70 italic">
-                              Allergènes : {item.allergens.join(", ")}
-                            </p>
-                          )}
                         </div>
+
+                        {/* Description */}
+                        {item.description && (
+                          <p className="text-muted-foreground text-sm leading-relaxed mb-2">
+                            {item.description}
+                          </p>
+                        )}
+
+                        {/* Allergens */}
+                        {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
+                          <p className="text-xs text-muted-foreground/60 italic">
+                            Allergènes : {item.allergens.join(", ")}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>

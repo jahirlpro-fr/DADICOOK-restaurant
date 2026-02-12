@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
-import { menuService } from "@/services/menuService";
 import Image from "next/image";
+import { menuService } from "@/services/menuService";
 import { Utensils } from "lucide-react";
 
 interface MenuItem {
@@ -9,7 +9,6 @@ interface MenuItem {
   title: string;
   description: string | null;
   price: number;
-  image_url: string | null;
   allergens: string[] | null;
 }
 
@@ -21,9 +20,11 @@ interface Category {
 }
 
 interface MenuDuJour {
+  id: string;
   title: string;
   description: string | null;
-  is_active: boolean;
+  price: number | null;
+  content: string | null;
 }
 
 export default function QRMenu() {
@@ -37,12 +38,12 @@ export default function QRMenu() {
 
   const loadMenu = async () => {
     try {
-      const [categoriesData, menuDuJourData] = await Promise.all([
+      const [menuData, menuJourData] = await Promise.all([
         menuService.getCategoriesWithItems("published"),
-        menuService.getMenuDuJour()
+        menuService.getActiveMenuDuJour()
       ]);
-      setCategories(categoriesData as any);
-      setMenuDuJour(menuDuJourData);
+      setCategories(menuData as any);
+      setMenuDuJour(menuJourData as any);
     } catch (error) {
       console.error("Error loading menu:", error);
     } finally {
@@ -52,119 +53,177 @@ export default function QRMenu() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Utensils className="h-12 w-12 text-primary mx-auto mb-4 animate-pulse" />
-          <p className="text-muted-foreground">Chargement du menu...</p>
+      <>
+        <SEO 
+          title="Menu QR - DADICOOK"
+          description="Consultez notre menu complet et nos plats du jour"
+        />
+        <div className="min-h-screen bg-background flex items-center justify-center p-4">
+          <div className="text-center">
+            <Utensils className="h-12 w-12 text-primary mx-auto mb-4 animate-pulse" />
+            <p className="text-muted-foreground">Chargement du menu...</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
     <>
-      <SEO
+      <SEO 
         title="Menu QR - DADICOOK"
-        description="Consultez notre menu du jour et notre carte complète"
+        description="Consultez notre menu complet et nos plats du jour"
       />
-
-      <div className="min-h-screen bg-background pb-8">
-        {/* Header */}
-        <header className="bg-primary text-secondary py-6 px-4 text-center sticky top-0 z-10 shadow-lg">
-          <div className="flex flex-col items-center gap-3">
-            <Image
-              src="/LOGO1.svg"
-              alt="DADICOOK"
-              width={50}
-              height={50}
-              className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
-            />
-            <h1 className="text-2xl font-serif">DADICOOK</h1>
-            <p className="text-sm text-secondary/80">Cuisine du Monde</p>
+      
+      <div className="min-h-screen bg-background">
+        {/* Header avec Logo */}
+        <header className="bg-primary py-6 border-b border-accent/20">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col items-center gap-3">
+              <Image
+                src="/LOGO1.svg"
+                alt="DADICOOK"
+                width={50}
+                height={50}
+                className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
+              />
+              <Image
+                src="/LOGO2.svg"
+                alt="DADICOOK Restaurant"
+                width={180}
+                height={27}
+                className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
+              />
+            </div>
           </div>
         </header>
 
-        <div className="max-w-2xl mx-auto px-4">
-          {/* Menu du Jour */}
-          {menuDuJour && menuDuJour.is_active && (
-            <section className="mt-8 mb-12">
-              <div className="bg-primary text-secondary p-6 rounded-lg shadow-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <Utensils className="h-6 w-6 text-accent" />
-                  <h2 className="text-3xl font-serif text-accent">
+        <main className="py-8">
+          {/* Menu du Jour Section */}
+          {menuDuJour && (
+            <section className="mb-12 bg-primary/5 py-8">
+              <div className="container mx-auto px-4 max-w-4xl">
+                <div className="text-center mb-6">
+                  <p className="text-primary/60 uppercase tracking-wider text-xs mb-2">
+                    Aujourd'hui
+                  </p>
+                  <h2 className="font-serif text-3xl text-primary mb-2">
                     {menuDuJour.title}
                   </h2>
+                  <div className="w-16 h-px bg-primary/20 mx-auto"></div>
                 </div>
+
                 {menuDuJour.description && (
-                  <p className="text-secondary/90 leading-relaxed whitespace-pre-line">
+                  <p className="text-center text-muted-foreground mb-4 text-sm">
                     {menuDuJour.description}
+                  </p>
+                )}
+
+                {menuDuJour.content && (
+                  <div className="bg-background rounded-lg p-6 shadow-sm">
+                    <p className="text-foreground whitespace-pre-line text-sm leading-relaxed">
+                      {menuDuJour.content}
+                    </p>
+                  </div>
+                )}
+
+                {menuDuJour.price && (
+                  <p className="text-center mt-4 font-serif text-2xl text-primary">
+                    {menuDuJour.price.toFixed(2)}€
                   </p>
                 )}
               </div>
             </section>
           )}
 
-          {/* Categories and Menu Items */}
-          {categories.map((category) => (
-            <section key={category.id} className="mb-12">
-              <div className="mb-6">
-                <h2 className="text-3xl font-serif text-primary text-center mb-2">
-                  {category.name}
-                </h2>
-                {category.description && (
-                  <p className="text-center text-muted-foreground text-sm">
-                    {category.description}
-                  </p>
-                )}
-                <div className="w-24 h-[2px] bg-primary mx-auto mt-4"></div>
-              </div>
+          {/* Menu Complet */}
+          <section className="container mx-auto px-4 max-w-4xl">
+            <div className="text-center mb-12">
+              <p className="text-primary/60 uppercase tracking-wider text-xs mb-2">
+                Notre Carte
+              </p>
+              <h1 className="font-serif text-4xl text-primary mb-2">
+                Menu Complet
+              </h1>
+              <div className="w-16 h-px bg-primary/20 mx-auto"></div>
+            </div>
 
-              <div className="space-y-6">
-                {category.menu_items.map((item) => (
-                  <div key={item.id} className="bg-card rounded-lg overflow-hidden shadow-md">
-                    {item.image_url && (
-                      <div className="relative h-48 w-full">
-                        <Image
-                          src={item.image_url}
-                          alt={item.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    <div className="p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-xl font-serif text-primary flex-1">
+            {categories.map((category, categoryIndex) => (
+              <div key={category.id} className={categoryIndex > 0 ? "mt-16" : ""}>
+                {/* Category Title */}
+                <div className="text-center mb-8">
+                  <h2 className="font-serif text-3xl text-primary mb-2">
+                    {category.name}
+                  </h2>
+                  {category.description && (
+                    <p className="text-muted-foreground text-xs mt-2">{category.description}</p>
+                  )}
+                  <div className="w-16 h-px bg-primary/20 mx-auto mt-3"></div>
+                </div>
+
+                {/* Menu Items List */}
+                <div className="space-y-6">
+                  {category.menu_items.map((item) => (
+                    <div key={item.id} className="border-b border-muted/20 pb-5">
+                      {/* Item Header */}
+                      <div className="flex justify-between items-baseline mb-2">
+                        <h3 className="font-serif text-lg text-primary flex-1 pr-3">
                           {item.title}
                         </h3>
-                        <span className="text-xl font-serif text-primary ml-4">
-                          {item.price.toFixed(2)}€
-                        </span>
+                        <div className="flex-shrink-0 flex items-center gap-2">
+                          <div className="flex-1 border-b border-dotted border-muted/40 min-w-[30px]"></div>
+                          <span className="font-serif text-lg text-primary whitespace-nowrap">
+                            {item.price.toFixed(2)}€
+                          </span>
+                        </div>
                       </div>
+
+                      {/* Description */}
                       {item.description && (
-                        <p className="text-muted-foreground text-sm mb-2 leading-relaxed">
+                        <p className="text-muted-foreground text-xs leading-relaxed mb-2">
                           {item.description}
                         </p>
                       )}
+
+                      {/* Allergens */}
                       {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
-                        <p className="text-xs text-muted-foreground/70 italic">
+                        <p className="text-xs text-muted-foreground/60 italic">
                           Allergènes : {item.allergens.join(", ")}
                         </p>
                       )}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </section>
-          ))}
-        </div>
+            ))}
+          </section>
 
-        {/* Footer */}
-        <footer className="mt-12 text-center text-muted-foreground text-sm px-4">
-          <p className="mb-2">26 Rue de l'Université, 34000 Montpellier</p>
-          <p className="mb-2">+33 7 49 49 95 55</p>
-          <p className="mb-4">www.dadicook.fr</p>
-          <p className="text-xs">© 2026 DADICOOK - Tous droits réservés</p>
+          {/* Reservation CTA */}
+          <section className="py-12 mt-12">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="font-serif text-3xl text-primary mb-4">
+                Réservez votre Table
+              </h2>
+              <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
+                Pour une expérience culinaire inoubliable
+              </p>
+              <a
+                href="https://www.thefork.fr/restaurant/dadicook-r815372"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary text-accent px-6 py-3 font-semibold hover:bg-primary/90 transition-all duration-300"
+              >
+                Réserver maintenant
+              </a>
+            </div>
+          </section>
+        </main>
+
+        {/* Footer minimal */}
+        <footer className="bg-primary py-6 border-t border-accent/20">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-accent/80 text-xs">© 2026 DADICOOK - Tous droits réservés</p>
+          </div>
         </footer>
       </div>
     </>
