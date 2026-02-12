@@ -18,21 +18,21 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-secondary/20">
       <nav className="container flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-12 h-12">
+        <Link href="/" className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Image
               src="/LOGO1.svg"
               alt="DADICOOK"
-              fill
-              className="object-contain"
+              width={40}
+              height={40}
+              className="object-contain [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
             />
-          </div>
-          <div className="relative w-32 h-8">
             <Image
               src="/LOGO2.svg"
               alt="DADICOOK Restaurant"
-              fill
-              className="object-contain"
+              width={160}
+              height={24}
+              className="object-contain [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
             />
           </div>
         </Link>

@@ -9,23 +9,23 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo et description */}
           <div className="space-y-4">
-            <div className="flex flex-col items-start space-y-3">
+            <div className="flex flex-col gap-3">
               <Image
                 src="/LOGO1.svg"
                 alt="DADICOOK"
-                width={100}
+                width={60}
                 height={60}
-                className="h-auto"
+                className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
               />
               <Image
                 src="/LOGO2.svg"
                 alt="DADICOOK Restaurant"
-                width={220}
-                height={33}
-                className="h-auto"
+                width={200}
+                height={30}
+                className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
               />
             </div>
-            <p className="text-sm text-accent/80 leading-relaxed max-w-xs">
+            <p className="text-sm text-accent/80 max-w-xs">
               Restaurant bistronomique proposant une cuisine du monde dans une ambiance chaleureuse et conviviale.
             </p>
           </div>

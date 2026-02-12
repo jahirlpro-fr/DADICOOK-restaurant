@@ -99,7 +99,7 @@ export default function Home() {
                   alt="DADICOOK - Cuisine du Monde"
                   width={228}
                   height={134}
-                  className="w-auto h-auto"
+                  className="w-auto h-auto [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
                   priority
                 />
                 
@@ -109,7 +109,7 @@ export default function Home() {
                   alt="DADICOOK Restaurant"
                   width={320}
                   height={48}
-                  className="w-auto h-auto"
+                  className="w-auto h-auto [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
                 />
                 
                 {/* LOGO3 - Version compacte */}
@@ -118,7 +118,7 @@ export default function Home() {
                   alt="DADICOOK"
                   width={262}
                   height={40}
-                  className="w-auto h-auto"
+                  className="w-auto h-auto [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
                 />
               </div>
             </div>
@@ -172,57 +172,60 @@ export default function Home() {
             {/* Cards with dish images */}
             <div className="grid md:grid-cols-3 gap-8">
               {/* Card 1 - Cuisine Authentique */}
-              <div className="relative overflow-hidden group h-80">
-                <Image
-                  src="/Poulet_satay.jpg"
-                  alt="Cuisine Authentique"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-center">
-                  <h3 className="text-accent text-2xl font-serif mb-3">
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <Image
+                    src="/Poulet_satay.jpg"
+                    alt="Cuisine Authentique"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-serif text-foreground">
                     Cuisine Authentique
                   </h3>
-                  <p className="text-accent/90 text-sm leading-relaxed">
+                  <p className="text-muted-foreground">
                     Des recettes traditionnelles revisitées avec créativité et savoir-faire.
                   </p>
                 </div>
               </div>
 
               {/* Card 2 - Produits Frais */}
-              <div className="relative overflow-hidden group h-80">
-                <Image
-                  src="/Salade_boulgour.jpg"
-                  alt="Produits Frais"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-center">
-                  <h3 className="text-accent text-2xl font-serif mb-3">
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <Image
+                    src="/Salade_boulgour.jpg"
+                    alt="Produits Frais"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-serif text-foreground">
                     Produits Frais
                   </h3>
-                  <p className="text-accent/90 text-sm leading-relaxed">
+                  <p className="text-muted-foreground">
                     Une sélection rigoureuse d'ingrédients de qualité pour des saveurs incomparables.
                   </p>
                 </div>
               </div>
 
               {/* Card 3 - Ambiance Chaleureuse */}
-              <div className="relative overflow-hidden group h-80">
-                <Image
-                  src="/Hampe_de_boeuf_sauce_poivre.jpg"
-                  alt="Ambiance Chaleureuse"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-center">
-                  <h3 className="text-accent text-2xl font-serif mb-3">
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative overflow-hidden">
+                  <Image
+                    src="/Image_interieur_restaurant.jpg"
+                    alt="Ambiance Chaleureuse"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-serif text-foreground">
                     Ambiance Chaleureuse
                   </h3>
-                  <p className="text-accent/90 text-sm leading-relaxed">
+                  <p className="text-muted-foreground">
                     Un cadre accueillant et convivial pour partager des moments inoubliables.
                   </p>
                 </div>
@@ -278,74 +281,6 @@ export default function Home() {
               >
                 Réserver une table
               </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Section Voyage Culinaire */}
-        <section className="py-24 px-8 bg-background">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-sm tracking-widest text-muted-foreground mb-4 text-center">NOTRE PHILOSOPHIE</p>
-            <h2 className="text-4xl md:text-5xl font-light text-center mb-4">Un Voyage Culinaire</h2>
-            <div className="w-24 h-[2px] bg-primary mx-auto mb-16"></div>
-            
-            <p className="text-lg text-center text-muted-foreground max-w-3xl mx-auto mb-16">
-              Chez DADICOOK, nous célébrons la diversité culinaire mondiale dans une ambiance 
-              chaleureuse et conviviale. Chaque plat est une invitation au voyage, préparé avec 
-              passion et des produits de qualité soigneusement sélectionnés.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="space-y-4">
-                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
-                  <Image
-                    src="/Maakouda.jpg"
-                    alt="Cuisine Authentique"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-light text-foreground">Cuisine Authentique</h3>
-                  <p className="text-muted-foreground">
-                    Des recettes traditionnelles revisitées avec créativité et savoir-faire.
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
-                  <Image
-                    src="/Salade_boulgour.jpg"
-                    alt="Produits Frais"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-light text-foreground">Produits Frais</h3>
-                  <p className="text-muted-foreground">
-                    Une sélection rigoureuse d'ingrédients de qualité pour des saveurs incomparables.
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
-                  <Image
-                    src="/Image_interieur_restaurant.jpg"
-                    alt="Ambiance Chaleureuse"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-light text-foreground">Ambiance Chaleureuse</h3>
-                  <p className="text-muted-foreground">
-                    Un cadre accueillant et convivial pour partager des moments inoubliables.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
