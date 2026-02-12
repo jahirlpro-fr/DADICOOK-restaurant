@@ -73,25 +73,186 @@ export default function Galerie() {
           {/* Gallery Grid */}
           <section className="py-24 bg-background">
             <div className="container mx-auto px-4 max-w-7xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {galleryImages.map((image, index) => (
-                  <div
-                    key={index}
-                    className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                    onClick={() => setSelectedImage(image.src)}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <p className="text-accent text-lg font-serif">Voir</p>
+              {/* Entrées */}
+              <div className="mb-16">
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
+                  Entrées
+                </h2>
+                <div className="flex items-center justify-center gap-4 mb-12">
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { src: "/Le_batbout.jpg", alt: "Le Batbout" },
+                    { src: "/Maakouda.jpg", alt: "Maakouda" },
+                    { src: "/Le_chiktay_de_morue.jpg", alt: "Le Chiktay de Morue" },
+                    { src: "/Salade_boulgour.jpg", alt: "Salade Boulgour" }
+                  ].map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-accent text-lg font-serif">Voir</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Plats */}
+              <div className="mb-16">
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
+                  Plats
+                </h2>
+                <div className="flex items-center justify-center gap-4 mb-12">
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { src: "/Poulet_satay.jpg", alt: "Poulet Satay" },
+                    { src: "/Hampe_de_boeuf_sauce_poivre.jpg", alt: "Hampe de Bœuf Sauce Poivre" },
+                    { src: "/Khychin.jpg", alt: "Khychin" }
+                  ].map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-accent text-lg font-serif">Voir</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Desserts */}
+              <div className="mb-16">
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
+                  Desserts
+                </h2>
+                <div className="flex items-center justify-center gap-4 mb-12">
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { src: "/Cheescake_vanille_Rhubarbe.jpg", alt: "Cheesecake Vanille Rhubarbe" },
+                    { src: "/Fondant_au_chocolat_noisettes.avif", alt: "Fondant au Chocolat Noisettes" },
+                    { src: "/Tarte_mangue_passion_cacahue_te.jpg", alt: "Tarte Mangue Passion Cacahuète" },
+                    { src: "/Tiramisu.jpg", alt: "Tiramisu" }
+                  ].map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-accent text-lg font-serif">Voir</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Boissons */}
+              <div className="mb-16">
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
+                  Boissons
+                </h2>
+                <div className="flex items-center justify-center gap-4 mb-12">
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { src: "/Mocktail_Dadi.jpg", alt: "Mocktail Dadi" },
+                    { src: "/Mocktail_Didine.jpg", alt: "Mocktail Didine" }
+                  ].map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-accent text-lg font-serif">Voir</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Ambiance */}
+              <div>
+                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
+                  Ambiance
+                </h2>
+                <div className="flex items-center justify-center gap-4 mb-12">
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
+                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { src: "/Image_interieur_restaurant.jpg", alt: "Intérieur du restaurant" },
+                    { src: "/Image_random_1.avif", alt: "Ambiance restaurant" },
+                    { src: "/Image_random_2.jpg", alt: "Décoration" },
+                    { src: "/image_random_3.jpg", alt: "Atmosphère" }
+                  ].map((image, index) => (
+                    <div
+                      key={index}
+                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
+                      onClick={() => setSelectedImage(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-accent text-lg font-serif">Voir</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>

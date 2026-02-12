@@ -173,7 +173,11 @@ export default function Menu() {
                 <h1 className="font-serif text-5xl md:text-7xl text-accent mb-6 font-light">
                   Découvrez nos Créations
                 </h1>
-                <div className="w-24 h-px bg-accent mx-auto mb-8"></div>
+                <div className="flex items-center justify-center gap-4 mb-8">
+                  <div className="w-16 h-px bg-accent/40"></div>
+                  <div className="w-2 h-2 rotate-45 border border-accent/40"></div>
+                  <div className="w-16 h-px bg-accent/40"></div>
+                </div>
                 <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
                   Une sélection de plats inspirés des quatre coins du monde, préparés avec passion et des ingrédients d'exception
                 </p>
@@ -191,9 +195,9 @@ export default function Menu() {
                 >
                   {/* Category Title with Underline Animation */}
                   <div className="mb-16">
-                    <h2 className="font-serif text-4xl md:text-5xl text-accent mb-4 inline-block relative group">
+                    <h2 className="font-serif text-4xl md:text-5xl text-primary mb-4 inline-block relative group">
                       {category.name}
-                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent transform scale-x-100 transition-transform duration-300"></span>
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-100 transition-transform duration-300"></span>
                     </h2>
                   </div>
 
@@ -207,9 +211,9 @@ export default function Menu() {
                         <div className="flex items-start justify-between gap-8">
                           {/* Left: Name & Description */}
                           <div className="flex-1">
-                            <h3 className="font-serif text-2xl md:text-3xl text-accent mb-3 relative inline-block">
+                            <h3 className="font-serif text-2xl md:text-3xl text-primary mb-3 relative inline-block">
                               {item.name}
-                              <span className="absolute bottom-0 left-0 w-0 h-px bg-accent/50 group-hover:w-full transition-all duration-500"></span>
+                              <span className="absolute bottom-0 left-0 w-0 h-px bg-primary/50 group-hover:w-full transition-all duration-500"></span>
                             </h3>
                             <p className="text-muted-foreground leading-relaxed mb-2">
                               {item.description}
@@ -221,9 +225,9 @@ export default function Menu() {
                             )}
                           </div>
 
-                          {/* Right: Price with Different Font */}
+                          {/* Right: Price with Same Font as Dish Name */}
                           <div className="flex-shrink-0">
-                            <span className="font-mono text-2xl md:text-3xl text-accent font-semibold">
+                            <span className="font-serif text-2xl md:text-3xl text-primary font-semibold">
                               {item.price}
                             </span>
                           </div>

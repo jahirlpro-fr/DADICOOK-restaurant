@@ -84,19 +84,19 @@ export default function Home() {
                 href="https://www.thefork.fr/restaurant/dadicook-r815372"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-accent text-primary-foreground px-6 py-3 font-semibold hover:bg-accent/90 transition-all duration-300 border border-accent/20"
+                className="inline-block bg-primary text-accent px-6 py-3 font-semibold hover:bg-primary/90 transition-all duration-300 border border-primary/20"
               >
                 Réserver une table
               </a>
             </div>
 
             {/* Logo centré */}
-            <div className="flex-1 flex items-center justify-center p-8">
-              <div className="space-y-6">
+            <div className="flex-1 flex flex-col items-center justify-center gap-6 px-4">
+              <div className="flex flex-col items-center gap-8">
                 {/* LOGO1 - Version complète */}
                 <Image
                   src="/LOGO1.svg"
-                  alt="DADICOOK Logo"
+                  alt="DADICOOK - Cuisine du Monde"
                   width={228}
                   height={134}
                   className="w-auto h-auto"
@@ -125,15 +125,15 @@ export default function Home() {
 
             {/* Navigation verticale */}
             <nav className="flex-1 flex items-center justify-center">
-              <ul className="space-y-8">
+              <ul className="flex flex-col items-center gap-8 text-2xl font-light tracking-wider">
                 {navItems.map((item) => (
-                  <li key={item.label} className="text-center">
-                    <Link
+                  <li key={item.href}>
+                    <Link 
                       href={item.href}
-                      className="text-3xl font-serif text-accent hover:text-accent/80 transition-all duration-300 relative inline-block group"
+                      className="relative group transition-colors duration-300 hover:text-accent"
                     >
                       {item.label}
-                      <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[1px] w-0 bg-accent group-hover:w-[125%] transition-all duration-500 ease-out" />
+                      <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-[140%]"></span>
                     </Link>
                   </li>
                 ))}
@@ -231,48 +231,119 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Signature Dishes Section */}
-        <section className="py-24 bg-muted/30">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <Image
-                  src="/Khychin.jpg"
-                  alt="Plat signature"
-                  width={600}
-                  height={500}
-                  className="w-full h-auto object-cover shadow-2xl"
-                />
+        {/* Section Expérience Culinaire avec image */}
+        <section className="min-h-screen grid md:grid-cols-2">
+          {/* Image */}
+          <div className="relative h-[50vh] md:h-auto">
+            <Image
+              src="/Le_chiktay_de_morue.jpg"
+              alt="Chiktay de morue"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* Contenu */}
+          <div className="flex flex-col justify-center px-8 md:px-16 py-16 bg-background">
+            <div className="w-16 h-[2px] bg-primary mb-6"></div>
+            
+            <h2 className="text-4xl md:text-5xl font-light mb-8 text-foreground">
+              Une Expérience Culinaire Unique
+            </h2>
+            
+            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+              Chez DADICOOK, nous célébrons la diversité culinaire mondiale. Du Maroc à l'Asie, 
+              de la Méditerranée aux Caraïbes, chaque plat est une invitation au voyage, préparé 
+              avec passion et authenticité.
+            </p>
+            
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              Savourez nos créations dans une ambiance chaleureuse et conviviale, où chaque 
+              détail est pensé pour votre confort. Laissez-vous transporter par nos saveurs 
+              du monde dans un cadre accueillant qui invite au partage.
+            </p>
+
+            <div className="flex gap-4">
+              <Link 
+                href="/menu"
+                className="px-8 py-3 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
+              >
+                Voir le menu
+              </Link>
+              <Link 
+                href="https://module.lafourchette.com/fr_FR/module/463969-a9311"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
+              >
+                Réserver une table
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Voyage Culinaire */}
+        <section className="py-24 px-8 bg-background">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-sm tracking-widest text-muted-foreground mb-4 text-center">NOTRE PHILOSOPHIE</p>
+            <h2 className="text-4xl md:text-5xl font-light text-center mb-4">Un Voyage Culinaire</h2>
+            <div className="w-24 h-[2px] bg-primary mx-auto mb-16"></div>
+            
+            <p className="text-lg text-center text-muted-foreground max-w-3xl mx-auto mb-16">
+              Chez DADICOOK, nous célébrons la diversité culinaire mondiale dans une ambiance 
+              chaleureuse et conviviale. Chaque plat est une invitation au voyage, préparé avec 
+              passion et des produits de qualité soigneusement sélectionnés.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
+                  <Image
+                    src="/Maakouda.jpg"
+                    alt="Cuisine Authentique"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-light text-foreground">Cuisine Authentique</h3>
+                  <p className="text-muted-foreground">
+                    Des recettes traditionnelles revisitées avec créativité et savoir-faire.
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-primary/60 uppercase tracking-wider text-sm mb-4 font-light">
-                  Découvrez
-                </p>
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6">
-                  Une Expérience Culinaire Unique
-                </h2>
-                <div className="w-24 h-0.5 bg-primary mb-8"></div>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Notre cuisine célèbre les saveurs du monde entier. Du Batbout marocain aux délices asiatiques, chaque plat raconte une histoire et éveille vos papilles.
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  Laissez-vous transporter par nos créations, préparées avec passion et un savoir-faire artisanal, dans une ambiance conviviale et chaleureuse.
-                </p>
-                <div className="flex gap-4">
-                  <Link
-                    href="/menu"
-                    className="px-8 py-4 bg-primary text-accent font-medium hover:bg-primary/90 transition-colors duration-300"
-                  >
-                    Voir le menu
-                  </Link>
-                  <Link
-                    href="https://www.thefork.fr/restaurant/dadicook-r815372"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-8 py-4 bg-accent text-primary font-medium hover:bg-accent/90 transition-colors duration-300"
-                  >
-                    Réserver une table
-                  </Link>
+
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
+                  <Image
+                    src="/Salade_boulgour.jpg"
+                    alt="Produits Frais"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-light text-foreground">Produits Frais</h3>
+                  <p className="text-muted-foreground">
+                    Une sélection rigoureuse d'ingrédients de qualité pour des saveurs incomparables.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="aspect-[4/3] relative rounded-lg overflow-hidden">
+                  <Image
+                    src="/Image_interieur_restaurant.jpg"
+                    alt="Ambiance Chaleureuse"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl font-light text-foreground">Ambiance Chaleureuse</h3>
+                  <p className="text-muted-foreground">
+                    Un cadre accueillant et convivial pour partager des moments inoubliables.
+                  </p>
                 </div>
               </div>
             </div>

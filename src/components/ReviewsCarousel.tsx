@@ -130,15 +130,14 @@ export function ReviewsCarousel() {
 
           {/* CTA vers Google */}
           <div className="text-center mt-8">
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-secondary font-sans uppercase tracking-wide">
-              <a
-                href="https://www.google.com/search?q=Dadicook+Restaurant+Avis"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Voir tous les avis sur Google
-              </a>
-            </Button>
+            <a
+              href="https://www.google.com/search?sca_esv=ffa6fe38ad5a2295&sxsrf=ANbL-n6I1lTYMCcdnlzXEFOvJUgkRh8TCg:1770892831409&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOfydF3XcEmX2Gk2o_ugjmsB67JTT46njevEqMEYQ-EVXitdG6I9cvzJCxZMU1huaLLvWdyQsa8YFueGIm3d8gJSt-HjSBjGKSPB_ivqO9GiIojoy_w%3D%3D&q=Dadicook+Restaurant+Avis&sa=X&ved=2ahUKEwj_5prx4dOSAxVZVqQEHaWIJoYQ0bkNegQINxAF&biw=1600&bih=747&dpr=1.2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+            >
+              Voir tous les avis sur Google
+            </a>
           </div>
         </div>
       </div>

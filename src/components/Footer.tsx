@@ -9,7 +9,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo et description */}
           <div className="space-y-4">
-            <div className="flex flex-col items-start space-y-2">
+            <div className="flex flex-col items-start space-y-3">
+              <Image
+                src="/LOGO1.svg"
+                alt="DADICOOK"
+                width={100}
+                height={60}
+                className="h-auto"
+              />
               <Image
                 src="/LOGO2.svg"
                 alt="DADICOOK Restaurant"

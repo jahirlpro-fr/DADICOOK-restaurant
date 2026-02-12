@@ -21,15 +21,20 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3">
           <div className="relative w-12 h-12">
             <Image
-              src="/2.svg"
-              alt="DADICOOK Logo"
+              src="/LOGO1.svg"
+              alt="DADICOOK"
               fill
               className="object-contain"
             />
           </div>
-          <span className="font-serif text-2xl font-bold text-secondary tracking-wider">
-            DADICOOK
-          </span>
+          <div className="relative w-32 h-8">
+            <Image
+              src="/LOGO2.svg"
+              alt="DADICOOK Restaurant"
+              fill
+              className="object-contain"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
