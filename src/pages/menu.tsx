@@ -105,7 +105,7 @@ export default function Menu() {
                       {category.name}
                     </h2>
                     {category.description && (
-                      <p className="text-muted-foreground text-5xl mt-2">{category.description}</p>
+                      <p className="text-muted-foreground text-sm mt-2">{category.description}</p>
                     )}
                     <div className="w-20 h-px bg-primary/20 mx-auto mt-4"></div>
                   </div>
