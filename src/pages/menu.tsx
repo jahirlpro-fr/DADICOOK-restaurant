@@ -169,7 +169,7 @@ export default function Menu() {
                 href="https://www.thefork.fr/restaurant/dadicook-r815372"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-accent text-primary px-8 py-4 font-semibold hover:bg-accent/90 transition-all duration-300 text-lg"
+                className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Réserver maintenant
               </a>
