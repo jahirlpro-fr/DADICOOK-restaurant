@@ -133,7 +133,7 @@ export default function Home() {
                       className="relative group transition-colors duration-300 hover:text-accent"
                     >
                       {item.label}
-                      <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-[140%]"></span>
+                      <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] text-accent transition-all duration-300 group-hover:w-[140%]"></span>
                     </Link>
                   </li>
                 ))}
