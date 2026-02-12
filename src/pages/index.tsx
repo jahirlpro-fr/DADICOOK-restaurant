@@ -202,7 +202,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-serif text-foreground">
+                  <h3 className="text-3xl font-serif text-foreground">
                     Produits Frais
                   </h3>
                   <p className="text-muted-foreground">
@@ -222,7 +222,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-serif text-foreground">
+                  <h3 className="text-3xl font-serif text-foreground">
                     Ambiance Chaleureuse
                   </h3>
                   <p className="text-muted-foreground">
