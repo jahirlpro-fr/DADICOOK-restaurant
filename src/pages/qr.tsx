@@ -10,7 +10,7 @@ interface MenuItem {
   description: string | null;
   price: number;
   image_url: string | null;
-  allergens: string | null;
+  allergens: string[] | null;
 }
 
 interface Category {
@@ -21,7 +21,7 @@ interface Category {
 }
 
 interface MenuDuJour {
-  title: string | null;
+  title: string;
   description: string | null;
   is_active: boolean;
 }
@@ -41,7 +41,7 @@ export default function QRMenu() {
         menuService.getCategoriesWithItems("published"),
         menuService.getMenuDuJour()
       ]);
-      setCategories(categoriesData);
+      setCategories(categoriesData as any);
       setMenuDuJour(menuDuJourData);
     } catch (error) {
       console.error("Error loading menu:", error);
@@ -92,7 +92,7 @@ export default function QRMenu() {
                 <div className="flex items-center gap-3 mb-4">
                   <Utensils className="h-6 w-6 text-accent" />
                   <h2 className="text-3xl font-serif text-accent">
-                    {menuDuJour.title || "Menu du Jour"}
+                    {menuDuJour.title}
                   </h2>
                 </div>
                 {menuDuJour.description && (
@@ -146,9 +146,9 @@ export default function QRMenu() {
                           {item.description}
                         </p>
                       )}
-                      {item.allergens && (
+                      {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
                         <p className="text-xs text-muted-foreground/70 italic">
-                          Allergènes : {item.allergens}
+                          Allergènes : {item.allergens.join(", ")}
                         </p>
                       )}
                     </div>

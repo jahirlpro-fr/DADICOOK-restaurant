@@ -40,9 +40,9 @@ export const menuService = {
       .from("menu_du_jour")
       .select("*")
       .eq("is_active", true)
-      .single();
+      .maybeSingle();
 
-    if (error && error.code !== "PGRST116") {
+    if (error) {
       console.error("Error fetching menu du jour:", error);
       throw error;
     }
@@ -113,7 +113,7 @@ export const menuService = {
   },
 
   // Create category
-  async createCategory(category: Omit<Category, "id" | "created_at">) {
+  async createCategory(category: Omit<Category, "id" | "created_at" | "updated_at">) {
     const { data, error } = await supabase
       .from("categories")
       .insert(category)
@@ -159,12 +159,12 @@ export const menuService = {
   },
 
   // Update menu du jour
-  async updateMenuDuJour(updates: Partial<MenuDuJour>) {
+  async updateMenuDuJour(updates: Partial<MenuDuJour> & { title: string }) {
     const { data: existing } = await supabase
       .from("menu_du_jour")
       .select("id")
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       const { data, error } = await supabase
@@ -185,7 +185,12 @@ export const menuService = {
 
       const { data, error } = await supabase
         .from("menu_du_jour")
-        .insert({ ...updates, restaurant_id: restaurant!.id })
+        .insert({ 
+          restaurant_id: restaurant!.id,
+          title: updates.title,
+          description: updates.description || null,
+          is_active: updates.is_active ?? true
+        })
         .select()
         .single();
 
@@ -217,7 +222,7 @@ export const menuService = {
   },
 
   // Log action
-  async logAction(action: string, details?: string) {
+  async logAction(action: string, entityType: string, entityId?: string, details?: any) {
     const { data: { user } } = await supabase.auth.getUser();
     
     if (user) {
@@ -231,7 +236,9 @@ export const menuService = {
         restaurant_id: restaurant!.id,
         user_id: user.id,
         action,
-        details
+        entity_type: entityType,
+        entity_id: entityId || null,
+        details: details || null
       });
     }
   }
