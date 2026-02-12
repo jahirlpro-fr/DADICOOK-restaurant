@@ -157,7 +157,7 @@ export default function Home() {
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16">
-              <p className="text-primary/60 uppercase tracking-wider text-sm mb-4 font-light">
+              <p className="text-primary/60 uppercase tracking-wider text-xl mb-4 font-light">
                 Notre Philosophie
               </p>
               <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
