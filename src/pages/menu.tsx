@@ -101,7 +101,7 @@ export default function Menu() {
                 <div key={category.id} className={categoryIndex > 0 ? "mt-20" : ""}>
                   {/* Category Title */}
                   <div className="text-center mb-12">
-                    <h2 className="font-serif text-4xl text-primary mb-2">
+                    <h2 className="font-serif text-5xl text-primary mb-2">
                       {category.name}
                     </h2>
                     {category.description && (
