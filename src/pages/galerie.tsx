@@ -79,9 +79,9 @@ export default function Galerie() {
                   Entrées
                 </h2>
                 <div className="flex items-center justify-center gap-4 mb-8">
-                  <div className="h-px bg-accent/30 w-24"></div>
-                  <div className="w-2 h-2 bg-accent rotate-45"></div>
-                  <div className="h-px bg-accent/30 w-24"></div>
+                  <div className="h-px foreground w-24"></div>
+                  <div className="w-2 h-2 foreground rotate-45"></div>
+                  <div className="h-px foreground w-24"></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
