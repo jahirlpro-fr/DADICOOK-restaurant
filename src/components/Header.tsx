@@ -32,7 +32,7 @@ export function Header() {
               alt="DADICOOK Restaurant"
               width={160}
               height={24}
-              className="object-contain [filter: brightness(0) saturate(100%) invert(55%) sepia(45%) saturate(650%) hue-rotate(15deg) brightness(95%) contrast(85%)]"
+              className="object-contain [filter: brightness(0) saturate(100%) invert(55%) sepia(45%) saturate(650%) hue-rotate(15deg) brightness(95%) contrast(85%)]
             />
           </div>
         </Link>
