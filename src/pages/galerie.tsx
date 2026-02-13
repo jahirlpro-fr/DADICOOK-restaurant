@@ -91,11 +91,6 @@ export default function GaleriePage() {
                       </div>
                   </section>
 
-
-                  <div className="bg-background/95 backdrop-blur-sm">
-                      <div className="max-w-5xl mx-auto px-6 py-12">
-                          <div className="grid gap-16 md:gap-24">
-
           {loading ? (
             <div className="text-center py-16">
               <p className="text-accent/60">Chargement de la galerie...</p>
