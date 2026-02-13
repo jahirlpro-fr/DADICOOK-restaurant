@@ -69,16 +69,27 @@ export default function GaleriePage() {
       
       <main className="min-h-screen bg-background pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Hero Section */}
-          <div className="text-center mb-16 space-y-4">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary tracking-tight">
-              Notre Galerie
-            </h1>
-            <div className="w-24 h-0.5 bg-primary/30 mx-auto"></div>
-            <p className="text-accent/80 text-lg max-w-2xl mx-auto">
-              Découvrez en images nos créations culinaires et l'ambiance chaleureuse de notre restaurant
-            </p>
-          </div>
+        {/* Hero Section - Elegant Header */}
+                  <section className="relative py-24 bg-primary">
+                      <div className="container mx-auto px-4">
+                          <div className="max-w-4xl mx-auto text-center">
+                              <p className="text-accent/80 uppercase tracking-[0.2em] text-xl mb-6 font-light">
+                                  Découvrez nos créations
+                              </p>
+                              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6">
+                                  Notre Galerie
+                              </h1>
+                              <div className="flex items-center justify-center gap-4 mb-8">
+                                  <div className="h-px bg-accent/30 w-24"></div>
+                                  <div className="w-2 h-2 bg-accent rotate-45"></div>
+                                  <div className="h-px bg-accent/30 w-24"></div>
+                              </div>
+                              <p className="text-lg md:text-xl text-accent/90 leading-relaxed max-w-2xl mx-auto">
+                                  Découvrez en images nos créations culinaires et l'ambiance chaleureuse de notre restaurant
+                              </p>
+                          </div>
+                      </div>
+                  </section>
 
           {loading ? (
             <div className="text-center py-16">
