@@ -15,7 +15,7 @@ export function Footer() {
                 alt="DADICOOK"
                 width={60}
                 height={60}
-                className="[filter:brightness(0)_saturate(100%)_invert(55%)_sepia(45%)_saturate(650%)_hue-rotate(15deg)_brightness(95%)_contrast(85%)]"
+                className="[filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
               />
               <Image
                 src="/LOGO2.svg"
