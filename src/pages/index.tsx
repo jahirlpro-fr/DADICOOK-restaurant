@@ -84,7 +84,7 @@ export default function Home() {
                 href="https://www.thefork.fr/restaurant/dadicook-r815372"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-[#EDD5C8] text-[#8B6F47] px-8 py-2 font-sans text-sm uppercase tracking-wide hover:bg-[#E8D0C0] transition-all duration-300 border-2 border-[#8B6F47]"
+                className="inline-block bg-[#EDD5C8] text-[#8B6F47] px-8 py-2 font-sans text-sm uppercase tracking-wide hover:bg-[#E8D0C0] transition-all duration-300"
               >
                 Réserver une table
               </a>
