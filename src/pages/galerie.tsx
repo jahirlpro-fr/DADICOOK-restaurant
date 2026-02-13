@@ -116,9 +116,9 @@ export default function Galerie() {
                   Plats
                 </h2>
                 <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
-                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
+                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
@@ -152,9 +152,9 @@ export default function Galerie() {
                   Desserts
                 </h2>
                 <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
-                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
+                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
@@ -189,9 +189,9 @@ export default function Galerie() {
                   Boissons
                 </h2>
                 <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
-                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
+                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
@@ -224,9 +224,9 @@ export default function Galerie() {
                   Ambiance
                 </h2>
                 <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
-                  <div className="w-2 h-2 rotate-45 border border-primary/40"></div>
-                  <div className="w-16 h-px bg-primary/40 border-t-2 border-dashed border-primary/40"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
+                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
+                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
