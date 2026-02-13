@@ -104,7 +104,7 @@ export default function GaleriePage() {
                 <section key={categoryId} className="space-y-8">
                   {/* Category Title */}
                   <div className="text-center space-y-3">
-                    <h2 className="font-display text-3xl md:text-4xl text-primary">
+                    <h2 className="font-serif text-3xl md:text-4xl text-foreground">
                       {getCategoryName(categoryId)}
                     </h2>
                     <div className="flex items-center justify-center gap-4">
