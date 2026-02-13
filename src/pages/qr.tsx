@@ -27,25 +27,39 @@ interface MenuDuJour {
   content: string | null;
 }
 
-export default function QRMenu() {
-  const [categories, setCategories] = useState<Category[]>([]);
+export default function QRMenuPage() {
+  const [menuItems, setMenuItems] = useState<Record<string, any[]>>({});
+  const [categories, setCategories] = useState<any[]>([]);
   const [menuDuJour, setMenuDuJour] = useState<MenuDuJour | null>(null);
   const [loading, setLoading] = useState(true);
+  const [hasHalalItems, setHasHalalItems] = useState(false);
 
   useEffect(() => {
-    loadMenu();
+    fetchMenuData();
   }, []);
 
-  const loadMenu = async () => {
+  const fetchMenuData = async () => {
     try {
-      const [menuData, menuJourData] = await Promise.all([
-        menuService.getCategoriesWithItems("published"),
-        menuService.getMenuDuJour()
-      ]);
-      setCategories(menuData as any);
-      setMenuDuJour(menuJourData as any);
+      const items = await menuService.getAllMenuItems();
+      const cats = await menuService.getAllCategories();
+      const dailyMenu = await menuService.getMenuDuJour();
+      
+      const grouped = items.reduce((acc: Record<string, any[]>, item: any) => {
+        const catId = item.category_id;
+        if (!acc[catId]) acc[catId] = [];
+        acc[catId].push(item);
+        return acc;
+      }, {});
+
+      // Check if any items are halal
+      const hasHalal = items.some((item: any) => item.is_halal);
+      
+      setMenuItems(grouped);
+      setCategories(cats);
+      setMenuDuJour(dailyMenu);
+      setHasHalalItems(hasHalal);
     } catch (error) {
-      console.error("Error loading menu:", error);
+      console.error("Error fetching menu:", error);
     } finally {
       setLoading(false);
     }
@@ -148,54 +162,80 @@ export default function QRMenu() {
               <div className="w-16 h-px bg-primary/20 mx-auto"></div>
             </div>
 
-            {categories.map((category, categoryIndex) => (
-              <div key={category.id} className={categoryIndex > 0 ? "mt-16" : ""}>
-                {/* Category Title */}
-                <div className="text-center mb-8">
-                  <h2 className="font-serif text-3xl text-primary mb-2">
-                    {category.name}
-                  </h2>
-                  {category.description && (
-                    <p className="text-muted-foreground text-xs mt-2">{category.description}</p>
-                  )}
-                  <div className="w-16 h-px bg-primary/20 mx-auto mt-3"></div>
-                </div>
+            <div className="bg-background/95">
+              <div className="max-w-4xl mx-auto px-4 py-8">
+                <div className="grid gap-12">
+                  {categories
+                    .sort((a, b) => a.display_order - b.display_order)
+                    .map((category) => {
+                      const items = menuItems[category.id] || [];
+                      if (items.length === 0) return null;
 
-                {/* Menu Items List */}
-                <div className="space-y-6">
-                  {category.menu_items.map((item) => (
-                    <div key={item.id} className="border-b border-muted/20 pb-5">
-                      {/* Item Header */}
-                      <div className="flex justify-between items-baseline mb-2">
-                        <h3 className="font-serif text-xl text-primary flex-1 pr-3">
-                          {item.title}
-                        </h3>
-                        <div className="flex-shrink-0 flex items-center gap-2">
-                          <div className="flex-1 border-b border-dotted border-muted/40 min-w-[30px]"></div>
-                          <span className="font-serif text-xl text-primary whitespace-nowrap">
-                            {item.price.toFixed(2)}€
-                          </span>
+                      return (
+                        <div key={category.id} className="space-y-6">
+                          <div className="text-center space-y-1">
+                            <h2 className="font-serif text-3xl text-primary">
+                              {category.name}
+                            </h2>
+                            {category.description && (
+                              <p className="text-muted-foreground text-sm">
+                                {category.description}
+                              </p>
+                            )}
+                            <div className="w-16 h-px bg-accent/30 mx-auto mt-3" />
+                          </div>
+
+                          <div className="space-y-6">
+                            {items
+                              .sort((a, b) => a.display_order - b.display_order)
+                              .map((item) => (
+                                <div
+                                  key={item.id}
+                                  className="border-b border-muted/20 pb-4 last:border-0"
+                                >
+                                  <div className="flex items-start justify-between gap-4 mb-2">
+                                    <h3 className="font-serif text-xl text-primary flex-1">
+                                      {item.title}
+                                      {item.is_halal && (
+                                        <span className="text-accent ml-1">*</span>
+                                      )}
+                                    </h3>
+                                    {item.price && (
+                                      <span className="font-serif text-xl text-primary whitespace-nowrap">
+                                        {item.price.toFixed(2)}€
+                                      </span>
+                                    )}
+                                  </div>
+
+                                  {item.description && (
+                                    <p className="text-muted-foreground text-sm leading-relaxed mb-2">
+                                      {item.description}
+                                    </p>
+                                  )}
+
+                                  {item.allergens && item.allergens.length > 0 && (
+                                    <p className="text-xs text-muted-foreground/60 italic">
+                                      Allergènes : {item.allergens.join(", ")}
+                                    </p>
+                                  )}
+                                </div>
+                              ))}
+                          </div>
                         </div>
-                      </div>
-
-                      {/* Description */}
-                      {item.description && (
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-2">
-                          {item.description}
-                        </p>
-                      )}
-
-                      {/* Allergens */}
-                      {item.allergens && Array.isArray(item.allergens) && item.allergens.length > 0 && (
-                        <p className="text-xs text-muted-foreground/60 italic">
-                          Allergènes : {item.allergens.join(", ")}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                      );
+                    })}
                 </div>
+
+                {/* Halal Legend */}
+                {hasHalalItems && (
+                  <div className="mt-12 pt-6 border-t border-muted/20 text-center">
+                    <p className="text-muted-foreground text-sm">
+                      <span className="text-accent">*</span> Viande 100% certifiée Halal
+                    </p>
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
           </section>
 
           {/* Reservation CTA */}
@@ -223,6 +263,17 @@ export default function QRMenu() {
         <footer className="bg-primary py-6 border-t border-accent/20">
           <div className="container mx-auto px-4 text-center">
             <p className="text-accent/80 text-xs">© 2026 DADICOOK - Tous droits réservés</p>
+            <p className="text-accent/90 text-sm max-w-md mx-auto">
+              Scannez pour commander ou découvrez notre carte ci-dessous
+            </p>
+            
+            {/* Halal Mention - Discrete */}
+            <div className="flex justify-center mt-6">
+              <div className="flex items-center gap-2 px-3 py-1.5 border border-accent/30 rounded-full bg-accent/10">
+                <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                <p className="text-accent/90 text-xs font-medium tracking-wide uppercase">Viandes certifiées Halal</p>
+              </div>
+            </div>
           </div>
         </footer>
       </div>

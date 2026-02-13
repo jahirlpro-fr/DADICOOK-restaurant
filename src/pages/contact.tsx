@@ -225,6 +225,35 @@ export default function Contact() {
               </div>
             </div>
           </section>
+
+          {/* FAQ Section */}
+          <section className="py-16 bg-muted/30 border-t border-primary/10">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="font-serif text-3xl text-center text-primary mb-10">Questions Fréquentes</h2>
+              
+              <div className="space-y-6">
+                <div className="bg-background p-6 rounded-lg shadow-sm border border-primary/10">
+                  <h3 className="font-serif text-xl text-foreground mb-2">Vos viandes sont-elles Halal ?</h3>
+                  <p className="text-muted-foreground">Oui, absolument. Toutes nos viandes sont certifiées 100% Halal et sélectionnées avec soin pour garantir la meilleure qualité.</p>
+                </div>
+                
+                <div className="bg-background p-6 rounded-lg shadow-sm border border-primary/10">
+                  <h3 className="font-serif text-xl text-foreground mb-2">Proposez-vous des options végétariennes ?</h3>
+                  <p className="text-muted-foreground">Oui, notre carte inclut plusieurs options végétariennes savoureuses, préparées avec des produits frais de saison.</p>
+                </div>
+                
+                <div className="bg-background p-6 rounded-lg shadow-sm border border-primary/10">
+                  <h3 className="font-serif text-xl text-foreground mb-2">Faut-il réserver à l'avance ?</h3>
+                  <p className="text-muted-foreground">Il est recommandé de réserver, surtout les soirs de week-end, pour vous garantir une table. Vous pouvez réserver directement sur notre site via le bouton "Réserver".</p>
+                </div>
+                
+                <div className="bg-background p-6 rounded-lg shadow-sm border border-primary/10">
+                  <h3 className="font-serif text-xl text-foreground mb-2">Acceptez-vous les tickets restaurant ?</h3>
+                  <p className="text-muted-foreground">Oui, nous acceptons les tickets restaurant (carte et papier) ainsi que les espèces et cartes bancaires.</p>
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
 
         <Footer />

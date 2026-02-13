@@ -97,6 +97,7 @@ export type Database = {
       gallery_items: {
         Row: {
           allergens: string[] | null
+          category_id: string | null
           created_at: string | null
           description: string | null
           display_order: number
@@ -109,6 +110,7 @@ export type Database = {
         }
         Insert: {
           allergens?: string[] | null
+          category_id?: string | null
           created_at?: string | null
           description?: string | null
           display_order?: number
@@ -121,6 +123,7 @@ export type Database = {
         }
         Update: {
           allergens?: string[] | null
+          category_id?: string | null
           created_at?: string | null
           description?: string | null
           display_order?: number
@@ -132,6 +135,13 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "gallery_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "gallery_items_restaurant_id_fkey"
             columns: ["restaurant_id"]
@@ -188,6 +198,7 @@ export type Database = {
           display_order: number
           id: string
           image_url: string | null
+          is_halal: boolean | null
           price: number | null
           restaurant_id: string
           status: string
@@ -202,6 +213,7 @@ export type Database = {
           display_order?: number
           id?: string
           image_url?: string | null
+          is_halal?: boolean | null
           price?: number | null
           restaurant_id: string
           status?: string
@@ -216,6 +228,7 @@ export type Database = {
           display_order?: number
           id?: string
           image_url?: string | null
+          is_halal?: boolean | null
           price?: number | null
           restaurant_id?: string
           status?: string

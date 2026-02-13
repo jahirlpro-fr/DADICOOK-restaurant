@@ -1,306 +1,331 @@
+import { useState, useEffect } from "react";
 import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CookieConsent } from "@/components/CookieConsent";
+import { galleryService } from "@/services/galleryService";
+import { menuService } from "@/services/menuService";
 import Image from "next/image";
-import { useState } from "react";
 import { X } from "lucide-react";
 
-const galleryImages = [
-  { src: "/Poulet_satay.jpg", alt: "Poulet Satay" },
-  { src: "/Salade_boulgour.jpg", alt: "Salade Boulgour" },
-  { src: "/Hampe_de_boeuf_sauce_poivre.jpg", alt: "Hampe de Bœuf Sauce Poivre" },
-  { src: "/Khychin.jpg", alt: "Khychin" },
-  { src: "/Le_batbout.jpg", alt: "Le Batbout" },
-  { src: "/Maakouda.jpg", alt: "Maakouda" },
-  { src: "/Le_chiktay_de_morue.jpg", alt: "Le Chiktay de Morue" },
-  { src: "/Cheescake_vanille_Rhubarbe.jpg", alt: "Cheesecake Vanille Rhubarbe" },
-  { src: "/Fondant_au_chocolat_noisettes.avif", alt: "Fondant au Chocolat Noisettes" },
-  { src: "/Tarte_mangue_passion_cacahue_te.jpg", alt: "Tarte Mangue Passion Cacahuète" },
-  { src: "/Tiramisu.jpg", alt: "Tiramisu" },
-  { src: "/Mocktail_Dadi.jpg", alt: "Mocktail Dadi" },
-  { src: "/Mocktail_Didine.jpg", alt: "Mocktail Didine" },
-  { src: "/Image_interieur_restaurant.jpg", alt: "Intérieur du restaurant" },
-  { src: "/Image_random_1.avif", alt: "Ambiance restaurant" },
-  { src: "/Image_random_2.jpg", alt: "Décoration" },
-  { src: "/image_random_3.jpg", alt: "Atmosphère" }
-];
+interface GalleryItem {
+  id: string;
+  category_id?: string | null;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  allergens: string[] | null;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  display_order: number;
+}
 
 export default function Galerie() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const [dynamicItems, setDynamicItems] = useState<GalleryItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      const [items, cats] = await Promise.all([
+        galleryService.getGalleryItems("published"),
+        menuService.getAllCategories()
+      ]);
+      setDynamicItems(items as GalleryItem[]);
+      setCategories(cats);
+    } catch (error) {
+      console.error("Error loading gallery:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Static gallery images from /public folder
+  const staticGalleryImages = [
+    {
+      src: "/Cheescake_vanille_Rhubarbe.jpg",
+      alt: "Cheesecake Vanille Rhubarbe",
+      title: "Cheesecake Vanille Rhubarbe"
+    },
+    {
+      src: "/Fondant_au_chocolat_noisettes.avif",
+      alt: "Fondant au Chocolat Noisettes",
+      title: "Fondant au Chocolat Noisettes"
+    },
+    {
+      src: "/Hampe_de_boeuf_sauce_poivre.jpg",
+      alt: "Hampe de Boeuf Sauce Poivre",
+      title: "Hampe de Boeuf Sauce Poivre"
+    },
+    {
+      src: "/Image_interieur_restaurant.jpg",
+      alt: "Intérieur du Restaurant",
+      title: "Notre Restaurant"
+    },
+    {
+      src: "/Image_random_1.avif",
+      alt: "Ambiance DADICOOK",
+      title: "Ambiance Chaleureuse"
+    },
+    {
+      src: "/Image_random_2.jpg",
+      alt: "Plat du Chef",
+      title: "Création du Chef"
+    },
+    {
+      src: "/image_random_3.jpg",
+      alt: "Expérience Culinaire",
+      title: "Expérience Unique"
+    },
+    {
+      src: "/Khychin.jpg",
+      alt: "Khychin",
+      title: "Khychin"
+    },
+    {
+      src: "/Le_batbout.jpg",
+      alt: "Le Batbout",
+      title: "Le Batbout"
+    },
+    {
+      src: "/Le_chiktay_de_morue.jpg",
+      alt: "Le Chiktay de Morue",
+      title: "Le Chiktay de Morue"
+    },
+    {
+      src: "/Maakouda.jpg",
+      alt: "Maakouda",
+      title: "Maakouda"
+    },
+    {
+      src: "/Mocktail_Dadi.jpg",
+      alt: "Mocktail Dadi",
+      title: "Mocktail Dadi"
+    },
+    {
+      src: "/Mocktail_Didine.jpg",
+      alt: "Mocktail Didine",
+      title: "Mocktail Didine"
+    },
+    {
+      src: "/Poulet_satay.jpg",
+      alt: "Poulet Satay",
+      title: "Poulet Satay"
+    },
+    {
+      src: "/Salade_boulgour.jpg",
+      alt: "Salade Boulgour",
+      title: "Salade Boulgour"
+    },
+    {
+      src: "/Tarte_mangue_passion_cacahue_te.jpg",
+      alt: "Tarte Mangue Passion Cacahuète",
+      title: "Tarte Mangue Passion"
+    },
+    {
+      src: "/Tiramisu.jpg",
+      alt: "Tiramisu",
+      title: "Tiramisu"
+    }
+  ];
+
+  const handleImageClick = (item: GalleryItem) => {
+    setSelectedImage(item);
+  };
 
   return (
     <>
-      <SEO
-        title="Galerie - DADICOOK | Découvrez Nos Créations Culinaires"
-        description="Explorez notre galerie photo : plats signature, desserts maison, et l'ambiance chaleureuse de notre restaurant à Montpellier."
-        image="/Poulet_satay.jpg"
+      <SEO 
+        title="Galerie - DADICOOK"
+        description="Découvrez en images l'univers culinaire de DADICOOK, nos plats signatures et l'ambiance chaleureuse de notre restaurant bistronomique."
       />
-
+      
       <div className="min-h-screen bg-background">
         <Header />
-
+        
         <main>
-          {/* Hero Section - Elegant Header */}
-          <section className="relative bg-primary py-32 overflow-hidden">
-            {/* Subtle Pattern Overlay */}
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute inset-0" style={{
-                backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(232, 212, 160, 0.1) 35px, rgba(232, 212, 160, 0.1) 70px)`
-              }}></div>
+          {/* Hero Section */}
+          <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center bg-primary">
+            <div className="absolute inset-0">
+              <Image
+                src="/Image_interieur_restaurant.jpg"
+                alt="Galerie DADICOOK"
+                fill
+                className="object-cover opacity-30"
+                priority
+              />
             </div>
-            
-            <div className="container mx-auto px-4 max-w-4xl relative z-10">
-              <div className="text-center space-y-6">
-                <p className="text-accent/80 uppercase tracking-[0.4em] text-xl font-light">
-                  Galerie
-                </p>
-                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6 font-light tracking-tight">
-                  Nos Créations
-                </h1>
-                <div className="flex items-center justify-center gap-4 mb-8">
-                  <div className="h-px bg-accent/30 w-24"></div>
-                  <div className="w-2 h-2 bg-accent rotate-45"></div>
-                  <div className="h-px bg-accent/30 w-24"></div>
-                </div>
-                <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
-                  Découvrez en images notre univers culinaire et l'ambiance chaleureuse de notre restaurant
-                </p>
-              </div>
+            <div className="relative z-10 text-center px-4">
+              <p className="font-serif text-accent/80 text-lg md:text-xl mb-4">Découvrez</p>
+              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6">
+                Notre Galerie
+              </h1>
+              <p className="text-accent/90 text-lg md:text-xl max-w-2xl mx-auto">
+                Plongez dans l'univers culinaire de DADICOOK
+              </p>
             </div>
           </section>
 
-          {/* Gallery Grid */}
-          <section className="py-24 bg-background">
-            <div className="container mx-auto px-4 max-w-7xl">
-              {/* Entrées */}
-              <div className="mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
-                  Entrées
-                </h2>
-                <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { src: "/Le_batbout.jpg", alt: "Le Batbout" },
-                    { src: "/Maakouda.jpg", alt: "Maakouda" },
-                    { src: "/Le_chiktay_de_morue.jpg", alt: "Le Chiktay de Morue" },
-                    { src: "/Salade_boulgour.jpg", alt: "Salade Boulgour" }
-                  ].map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                      onClick={() => setSelectedImage(image.src)}
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-all duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <p className="text-accent text-lg font-serif">Voir</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          {/* Dynamic Gallery Section - Categorized */}
+          <section className="py-16 md:py-24">
+            <div className="container">
+              {categories.map(category => {
+                const items = dynamicItems.filter(item => item.category_id === category.id);
+                if (items.length === 0) return null;
 
-              {/* Plats */}
-              <div className="mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
-                  Plats
-                </h2>
-                <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { src: "/Poulet_satay.jpg", alt: "Poulet Satay" },
-                    { src: "/Hampe_de_boeuf_sauce_poivre.jpg", alt: "Hampe de Bœuf Sauce Poivre" },
-                    { src: "/Khychin.jpg", alt: "Khychin" }
-                  ].map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                      onClick={() => setSelectedImage(image.src)}
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-all duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <p className="text-accent text-lg font-serif">Voir</p>
-                      </div>
+                return (
+                  <div key={category.id} className="mb-20 last:mb-0">
+                    <div className="text-center space-y-2 mb-12">
+                      <h2 className="font-serif text-4xl text-primary mb-2">
+                        {category.name}
+                      </h2>
+                      <div className="w-24 h-px bg-accent/30 mx-auto mt-4" />
                     </div>
-                  ))}
-                </div>
-              </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                      {items.map((item) => (
+                        <div 
+                          key={item.id}
+                          className="group relative aspect-square overflow-hidden bg-muted cursor-pointer"
+                          onClick={() => handleImageClick(item)}
+                        >
+                          {item.image_url && (
+                            <>
+                              <Image
+                                src={item.image_url}
+                                alt={item.title}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                                <div className="p-6 w-full">
+                                  <h3 className="font-serif text-2xl text-accent">{item.title}</h3>
+                                  {item.description && (
+                                    <p className="text-accent/80 text-sm mt-2 line-clamp-2">{item.description}</p>
+                                  )}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
 
-              {/* Desserts */}
-              <div className="mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
-                  Desserts
-                </h2>
-                <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { src: "/Cheescake_vanille_Rhubarbe.jpg", alt: "Cheesecake Vanille Rhubarbe" },
-                    { src: "/Fondant_au_chocolat_noisettes.avif", alt: "Fondant au Chocolat Noisettes" },
-                    { src: "/Tarte_mangue_passion_cacahue_te.jpg", alt: "Tarte Mangue Passion Cacahuète" },
-                    { src: "/Tiramisu.jpg", alt: "Tiramisu" }
-                  ].map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                      onClick={() => setSelectedImage(image.src)}
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-all duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <p className="text-accent text-lg font-serif">Voir</p>
-                      </div>
+              {/* Uncategorized Items / Static Fallback */}
+              {dynamicItems.filter(i => !i.category_id).length > 0 && (
+                 <div className="mb-20 last:mb-0">
+                    <div className="text-center space-y-2 mb-12">
+                      <h2 className="font-serif text-4xl text-primary mb-2">
+                        Autres Créations
+                      </h2>
+                      <div className="w-24 h-px bg-accent/30 mx-auto mt-4" />
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Boissons */}
-              <div className="mb-16">
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
-                  Boissons
-                </h2>
-                <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { src: "/Mocktail_Dadi.jpg", alt: "Mocktail Dadi" },
-                    { src: "/Mocktail_Didine.jpg", alt: "Mocktail Didine" }
-                  ].map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                      onClick={() => setSelectedImage(image.src)}
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-all duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <p className="text-accent text-lg font-serif">Voir</p>
-                      </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                      {dynamicItems.filter(i => !i.category_id).map((item) => (
+                        <div 
+                          key={item.id}
+                          className="group relative aspect-square overflow-hidden bg-muted cursor-pointer"
+                          onClick={() => handleImageClick(item)}
+                        >
+                          {item.image_url && (
+                            <>
+                              <Image
+                                src={item.image_url}
+                                alt={item.title}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                                <div className="p-6 w-full">
+                                  <h3 className="font-serif text-2xl text-accent">{item.title}</h3>
+                                  {item.description && (
+                                    <p className="text-accent/80 text-sm mt-2 line-clamp-2">{item.description}</p>
+                                  )}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Ambiance */}
-              <div>
-                <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
-                  Ambiance
-                </h2>
-                <div className="flex items-center justify-center gap-4 mb-12">
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                  <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
-                  <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    { src: "/Image_interieur_restaurant.jpg", alt: "Intérieur du restaurant" },
-                    { src: "/Image_random_1.avif", alt: "Ambiance restaurant" },
-                    { src: "/Image_random_2.jpg", alt: "Décoration" },
-                    { src: "/image_random_3.jpg", alt: "Atmosphère" }
-                  ].map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-muted cursor-pointer group"
-                      onClick={() => setSelectedImage(image.src)}
-                    >
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-all duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-500"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <p className="text-accent text-lg font-serif">Voir</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                 </div>
+              )}
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="py-24 bg-muted/30">
-            <div className="container mx-auto px-4 max-w-4xl text-center">
-              <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
-                Réservez Votre Expérience
+          {/* Reservation CTA */}
+          <section className="py-20 md:py-28 bg-primary">
+            <div className="container text-center">
+              <h2 className="font-serif text-4xl md:text-5xl text-accent mb-6">
+                Réservez votre Table
               </h2>
-              <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant votre table pour une expérience culinaire inoubliable.
+              <p className="text-accent/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant pour une expérience culinaire inoubliable.
               </p>
               <a
                 href="https://www.thefork.fr/restaurant/dadicook-r815372"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-primary text-primary-foreground px-12 py-5 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg tracking-wide"
+                className="inline-block bg-accent text-primary px-10 py-4 text-lg font-medium hover:bg-accent/90 transition-colors"
               >
-                Réserver une table
+                Réserver maintenant
               </a>
             </div>
           </section>
         </main>
 
         <Footer />
-        <CookieConsent />
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Image Popup Modal */}
       {selectedImage && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <button
-            className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
-            onClick={() => setSelectedImage(null)}
+          <div 
+            className="relative max-w-4xl w-full bg-background"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X size={32} />
-          </button>
-          <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
-            <Image
-              src={selectedImage}
-              alt="Image agrandie"
-              fill
-              className="object-contain"
-            />
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-accent transition-colors"
+            >
+              <X className="h-8 w-8" />
+            </button>
+            
+            {selectedImage.image_url && (
+              <div className="relative w-full h-[60vh]">
+                <Image
+                  src={selectedImage.image_url}
+                  alt={selectedImage.title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            )}
+            
+            <div className="p-6 md:p-8">
+              <h3 className="font-serif text-3xl text-primary mb-3">{selectedImage.title}</h3>
+              {selectedImage.description && (
+                <p className="text-muted-foreground text-lg mb-4">{selectedImage.description}</p>
+              )}
+              {selectedImage.allergens && selectedImage.allergens.length > 0 && (
+                <p className="text-sm text-muted-foreground/70 italic">
+                  Allergènes : {selectedImage.allergens.join(", ")}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       )}

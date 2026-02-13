@@ -133,7 +133,8 @@ export default function AdminDashboard() {
       allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
       status: formData.get("status") as "draft" | "published",
       display_order: parseInt(formData.get("display_order") as string) || 0,
-      image_url: null
+      image_url: null,
+      is_halal: formData.get("is_halal") === "true"
     };
 
     try {
@@ -172,6 +173,7 @@ export default function AdminDashboard() {
     const formData = new FormData(e.currentTarget);
     
     const itemData = {
+      category_id: formData.get("category_id") as string || null,
       title: formData.get("title") as string,
       description: formData.get("description") as string || null,
       allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
@@ -384,6 +386,19 @@ export default function AdminDashboard() {
                       </div>
 
                       <div>
+                        <Label htmlFor="is_halal">Viande Halal</Label>
+                        <Select name="is_halal" defaultValue={editingItem?.is_halal ? "true" : "false"}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="false">Non spécifié</SelectItem>
+                            <SelectItem value="true">Oui (Certifié Halal)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
                         <Label htmlFor="display_order">Ordre d'affichage</Label>
                         <Input
                           id="display_order"
@@ -423,33 +438,24 @@ export default function AdminDashboard() {
                           ) : (
                             categoryItems.map((item) => (
                               <div key={item.id} className="flex items-center justify-between p-3 border rounded hover:bg-accent/5">
-                                <div className="flex items-center gap-4 flex-1">
-                                  {item.image_url && (
-                                    <div className="relative w-16 h-16 flex-shrink-0">
-                                      <Image
-                                        src={item.image_url}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover rounded"
-                                      />
-                                    </div>
-                                  )}
-                                  <div className="flex-1">
-                                    <div className="flex items-center gap-2">
-                                      <h4 className="font-medium">{item.title}</h4>
-                                      {item.status === "draft" && (
-                                        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
-                                          Brouillon
-                                        </span>
-                                      )}
-                                      {item.status === "published" && (
-                                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
-                                          Publié
-                                        </span>
-                                      )}
-                                    </div>
-                                    <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}€</p>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <h4 className="font-medium">{item.title}</h4>
+                                    {item.status === "draft" && (
+                                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                        Brouillon
+                                      </span>
+                                    )}
+                                    {item.status === "published" && (
+                                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                        Publié
+                                      </span>
+                                    )}
                                   </div>
+                                  <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}€</p>
+                                  {item.description && (
+                                    <p className="text-sm text-muted-foreground/80 mt-1 italic">{item.description}</p>
+                                  )}
                                 </div>
                                 <div className="flex gap-2">
                                   <Button
@@ -497,6 +503,23 @@ export default function AdminDashboard() {
                       <DialogTitle>{editingGalleryItem ? "Modifier l'image" : "Nouvelle image"}</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleSaveGalleryItem} className="space-y-4">
+                      <div>
+                        <Label htmlFor="gallery_category">Catégorie</Label>
+                        <Select name="category_id" defaultValue={editingGalleryItem?.category_id || "uncategorized"}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Sélectionner une catégorie" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="uncategorized">Aucune catégorie</SelectItem>
+                            {categories.map((cat) => (
+                              <SelectItem key={cat.id} value={cat.id}>
+                                {cat.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <div>
                         <Label htmlFor="gallery_title">Nom du plat</Label>
                         <Input
@@ -587,62 +610,131 @@ export default function AdminDashboard() {
                 </Dialog>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {galleryItems.map((item) => (
-                  <Card key={item.id}>
-                    <CardContent className="p-4">
-                      {item.image_url && (
-                        <div className="relative w-full h-48 mb-3">
-                          <Image
-                            src={item.image_url}
-                            alt={item.title}
-                            fill
-                            className="object-cover rounded"
-                          />
-                        </div>
-                      )}
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-medium">{item.title}</h4>
-                          {item.status === "draft" && (
-                            <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
-                              Brouillon
-                            </span>
-                          )}
-                          {item.status === "published" && (
-                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
-                              Publié
-                            </span>
-                          )}
-                        </div>
-                        {item.description && (
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
-                        )}
-                        <div className="flex gap-2 mt-3">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="flex-1"
-                            onClick={() => {
-                              setEditingGalleryItem(item);
-                              setIsGalleryDialogOpen(true);
-                            }}
-                          >
-                            <Edit className="h-4 w-4 mr-1" />
-                            Modifier
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDeleteGalleryItem(item.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
+              <div className="space-y-8">
+                {/* Uncategorized Items */}
+                {galleryItems.filter(i => !i.category_id).length > 0 && (
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-serif text-muted-foreground border-b pb-2">Non classé</h3>
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {galleryItems.filter(i => !i.category_id).map((item) => (
+                        <Card key={item.id}>
+                          <CardContent className="p-4">
+                            {item.image_url && (
+                              <div className="relative w-full h-48 mb-3">
+                                <Image
+                                  src={item.image_url}
+                                  alt={item.title}
+                                  fill
+                                  className="object-cover rounded"
+                                />
+                              </div>
+                            )}
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <h4 className="font-medium">{item.title}</h4>
+                                {item.status === "draft" && (
+                                  <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Brouillon</span>
+                                )}
+                                {item.status === "published" && (
+                                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Publié</span>
+                                )}
+                              </div>
+                              {item.description && (
+                                <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                              )}
+                              <div className="flex gap-2 mt-3">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="flex-1"
+                                  onClick={() => {
+                                    setEditingGalleryItem(item);
+                                    setIsGalleryDialogOpen(true);
+                                  }}
+                                >
+                                  <Edit className="h-4 w-4 mr-1" />
+                                  Modifier
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="destructive"
+                                  onClick={() => handleDeleteGalleryItem(item.id)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Categorized Items */}
+                {categories.map(category => {
+                  const items = galleryItems.filter(i => i.category_id === category.id);
+                  if (items.length === 0) return null;
+                  
+                  return (
+                    <div key={category.id} className="space-y-4">
+                      <h3 className="text-xl font-serif text-primary border-b pb-2">{category.name}</h3>
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {items.map((item) => (
+                          <Card key={item.id}>
+                            <CardContent className="p-4">
+                              {item.image_url && (
+                                <div className="relative w-full h-48 mb-3">
+                                  <Image
+                                    src={item.image_url}
+                                    alt={item.title}
+                                    fill
+                                    className="object-cover rounded"
+                                  />
+                                </div>
+                              )}
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <h4 className="font-medium">{item.title}</h4>
+                                  {item.status === "draft" && (
+                                    <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Brouillon</span>
+                                  )}
+                                  {item.status === "published" && (
+                                    <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Publié</span>
+                                  )}
+                                </div>
+                                {item.description && (
+                                  <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                                )}
+                                <div className="flex gap-2 mt-3">
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="flex-1"
+                                    onClick={() => {
+                                      setEditingGalleryItem(item);
+                                      setIsGalleryDialogOpen(true);
+                                    }}
+                                  >
+                                    <Edit className="h-4 w-4 mr-1" />
+                                    Modifier
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    onClick={() => handleDeleteGalleryItem(item.id)}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                    </div>
+                  );
+                })}
               </div>
             </TabsContent>
 

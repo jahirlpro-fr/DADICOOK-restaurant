@@ -2,10 +2,79 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
 type Category = Database["public"]["Tables"]["categories"]["Row"];
-type MenuItem = Database["public"]["Tables"]["menu_items"]["Row"];
 type MenuDuJour = Database["public"]["Tables"]["menu_du_jour"]["Row"];
 
+export interface MenuItem {
+  id: string;
+  restaurant_id: string;
+  category_id: string;
+  title: string;
+  description: string | null;
+  price: number | null;
+  image_url: string | null;
+  status: "draft" | "published";
+  display_order: number;
+  allergens: string[] | null;
+  is_halal?: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MenuItemInsert {
+  restaurant_id: string;
+  category_id: string;
+  title: string;
+  description?: string | null;
+  price?: number | null;
+  image_url?: string | null;
+  status?: "draft" | "published";
+  display_order?: number;
+  allergens?: string[] | null;
+  is_halal?: boolean;
+}
+
+export interface MenuItemUpdate {
+  title?: string;
+  description?: string | null;
+  price?: number | null;
+  image_url?: string | null;
+  status?: "draft" | "published";
+  display_order?: number;
+  allergens?: string[] | null;
+  is_halal?: boolean;
+}
+
 export const menuService = {
+  // Get all categories
+  async getAllCategories() {
+    const { data, error } = await supabase
+      .from("categories")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching categories:", error);
+      throw error;
+    }
+
+    return data || [];
+  },
+
+  // Get all menu items
+  async getAllMenuItems() {
+    const { data, error } = await supabase
+      .from("menu_items")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching menu items:", error);
+      throw error;
+    }
+
+    return data || [];
+  },
+
   // Get all categories with their menu items
   async getCategoriesWithItems(status: "published" | "draft" | "all" = "published") {
     const query = supabase

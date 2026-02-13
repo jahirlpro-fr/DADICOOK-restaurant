@@ -1,9 +1,40 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import type { Database } from "@/integrations/supabase/types";
 
-type GalleryItem = Tables<"gallery_items">;
-type GalleryItemInsert = TablesInsert<"gallery_items">;
-type GalleryItemUpdate = TablesUpdate<"gallery_items">;
+export interface GalleryItem {
+  id: string;
+  restaurant_id: string;
+  category_id?: string | null;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  allergens: string[] | null;
+  status: "draft" | "published";
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GalleryItemInsert {
+  restaurant_id: string;
+  category_id?: string | null;
+  title: string;
+  description?: string | null;
+  image_url?: string | null;
+  allergens?: string[] | null;
+  status?: "draft" | "published";
+  display_order?: number;
+}
+
+export interface GalleryItemUpdate {
+  category_id?: string | null;
+  title?: string;
+  description?: string | null;
+  image_url?: string | null;
+  allergens?: string[] | null;
+  status?: "draft" | "published";
+  display_order?: number;
+}
 
 export const galleryService = {
   // Get all gallery items (with status filter)
@@ -24,7 +55,11 @@ export const galleryService = {
       throw error;
     }
     
-    return data || [];
+    // Cast the data to match the interface since Supabase returns string for enums sometimes
+    return (data || []).map(item => ({
+      ...item,
+      status: item.status as "published" | "draft"
+    }));
   },
 
   // Get single gallery item
@@ -40,14 +75,22 @@ export const galleryService = {
       throw error;
     }
 
-    return data;
+    return data ? {
+      ...data,
+      status: data.status as "published" | "draft"
+    } : null;
   },
 
   // Create gallery item
-  async createGalleryItem(item: GalleryItemInsert): Promise<GalleryItem> {
+  async createGalleryItem(item: Omit<GalleryItemInsert, "restaurant_id">): Promise<GalleryItem> {
+    // Get the first restaurant (assuming single restaurant for now, or handle dynamic ID)
+    const { data: restaurants } = await supabase.from("restaurants").select("id").limit(1).single();
+    
+    if (!restaurants) throw new Error("No restaurant found");
+
     const { data, error } = await supabase
       .from("gallery_items")
-      .insert(item)
+      .insert({ ...item, restaurant_id: restaurants.id })
       .select()
       .single();
 
@@ -121,11 +164,16 @@ export const galleryService = {
     
     if (!user) return;
 
-    await supabase.from("admin_logs").insert({
+    // Get restaurant ID
+    const { data: restaurant } = await supabase.from("restaurants").select("id").limit(1).single();
+    if (!restaurant) return;
+
+    await supabase.from("audit_logs").insert({
       user_id: user.id,
+      restaurant_id: restaurant.id,
       action,
       entity_type,
-      entity_id,
+      entity_id: entity_id || user.id, // Fallback ID if undefined
       details
     });
   }
