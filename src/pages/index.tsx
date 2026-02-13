@@ -250,7 +250,7 @@ export default function Home() {
           <div className="flex flex-col justify-center px-8 md:px-16 py-16 bg-background">
             <div className="w-16 h-[2px] bg-primary mb-6"></div>
             
-            <h2 className="text-primary text-4xl md:text-5xl font-light mb-8 text-foreground">
+            <h2 className="text-4xl md:text-5xl font-light mb-8 text-serif">
               Une Expérience Culinaire Unique
             </h2>
             
