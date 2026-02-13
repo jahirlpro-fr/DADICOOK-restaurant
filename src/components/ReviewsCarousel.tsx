@@ -61,7 +61,7 @@ export function ReviewsCarousel() {
   return (
     <div className="py-20 px-4 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h2 className="font-sans text-4xl md:text-5xl text-foreground text-center mb-12">
+        <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-12">
           Ce que disent nos clients
         </h2>
       </div>
