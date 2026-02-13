@@ -36,9 +36,9 @@ export default function Acces() {
                   Nous Trouver
                 </h1>
                 <div className="flex items-center justify-center gap-4 mb-8">
-                  <div className="w-16 h-px bg-accent/40"></div>
-                  <div className="w-2 h-2 rotate-45 border border-accent/40"></div>
-                  <div className="w-16 h-px bg-accent/40"></div>
+                  <div className="h-px bg-accent/30 w-24"></div>
+                  <div className="w-2 h-2 bg-accent rotate-45"></div>
+                  <div className="h-px bg-accent/30 w-24"></div>
                 </div>
                 <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
                   Venez découvrir notre restaurant au cœur de Montpellier
