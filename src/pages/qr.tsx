@@ -23,8 +23,9 @@ interface MenuDuJour {
   id: string;
   title: string;
   description: string | null;
-  price: number | null;
-  content: string | null;
+  price?: number | null;
+  content?: string | null;
+  is_active: boolean;
 }
 
 export default function QRMenuPage() {

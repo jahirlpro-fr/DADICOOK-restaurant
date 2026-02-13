@@ -93,12 +93,24 @@ export const menuService = {
     }
 
     // Filter menu items by status
-    const filteredData = data?.map(category => ({
-      ...category,
-      menu_items: category.menu_items?.filter((item: MenuItem) => 
-        status === "all" ? true : item.status === status
-      ).sort((a: MenuItem, b: MenuItem) => a.display_order - b.display_order) || []
-    }));
+    const filteredData = data?.map(category => {
+      // Safe cast menu items with status check
+      const menuItems = (category.menu_items || []).map((item: any) => ({
+        ...item,
+        status: item.status as "published" | "draft",
+        allergens: item.allergens || null,
+        description: item.description || null,
+        image_url: item.image_url || null,
+        price: item.price || null
+      })) as MenuItem[];
+
+      return {
+        ...category,
+        menu_items: menuItems
+          .filter(item => status === "all" ? true : item.status === status)
+          .sort((a, b) => a.display_order - b.display_order)
+      };
+    });
 
     return filteredData || [];
   },

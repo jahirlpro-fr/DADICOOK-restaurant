@@ -58,6 +58,7 @@ export const galleryService = {
     // Cast the data to match the interface since Supabase returns string for enums sometimes
     return (data || []).map(item => ({
       ...item,
+      category_id: item.category_id || null, // Ensure category_id is handled
       status: item.status as "published" | "draft"
     }));
   },
@@ -77,6 +78,7 @@ export const galleryService = {
 
     return data ? {
       ...data,
+      category_id: data.category_id || null,
       status: data.status as "published" | "draft"
     } : null;
   },
@@ -99,7 +101,11 @@ export const galleryService = {
       throw error;
     }
 
-    return data;
+    return {
+      ...data,
+      category_id: data.category_id || null,
+      status: data.status as "published" | "draft"
+    };
   },
 
   // Update gallery item
@@ -116,7 +122,11 @@ export const galleryService = {
       throw error;
     }
 
-    return data;
+    return {
+      ...data,
+      category_id: data.category_id || null,
+      status: data.status as "published" | "draft"
+    };
   },
 
   // Delete gallery item

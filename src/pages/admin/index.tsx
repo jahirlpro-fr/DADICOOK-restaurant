@@ -32,10 +32,12 @@ interface MenuItem {
   allergens: string[] | null;
   status: "draft" | "published";
   display_order: number;
+  is_halal?: boolean;
 }
 
 interface GalleryItem {
   id: string;
+  category_id?: string | null;
   title: string;
   description: string | null;
   image_url: string | null;
