@@ -156,12 +156,12 @@ export default function Menu() {
           </section>
 
           {/* Reservation CTA */}
-          <section className="py-24 bg-gray-100">
-            <div className="container mx-auto px-4 text-center">
-              <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6">
+          <section className="py-24 bg-muted/30">
+            <div className="container mx-auto px-4xl text-center">
+              <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
                 Réservez votre Table
               </h2>
-              <p className="text-primary/80 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
                 Laissez-vous tenter par notre cuisine du monde et réservez dès maintenant
                 pour une expérience culinaire inoubliable.
               </p>
