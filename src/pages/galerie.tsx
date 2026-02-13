@@ -108,9 +108,9 @@ export default function GaleriePage() {
                       {getCategoryName(categoryId)}
                     </h2>
                     <div className="flex items-center justify-center gap-4">
-                        <div className="h-px foreground w-24"></div>
-                        <div className="w-2 h-2 foreground rotate-45"></div>
-                        <div className="h-px foreground w-24"></div>
+                        <div className="h-px muted w-24"></div>
+                        <div className="w-2 h-2 muted rotate-45"></div>
+                        <div className="h-px muted w-24"></div>
                     </div>
                   </div>
 
