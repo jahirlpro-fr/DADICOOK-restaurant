@@ -529,11 +529,17 @@ export default function AdminDashboard() {
                             >
                               {/* Image Thumbnail */}
                               <div className="w-32 h-32 flex-shrink-0 overflow-hidden bg-surface">
-                                <img
-                                  src={item.image_url}
-                                  alt={item.title}
-                                  className="w-full h-full object-cover"
-                                />
+                                {item.image_url ? (
+                                  <img
+                                    src={item.image_url}
+                                    alt={item.title}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center text-accent/40">
+                                    Pas d'image
+                                  </div>
+                                )}
                               </div>
 
                               {/* Content */}
@@ -558,7 +564,7 @@ export default function AdminDashboard() {
                                         setIsGalleryDialogOpen(true);
                                       }}
                                     >
-                                      <Pencil className="w-4 h-4" />
+                                      <Edit className="w-4 h-4" />
                                     </Button>
                                     <Button
                                       size="sm"
@@ -620,11 +626,17 @@ export default function AdminDashboard() {
                             className="flex items-start gap-4 p-4 border border-primary/10 hover:border-primary/30 transition-colors"
                           >
                             <div className="w-32 h-32 flex-shrink-0 overflow-hidden bg-surface">
-                              <img
-                                src={item.image_url}
-                                alt={item.title}
-                                className="w-full h-full object-cover"
-                              />
+                              {item.image_url ? (
+                                <img
+                                  src={item.image_url}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-accent/40">
+                                  Pas d'image
+                                </div>
+                              )}
                             </div>
                             <div className="flex-1 space-y-2">
                               <div className="flex items-start justify-between gap-4">
@@ -647,7 +659,7 @@ export default function AdminDashboard() {
                                       setIsGalleryDialogOpen(true);
                                     }}
                                   >
-                                    <Pencil className="w-4 h-4" />
+                                    <Edit className="w-4 h-4" />
                                   </Button>
                                   <Button
                                     size="sm"
@@ -688,6 +700,131 @@ export default function AdminDashboard() {
                   </Card>
                 )}
               </div>
+
+              {/* Gallery Item Edit Dialog */}
+              <Dialog open={isGalleryDialogOpen} onOpenChange={setIsGalleryDialogOpen}>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {editingGalleryItem ? "Modifier l'image" : "Nouvelle image"}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={handleSaveGalleryItem} className="space-y-4">
+                    <div>
+                      <Label htmlFor="gallery_category_id">Catégorie</Label>
+                      <Select 
+                        name="category_id" 
+                        defaultValue={editingGalleryItem?.category_id || ""}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner une catégorie" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">Non catégorisé</SelectItem>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={cat.id}>
+                              {cat.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_title">Nom</Label>
+                      <Input
+                        id="gallery_title"
+                        name="title"
+                        defaultValue={editingGalleryItem?.title}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_description">Description</Label>
+                      <Textarea
+                        id="gallery_description"
+                        name="description"
+                        defaultValue={editingGalleryItem?.description || ""}
+                        rows={3}
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_image">Image</Label>
+                      <div className="space-y-2">
+                        {editingGalleryItem?.image_url && (
+                          <div className="w-full h-48 overflow-hidden bg-surface">
+                            <img
+                              src={editingGalleryItem.image_url}
+                              alt="Preview"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <Input
+                          id="gallery_image"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageUpload(e, true)}
+                          disabled={uploading}
+                        />
+                        {uploading && <p className="text-sm text-accent/60">Upload en cours...</p>}
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_allergens">Allergènes (séparés par des virgules)</Label>
+                      <Input
+                        id="gallery_allergens"
+                        name="allergens"
+                        defaultValue={editingGalleryItem?.allergens?.join(", ") || ""}
+                        placeholder="Ex: Gluten, Lactose, Fruits à coque"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_status">Statut</Label>
+                      <Select 
+                        name="status" 
+                        defaultValue={editingGalleryItem?.status || "draft"}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="draft">Brouillon</SelectItem>
+                          <SelectItem value="published">Publié</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="gallery_display_order">Ordre d'affichage</Label>
+                      <Input
+                        id="gallery_display_order"
+                        name="display_order"
+                        type="number"
+                        defaultValue={editingGalleryItem?.display_order || 0}
+                      />
+                    </div>
+
+                    <div className="flex justify-end gap-2">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setIsGalleryDialogOpen(false)}
+                      >
+                        Annuler
+                      </Button>
+                      <Button type="submit">
+                        <Save className="h-4 w-4 mr-2" />
+                        Enregistrer
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </TabsContent>
 
             {/* Menu du Jour Tab */}
