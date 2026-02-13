@@ -73,7 +73,7 @@ export default function Acces() {
                     <div className="flex items-start gap-4">
                       <Phone className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                       <div>
-                        <h2 className="font-serif text-2xl text-accent mb-2">Téléphone</h2>
+                        <h2 className="font-serif text-2xl text-foreground mb-2">Téléphone</h2>
                         <a 
                           href="tel:+33749499555"
                           className="text-muted-foreground text-lg hover:text-accent transition-colors"
@@ -89,7 +89,7 @@ export default function Acces() {
                     <div className="flex items-start gap-4">
                       <Mail className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                       <div>
-                        <h2 className="font-serif text-2xl text-accent mb-2">Email</h2>
+                        <h2 className="font-serif text-2xl text-foreground mb-2">Email</h2>
                         <a 
                           href="mailto:contact@dadicook.fr"
                           className="text-muted-foreground text-lg hover:text-accent transition-colors"
@@ -106,7 +106,7 @@ export default function Acces() {
                   <div className="flex items-start gap-4">
                     <Clock className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                      <h2 className="font-serif text-2xl text-accent mb-6">Horaires d'Ouverture</h2>
+                      <h2 className="font-serif text-2xl text-foreground mb-6">Horaires d'Ouverture</h2>
                       
                       <div className="space-y-4">
                         {/* Mercredi */}
