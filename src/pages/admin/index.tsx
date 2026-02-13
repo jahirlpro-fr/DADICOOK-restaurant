@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { menuService } from "@/services/menuService";
+import { galleryService } from "@/services/galleryService";
 import { LogOut, Plus, Edit, Trash2, Eye, EyeOff, Upload, Save } from "lucide-react";
 import Image from "next/image";
 
@@ -33,6 +34,16 @@ interface MenuItem {
   display_order: number;
 }
 
+interface GalleryItem {
+  id: string;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  allergens: string[] | null;
+  status: "draft" | "published";
+  display_order: number;
+}
+
 interface MenuDuJour {
   title: string;
   description: string | null;
@@ -47,13 +58,14 @@ export default function AdminDashboard() {
   // Data states
   const [categories, setCategories] = useState<Category[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [menuDuJour, setMenuDuJour] = useState<MenuDuJour | null>(null);
   
   // Form states
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editingGalleryItem, setEditingGalleryItem] = useState<GalleryItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+  const [isGalleryDialogOpen, setIsGalleryDialogOpen] = useState(false);
   const [isMenuDuJourDialogOpen, setIsMenuDuJourDialogOpen] = useState(false);
   
   // Upload state
@@ -81,9 +93,10 @@ export default function AdminDashboard() {
 
   const loadData = async () => {
     try {
-      const [categoriesData, menuDuJourData] = await Promise.all([
+      const [categoriesData, menuDuJourData, galleryData] = await Promise.all([
         menuService.getCategoriesWithItems("all"),
-        menuService.getMenuDuJour()
+        menuService.getMenuDuJour(),
+        galleryService.getGalleryItems("all")
       ]);
       
       setCategories(categoriesData as any);
@@ -96,7 +109,7 @@ export default function AdminDashboard() {
         }
       });
       setMenuItems(allItems);
-      
+      setGalleryItems(galleryData as any);
       setMenuDuJour(menuDuJourData);
     } catch (error) {
       console.error("Error loading data:", error);
@@ -120,7 +133,7 @@ export default function AdminDashboard() {
       allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
       status: formData.get("status") as "draft" | "published",
       display_order: parseInt(formData.get("display_order") as string) || 0,
-      image_url: editingItem?.image_url || null
+      image_url: null
     };
 
     try {
@@ -154,43 +167,46 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSaveCategory = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSaveGalleryItem = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    const categoryData = {
-      name: formData.get("name") as string,
+    const itemData = {
+      title: formData.get("title") as string,
       description: formData.get("description") as string || null,
-      display_order: parseInt(formData.get("display_order") as string) || 0
+      allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
+      status: formData.get("status") as "draft" | "published",
+      display_order: parseInt(formData.get("display_order") as string) || 0,
+      image_url: editingGalleryItem?.image_url || null
     };
 
     try {
-      if (editingCategory) {
-        await menuService.updateCategory(editingCategory.id, categoryData);
-        await menuService.logAction("update", "category", editingCategory.id, categoryData);
+      if (editingGalleryItem) {
+        await galleryService.updateGalleryItem(editingGalleryItem.id, itemData as any);
+        await galleryService.logAction("update", "gallery_item", editingGalleryItem.id, itemData);
       } else {
-        await menuService.createCategory(categoryData as any);
-        await menuService.logAction("create", "category", undefined, categoryData);
+        await galleryService.createGalleryItem(itemData as any);
+        await galleryService.logAction("create", "gallery_item", undefined, itemData);
       }
       
-      setIsCategoryDialogOpen(false);
-      setEditingCategory(null);
+      setIsGalleryDialogOpen(false);
+      setEditingGalleryItem(null);
       loadData();
     } catch (error) {
-      console.error("Error saving category:", error);
+      console.error("Error saving gallery item:", error);
       alert("Erreur lors de l'enregistrement");
     }
   };
 
-  const handleDeleteCategory = async (id: string) => {
-    if (!confirm("Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les plats associés seront également supprimés.")) return;
+  const handleDeleteGalleryItem = async (id: string) => {
+    if (!confirm("Êtes-vous sûr de vouloir supprimer cette image ?")) return;
     
     try {
-      await menuService.deleteCategory(id);
-      await menuService.logAction("delete", "category", id);
+      await galleryService.deleteGalleryItem(id);
+      await galleryService.logAction("delete", "gallery_item", id);
       loadData();
     } catch (error) {
-      console.error("Error deleting category:", error);
+      console.error("Error deleting gallery item:", error);
       alert("Erreur lors de la suppression");
     }
   };
@@ -216,16 +232,29 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDeleteMenuDuJour = async () => {
+    if (!confirm("Êtes-vous sûr de vouloir supprimer le menu du jour ?")) return;
+    
+    try {
+      await menuService.updateMenuDuJour({ title: "", description: null, is_active: false });
+      await menuService.logAction("delete", "menu_du_jour");
+      loadData();
+    } catch (error) {
+      console.error("Error deleting menu du jour:", error);
+      alert("Erreur lors de la suppression");
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, isGallery: boolean = false) => {
     if (!e.target.files || e.target.files.length === 0) return;
     
     const file = e.target.files[0];
     setUploading(true);
     
     try {
-      const imageUrl = await menuService.uploadImage(file, "menu-items");
-      if (editingItem) {
-        setEditingItem({ ...editingItem, image_url: imageUrl });
+      const imageUrl = await (isGallery ? galleryService : menuService).uploadImage(file, isGallery ? "gallery" : "menu-items");
+      if (isGallery && editingGalleryItem) {
+        setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -263,7 +292,7 @@ export default function AdminDashboard() {
           <Tabs defaultValue="menu" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="menu">Menu</TabsTrigger>
-              <TabsTrigger value="categories">Catégories</TabsTrigger>
+              <TabsTrigger value="galerie">Galerie</TabsTrigger>
               <TabsTrigger value="menu-du-jour">Menu du Jour</TabsTrigger>
             </TabsList>
 
@@ -364,34 +393,11 @@ export default function AdminDashboard() {
                         />
                       </div>
 
-                      <div>
-                        <Label htmlFor="image">Image</Label>
-                        <div className="space-y-2">
-                          <Input
-                            id="image"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            disabled={uploading}
-                          />
-                          {editingItem?.image_url && (
-                            <div className="relative w-full h-48">
-                              <Image
-                                src={editingItem.image_url}
-                                alt="Preview"
-                                fill
-                                className="object-cover rounded"
-                              />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
                       <div className="flex justify-end gap-2">
                         <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                           Annuler
                         </Button>
-                        <Button type="submit" disabled={uploading}>
+                        <Button type="submit">
                           <Save className="h-4 w-4 mr-2" />
                           Enregistrer
                         </Button>
@@ -475,57 +481,103 @@ export default function AdminDashboard() {
               </div>
             </TabsContent>
 
-            {/* Categories Tab */}
-            <TabsContent value="categories" className="space-y-4">
+            {/* Gallery Tab */}
+            <TabsContent value="galerie" className="space-y-4">
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-serif">Gestion des Catégories</h2>
-                <Dialog open={isCategoryDialogOpen} onOpenChange={setIsCategoryDialogOpen}>
+                <h2 className="text-2xl font-serif">Gestion de la Galerie</h2>
+                <Dialog open={isGalleryDialogOpen} onOpenChange={setIsGalleryDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button onClick={() => setEditingCategory(null)}>
+                    <Button onClick={() => setEditingGalleryItem(null)}>
                       <Plus className="h-4 w-4 mr-2" />
-                      Nouvelle catégorie
+                      Nouvelle image
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>{editingCategory ? "Modifier la catégorie" : "Nouvelle catégorie"}</DialogTitle>
+                      <DialogTitle>{editingGalleryItem ? "Modifier l'image" : "Nouvelle image"}</DialogTitle>
                     </DialogHeader>
-                    <form onSubmit={handleSaveCategory} className="space-y-4">
+                    <form onSubmit={handleSaveGalleryItem} className="space-y-4">
                       <div>
-                        <Label htmlFor="name">Nom</Label>
+                        <Label htmlFor="gallery_title">Nom du plat</Label>
                         <Input
-                          id="name"
-                          name="name"
-                          defaultValue={editingCategory?.name}
+                          id="gallery_title"
+                          name="title"
+                          defaultValue={editingGalleryItem?.title}
                           required
                         />
                       </div>
 
                       <div>
-                        <Label htmlFor="description">Description</Label>
+                        <Label htmlFor="gallery_description">Description</Label>
                         <Textarea
-                          id="description"
+                          id="gallery_description"
                           name="description"
-                          defaultValue={editingCategory?.description || ""}
-                          rows={2}
+                          defaultValue={editingGalleryItem?.description || ""}
+                          rows={3}
                         />
                       </div>
 
                       <div>
-                        <Label htmlFor="display_order">Ordre d'affichage</Label>
+                        <Label htmlFor="gallery_allergens">Allergènes (séparés par des virgules)</Label>
                         <Input
-                          id="display_order"
-                          name="display_order"
-                          type="number"
-                          defaultValue={editingCategory?.display_order || 0}
+                          id="gallery_allergens"
+                          name="allergens"
+                          defaultValue={editingGalleryItem?.allergens?.join(", ") || ""}
+                          placeholder="Ex: Gluten, Lactose, Fruits à coque"
                         />
                       </div>
 
+                      <div>
+                        <Label htmlFor="gallery_status">Statut</Label>
+                        <Select name="status" defaultValue={editingGalleryItem?.status || "draft"}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="draft">Brouillon</SelectItem>
+                            <SelectItem value="published">Publié</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="gallery_display_order">Ordre d'affichage</Label>
+                        <Input
+                          id="gallery_display_order"
+                          name="display_order"
+                          type="number"
+                          defaultValue={editingGalleryItem?.display_order || 0}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="gallery_image">Image</Label>
+                        <div className="space-y-2">
+                          <Input
+                            id="gallery_image"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleImageUpload(e, true)}
+                            disabled={uploading}
+                          />
+                          {editingGalleryItem?.image_url && (
+                            <div className="relative w-full h-48">
+                              <Image
+                                src={editingGalleryItem.image_url}
+                                alt="Preview"
+                                fill
+                                className="object-cover rounded"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
                       <div className="flex justify-end gap-2">
-                        <Button type="button" variant="outline" onClick={() => setIsCategoryDialogOpen(false)}>
+                        <Button type="button" variant="outline" onClick={() => setIsGalleryDialogOpen(false)}>
                           Annuler
                         </Button>
-                        <Button type="submit">
+                        <Button type="submit" disabled={uploading}>
                           <Save className="h-4 w-4 mr-2" />
                           Enregistrer
                         </Button>
@@ -535,35 +587,58 @@ export default function AdminDashboard() {
                 </Dialog>
               </div>
 
-              <div className="grid gap-4">
-                {categories.map((category) => (
-                  <Card key={category.id}>
-                    <CardContent className="flex items-center justify-between p-6">
-                      <div>
-                        <h3 className="font-serif text-lg">{category.name}</h3>
-                        {category.description && (
-                          <p className="text-sm text-muted-foreground">{category.description}</p>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {galleryItems.map((item) => (
+                  <Card key={item.id}>
+                    <CardContent className="p-4">
+                      {item.image_url && (
+                        <div className="relative w-full h-48 mb-3">
+                          <Image
+                            src={item.image_url}
+                            alt={item.title}
+                            fill
+                            className="object-cover rounded"
+                          />
+                        </div>
+                      )}
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium">{item.title}</h4>
+                          {item.status === "draft" && (
+                            <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                              Brouillon
+                            </span>
+                          )}
+                          {item.status === "published" && (
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                              Publié
+                            </span>
+                          )}
+                        </div>
+                        {item.description && (
+                          <p className="text-sm text-muted-foreground">{item.description}</p>
                         )}
-                        <p className="text-xs text-muted-foreground mt-1">Ordre: {category.display_order}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            setEditingCategory(category);
-                            setIsCategoryDialogOpen(true);
-                          }}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => handleDeleteCategory(category.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <div className="flex gap-2 mt-3">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => {
+                              setEditingGalleryItem(item);
+                              setIsGalleryDialogOpen(true);
+                            }}
+                          >
+                            <Edit className="h-4 w-4 mr-1" />
+                            Modifier
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDeleteGalleryItem(item.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -575,69 +650,77 @@ export default function AdminDashboard() {
             <TabsContent value="menu-du-jour" className="space-y-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-serif">Menu du Jour</h2>
-                <Dialog open={isMenuDuJourDialogOpen} onOpenChange={setIsMenuDuJourDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Edit className="h-4 w-4 mr-2" />
-                      Modifier
+                <div className="flex gap-2">
+                  <Dialog open={isMenuDuJourDialogOpen} onOpenChange={setIsMenuDuJourDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button>
+                        <Edit className="h-4 w-4 mr-2" />
+                        Modifier
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Modifier le Menu du Jour</DialogTitle>
+                      </DialogHeader>
+                      <form onSubmit={handleSaveMenuDuJour} className="space-y-4">
+                        <div>
+                          <Label htmlFor="title">Titre</Label>
+                          <Input
+                            id="title"
+                            name="title"
+                            defaultValue={menuDuJour?.title || ""}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="description">Description</Label>
+                          <Textarea
+                            id="description"
+                            name="description"
+                            defaultValue={menuDuJour?.description || ""}
+                            rows={5}
+                            placeholder="Décrivez le menu du jour..."
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="is_active">Statut</Label>
+                          <Select name="is_active" defaultValue={menuDuJour?.is_active ? "true" : "false"}>
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="true">Actif</SelectItem>
+                              <SelectItem value="false">Inactif</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="flex justify-end gap-2">
+                          <Button type="button" variant="outline" onClick={() => setIsMenuDuJourDialogOpen(false)}>
+                            Annuler
+                          </Button>
+                          <Button type="submit">
+                            <Save className="h-4 w-4 mr-2" />
+                            Enregistrer
+                          </Button>
+                        </div>
+                      </form>
+                    </DialogContent>
+                  </Dialog>
+                  {menuDuJour && menuDuJour.is_active && (
+                    <Button variant="destructive" onClick={handleDeleteMenuDuJour}>
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Supprimer
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Modifier le Menu du Jour</DialogTitle>
-                    </DialogHeader>
-                    <form onSubmit={handleSaveMenuDuJour} className="space-y-4">
-                      <div>
-                        <Label htmlFor="title">Titre</Label>
-                        <Input
-                          id="title"
-                          name="title"
-                          defaultValue={menuDuJour?.title || ""}
-                          required
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="description">Description</Label>
-                        <Textarea
-                          id="description"
-                          name="description"
-                          defaultValue={menuDuJour?.description || ""}
-                          rows={5}
-                          placeholder="Décrivez le menu du jour..."
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="is_active">Statut</Label>
-                        <Select name="is_active" defaultValue={menuDuJour?.is_active ? "true" : "false"}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="true">Actif</SelectItem>
-                            <SelectItem value="false">Inactif</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="flex justify-end gap-2">
-                        <Button type="button" variant="outline" onClick={() => setIsMenuDuJourDialogOpen(false)}>
-                          Annuler
-                        </Button>
-                        <Button type="submit">
-                          <Save className="h-4 w-4 mr-2" />
-                          Enregistrer
-                        </Button>
-                      </div>
-                    </form>
-                  </DialogContent>
-                </Dialog>
+                  )}
+                </div>
               </div>
 
               <Card>
                 <CardContent className="p-6">
-                  {menuDuJour ? (
+                  {menuDuJour && menuDuJour.title ? (
                     <div>
                       <div className="flex items-center gap-2 mb-4">
                         <h3 className="font-serif text-xl">{menuDuJour.title}</h3>
