@@ -56,7 +56,7 @@ export default function Acces() {
                   {/* Adresse */}
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <MapPin className="w-6 h-6 text-muted-foreground mt-1 flex-shrink-0" />
+                      <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                       <div>
                         <h2 className="font-serif text-2xl text-accent mb-2">Adresse</h2>
                         <p className="text-muted-foreground text-lg leading-relaxed">
