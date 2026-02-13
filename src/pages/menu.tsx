@@ -116,12 +116,12 @@ export default function Menu() {
                       <div key={item.id} className="pb-8">
                         {/* Item Header */}
                         <div className="flex justify-between items-baseline mb-4">
-                        <h3 className="font-serif text-2xl lg:text-3xl text-primary flex-1">
+                        <h3 className="font-serif text-3xl lg:text-3xl text-primary flex-1">
                             {item.title}
                           </h3>
                           <div className="flex-shrink-0 ml-4 flex items-center gap-3">
                             <div className="flex-1 border-b border-dotted border-muted/40 min-w-[40px]"></div>
-                            <span className="font-serif text-2xl lg:text-3xl text-primary whitespace-nowrap">
+                            <span className="font-serif text-3xl lg:text-3xl text-primary whitespace-nowrap">
                               {item.price.toFixed(2)}€
                             </span>
                           </div>
