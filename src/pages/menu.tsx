@@ -129,7 +129,7 @@ export default function Menu() {
 
                         {/* Description */}
                         {item.description && (
-                          <p className="text-muted-foreground text-xl leading-relaxed mb-3">
+                                <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed mb-3">
                             {item.description}
                           </p>
                         )}
