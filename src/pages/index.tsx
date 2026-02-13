@@ -125,12 +125,12 @@ export default function Home() {
 
             {/* Navigation verticale */}
             <nav className="flex-1 flex items-center justify-center">
-              <ul className="flex flex-col items-center gap-8 text-2xl font-light tracking-wider">
+              <ul className="flex flex-col items-center gap-8 text-2xl font-light tracking-wider text-[#EDD5C8]">
                 {navItems.map((item) => (
                   <li key={item.href}>
-                    <Link 
-                      href={item.href}
-                      className="relative group transition-colors duration-300 hover:text-accent"
+                    <Link
+                        href={item.href}
+                        className="relative group text-[#EDD5C8] transition-colors duration-300 hover:text-accent"
                     >
                       {item.label}
                       <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-[140%]"></span>
