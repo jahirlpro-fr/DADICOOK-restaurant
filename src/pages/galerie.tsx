@@ -67,8 +67,7 @@ export default function GaleriePage() {
       
       <Header />
       
-      <main className="min-h-screen bg-background pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-7xl">
+      <main className="pt-20">
         {/* Hero Section - Elegant Header */}
                   <section className="relative py-24 bg-primary">
                       <div className="container mx-auto px-4">
