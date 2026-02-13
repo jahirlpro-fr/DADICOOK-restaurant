@@ -143,9 +143,9 @@ export default function Menu() {
 
                         {/* Elegant Separator */}
                         <div className="flex items-center justify-center mt-6">
-                          <div className="h-px bg-primary/30 flex-1 max-w-[100px]"></div>
-                                <div className="w-1.5 h-1.5 bg-primary/30 rotate-45 mx-4"></div>
-                                <div className="h-px bg-primary/30 flex-1 max-w-[100px]"></div>
+                          <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
+                                <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
+                                <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                         </div>
                       </div>
                     ))}
