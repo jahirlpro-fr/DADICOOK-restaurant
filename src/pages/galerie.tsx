@@ -99,7 +99,7 @@ export default function GaleriePage() {
               <p className="text-accent/60">Aucune image disponible pour le moment.</p>
             </div>
           ) : (
-            <div className="space-y-20">
+            <div className="space-y-20 py-16">
               {Object.entries(galleryItemsByCategory).map(([categoryId, items]) => (
                 <section key={categoryId} className="space-y-8">
                   {/* Category Title */}
