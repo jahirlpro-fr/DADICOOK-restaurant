@@ -52,10 +52,10 @@ export default function Galerie() {
             
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
               <div className="text-center space-y-6">
-                <p className="text-accent/80 uppercase tracking-[0.4em] text-xs font-light">
+                <p className="text-accent/80 uppercase tracking-[0.4em] text-xl font-light">
                   Galerie
                 </p>
-                <h1 className="font-serif text-6xl md:text-7xl text-accent mb-6 font-light tracking-tight">
+                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6 font-light tracking-tight">
                   Nos Créations
                 </h1>
                 <div className="flex items-center justify-center gap-4 mb-8">
