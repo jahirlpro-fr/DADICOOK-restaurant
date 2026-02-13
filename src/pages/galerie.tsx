@@ -108,9 +108,9 @@ export default function GaleriePage() {
                       {getCategoryName(categoryId)}
                     </h2>
                     <div className="flex items-center justify-center gap-4">
-                      <div className="h-px bg-primary/20 w-16"></div>
-                      <div className="w-2 h-2 rounded-full bg-primary/40"></div>
-                      <div className="h-px bg-primary/20 w-16"></div>
+                        <div className="h-px bg-accent/30 w-24"></div>
+                        <div className="w-2 h-2 bg-accent rotate-45"></div>
+                        <div className="h-px bg-accent/30 w-24"></div>
                     </div>
                   </div>
 
