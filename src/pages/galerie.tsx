@@ -78,7 +78,7 @@ export default function Galerie() {
                 <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-6">
                   Entrées
                 </h2>
-                <div className="flex items-center justify-center mt-6">
+                <div className="flex items-center justify-center gap-4 mb-12">
                   <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
                   <div className="w-1.5 h-1.5 bg-primary/50 rotate-45 mx-4"></div>
                   <div className="h-px bg-primary/50 flex-1 max-w-[100px]"></div>
