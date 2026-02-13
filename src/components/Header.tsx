@@ -25,14 +25,14 @@ export function Header() {
               alt="DADICOOK"
               width={40}
               height={40}
-              className="object-contain [filter: brightness(0) saturate(100%) invert(55%) sepia(45%) saturate(650%) hue-rotate(15deg) brightness(95%) contrast(85%)]"
+              className="object-contain [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
             />
             <Image
               src="/LOGO2.svg"
               alt="DADICOOK Restaurant"
               width={160}
               height={24}
-              className="object-contain [filter: brightness(0) saturate(100%) invert(55%) sepia(45%) saturate(650%) hue-rotate(15deg) brightness(95%) contrast(85%)]"
+              className="object-contain [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(12%)_saturate(531%)_hue-rotate(343deg)_brightness(98%)_contrast(90%)]"
             />
           </div>
         </Link>
