@@ -513,7 +513,7 @@ export default function AdminDashboard() {
 
                   return (
                     <Card key={category.id} className="p-6">
-                      <h3 className="text-2xl font-display text-primary mb-6">
+                      <h3 className="text-xl">
                         {category.name}
                       </h3>
                       <div className="space-y-4">
