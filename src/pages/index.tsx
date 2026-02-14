@@ -289,6 +289,63 @@ export default function Home() {
         {/* Reviews Section */}
         <ReviewsCarousel />
 
+        {/* Social Media Section */}
+        <section className="py-16 bg-gradient-to-b from-[#F5F1ED] to-white">
+          <div className="container mx-auto px-4">
+            <h2 className="font-cormorant text-4xl md:text-5xl text-center mb-12 text-[#8B6F47]">
+              Suivez-nous
+            </h2>
+            <div className="flex justify-center gap-6 max-w-4xl mx-auto">
+
+              href="https://www.instagram.com/dadicook.restaurant/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
+      >
+              <svg className="w-6 h-6 text-[#8B6F47]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+              <span className="font-lato text-[#8B6F47] font-medium">Instagram</span>
+            </a>
+
+
+            href="https://www.facebook.com/dadicook/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
+      >
+            <svg className="w-6 h-6 text-[#8B6F47]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            <span className="font-lato text-[#8B6F47] font-medium">Facebook</span>
+          </a>
+
+
+          href="https://www.tiktok.com/@dadi_cook"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
+      >
+          <svg className="w-6 h-6 text-[#8B6F47]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+          </svg>
+          <span className="font-lato text-[#8B6F47] font-medium">TikTok</span>
+        </a>
+
+
+        href="https://www.threads.com/@dadicook.restaurant/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
+      >
+        <svg className="w-6 h-6 text-[#8B6F47]" fill="currentColor" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+          <path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.858-10.884 21.362-10.884h.229c7.596.07 13.478 2.117 17.469 6.086 3.016 3.004 5.012 7.058 5.938 12.046-6.256-1.39-13.047-1.88-20.344-1.47-20.81 1.164-35.43 13.439-34.265 28.742.803 10.531 8.56 18.614 19.297 20.122 2.477.35 4.982.525 7.486.525 8.512 0 16.802-2.136 23.72-6.112 8.425-4.846 13.84-11.955 15.66-20.568 4.156 2.509 7.25 5.455 8.93 8.661 3.655 6.991 3.507 19.662-6.337 31.259-1.374 1.62-2.853 3.145-4.437 4.556-11.265 10.034-27.136 15.566-44.683 15.566-17.545 0-33.417-5.532-44.68-15.565C17.796 168.798 11.64 149.378 11.64 126s6.155-42.798 17.323-55.895C40.227 60.007 56.098 54.475 73.644 54.475c17.545 0 33.417 5.532 44.683 15.565 11.167 11.097 17.323 30.518 17.323 53.895 0 3.422-.15 6.813-.447 10.156h-15.26c.25-3.328.377-6.7.377-10.156 0-19.64-5.063-35.618-14.665-46.212-9.395-10.363-22.953-16.03-38.192-15.954-15.03.074-28.49 5.833-37.865 16.215-9.611 10.638-14.916 26.595-14.916 44.95 0 18.357 5.305 34.313 14.916 44.952 9.374 10.382 22.834 16.14 37.865 16.215 15.24.076 28.797-5.591 38.192-15.954 1.863-2.058 3.595-4.24 5.181-6.532 13.462-15.828 13.925-33.541 8.985-45.424-4.12-9.9-13.646-17.522-27.504-22.096z" />
+        </svg>
+        <span className="font-lato text-[#8B6F47] font-medium">Threads</span>
+      </a>
+    </div >
+  </div >
+</section >
         {/* Footer */}
         <Footer />
         <CookieConsent />
