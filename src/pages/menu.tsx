@@ -110,70 +110,77 @@ export default function MenuPage() {
             </div>
           </section>
 
-          <div className="bg-background/95 backdrop-blur-sm">
-            <div className="max-w-5xl mx-auto px-6 py-12">
-              <div className="grid gap-16 md:gap-24">
-                {categories
-                  .sort((a, b) => a.display_order - b.display_order)
-                  .map((category) => {
-                    const items = menuItems[category.id] || [];
-                    if (items.length === 0) return null;
+                  <div className="bg-background/95 backdrop-blur-sm">
+                      <div className="max-w-5xl mx-auto px-6 py-12">
+                          <div className="grid gap-16 md:gap-24">
+                              {categories
+                                  .sort((a, b) => a.display_order - b.display_order)
+                                  .map((category) => {
+                                      const items = menuItems[category.id] || [];
+                                      if (items.length === 0) return null;
 
-                    return (
-                      <div key={category.id} className="space-y-8">
-                        <div className="text-center space-y-2">
-                          <h2 className="font-serif text-4xl text-primary mb-2">
-                            {category.name}
-                          </h2>
-                          {category.description && (
-                            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                              {category.description}
-                            </p>
-                          )}
-                          <div className="w-24 h-px bg-accent/30 mx-auto mt-4" />
-                        </div>
+                                      return (
+                                          <div key={category.id} className="space-y-8">
+                                              <div className="text-center space-y-2">
+                                                  <h2 className="font-serif text-4xl text-primary mb-2">
+                                                      {category.name}
+                                                  </h2>
+                                                  {category.description && (
+                                                      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                                                          {category.description}
+                                                      </p>
+                                                  )}
+                                                  <div className="w-24 h-px bg-accent/30 mx-auto mt-4" />
+                                              </div>
 
-                        <div className="space-y-8">
-                          {items
-                            .sort((a, b) => a.display_order - b.display_order)
-                            .map((item) => (
-                              <div
-                                key={item.id}
-                                className="border-b border-muted/20 pb-6 last:border-0"
-                              >
-                                <div className="flex items-start justify-between gap-6 mb-3">
-                                  <h3 className="font-serif text-3xl text-primary flex-1">
-                                    {item.title}
-                                    {item.is_halal && (
-                                      <span className="text-accent ml-1">*</span>
-                                    )}
-                                  </h3>
-                                  {item.price && (
-                                    <span className="font-serif text-3xl text-primary whitespace-nowrap">
-                                      {item.price.toFixed(2)}€
-                                    </span>
-                                  )}
-                                </div>
+                                              <div className="space-y-8">
+                                                  {items
+                                                      .sort((a, b) => a.display_order - b.display_order)
+                                                      .map((item, index) => (
+                                                          <div key={item.id}>
+                                                              <div className="pb-6">
+                                                                  <div className="flex items-start justify-between gap-6 mb-3">
+                                                                      <h3 className="font-serif text-3xl text-primary flex-1">
+                                                                          {item.title}
+                                                                          {item.is_halal && (
+                                                                              <span className="text-accent ml-1">*</span>
+                                                                          )}
+                                                                      </h3>
+                                                                      {item.price && (
+                                                                          <span className="font-serif text-3xl text-primary whitespace-nowrap">
+                                                                              {item.price.toFixed(2)}€
+                                                                          </span>
+                                                                      )}
+                                                                  </div>
 
-                                {item.description && (
-                                  <p className="text-muted-foreground text-xl leading-relaxed mb-3">
-                                    {item.description}
-                                  </p>
-                                )}
+                                                                  {item.description && (
+                                                                      <p className="text-muted-foreground text-xl leading-relaxed mb-3">
+                                                                          {item.description}
+                                                                      </p>
+                                                                  )}
 
-                                {item.allergens && item.allergens.length > 0 && (
-                                  <p className="text-base text-muted-foreground/60 italic mb-4">
-                                    Allergènes : {item.allergens.join(", ")}
-                                  </p>
-                                )}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+                                                                  {item.allergens && item.allergens.length > 0 && (
+                                                                      <p className="text-base text-muted-foreground/60 italic mb-4">
+                                                                          Allergènes : {item.allergens.join(", ")}
+                                                                      </p>
+                                                                  )}
+                                                              </div>
 
+                                                              {/* Séparateur (ne s'affiche pas après le dernier plat) */}
+                                                              {index < items.length - 1 && (
+                                                                  <div className="flex items-center justify-center gap-4 py-6">
+                                                                      <div className="h-px bg-primary/30 w-24"></div>
+                                                                      <div className="w-2 h-2 bg-primary/30 rotate-45"></div>
+                                                                      <div className="h-px bg-primary/30 w-24"></div>
+                                                                  </div>
+                                                              )}
+                                                          </div>
+                                                      ))}
+                                              </div>
+                                          </div>
+                                      );
+                                  })}
+                          </div>
               {/* Halal Legend */}
               {hasHalalItems && (
                 <div className="mt-16 pt-8 border-t border-muted/20 text-center">
