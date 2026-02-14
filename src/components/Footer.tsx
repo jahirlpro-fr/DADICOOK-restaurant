@@ -64,8 +64,8 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-accent text-xl font-serif mb-4">Contact</h3>
-            <div className="space-y-2 text-accent/80">
+            <h3 className="font-serif text-lg font-semibold mb-4">Contact</h3>
+            <div className="space-y-2 text-secondary/80">
               <p>+33 7 49 49 95 55</p>
               <p>contact@dadicook.fr</p>
             </div>
