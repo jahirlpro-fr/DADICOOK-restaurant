@@ -130,7 +130,7 @@ export default function MenuPage() {
                                                           {category.description}
                                                       </p>
                                                   )}
-                                                  <div className="w-24 h-px bg-accent/30 mx-auto mt-4" />
+                                                  <div className="w-24 h-px bg-muted-foreground/50 mx-auto mt-4" />
                                               </div>
 
                                               <div className="space-y-8">
