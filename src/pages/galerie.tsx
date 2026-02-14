@@ -143,31 +143,27 @@ export default function GaleriePage() {
             </div>
           )}
 
-          {/* CTA Section */}
-          <section className="mt-24 text-center space-y-6">
-            <div className="space-y-2">
-              <h2 className="font-display text-3xl md:text-4xl text-primary">
-                Envie de découvrir nos saveurs ?
-              </h2>
-              <p className="text-accent/80 text-lg">
-                Réservez votre table dès maintenant
-              </p>
-            </div>
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-background font-medium px-8"
-              asChild
-            >
-              <a
-                href="https://www.thefork.fr/restaurant/dadicook-r815372"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Réserver une table
-              </a>
-            </Button>
-          </section>
-      </main>
+              {/* Reservation CTA */}
+              <section className="py-24 bg-muted/30">
+                  <div className="container mx-auto px-4xl text-center">
+                      <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
+                          Envie de découvrir nos saveurs ?
+                      </h2>
+                      <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                          Réservez votre table dès maintenant
+                      </p>
+                      <a
+                          href="https://www.thefork.fr/restaurant/dadicook-r815372"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                      >
+                          Réserver une table
+                      </a>
+                  </div>
+              </section>
+          </main>
+
 
       <Footer />
 
