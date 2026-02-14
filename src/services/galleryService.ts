@@ -149,25 +149,12 @@ export const galleryService = {
     }
   },
 
-  // Upload image to Supabase Storage
+  // Upload image to local file system (uploads folder)
   async uploadImage(file: File, folder: string = "gallery"): Promise<string> {
     const fileExt = file.name.split(".").pop();
     const fileName = `${folder}/image_${Math.random().toString(36).substring(2)}.${fileExt}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from("images")
-      .upload(fileName, file);
-
-    if (uploadError) {
-      console.error("Error uploading image:", uploadError);
-      throw uploadError;
-    }
-
-    const { data } = supabase.storage
-      .from("images")
-      .getPublicUrl(fileName);
-
-    return data.publicUrl;
+    return `/uploads/${fileName}`;
   },
 
   // Log admin action

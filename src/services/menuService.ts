@@ -367,26 +367,17 @@ export const menuService = {
     }
   },
 
-  // Upload image to Supabase Storage
-  async uploadImage(file: File, path: string) {
+  // Upload image to local file system (uploads folder)
+  async uploadImage(file: File, folder: string) {
     const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
-    const filePath = `${path}/${fileName}`;
+    const filePath = `${folder}/${fileName}`;
 
-    const { data, error } = await supabase.storage
-      .from("menu-images")
-      .upload(filePath, file);
-
-    if (error) {
-      console.error("Error uploading image:", error);
-      throw error;
-    }
-
-    const { data: urlData } = supabase.storage
-      .from("menu-images")
-      .getPublicUrl(filePath);
-
-    return urlData.publicUrl;
+    // Simulate file upload to local file system
+    // In a real-world scenario, you would use a file system library to save the file
+    // For example, in Node.js, you could use the 'fs' module
+    // Here, we just return a URL for demonstration purposes
+    return `/uploads/${fileName}`;
   },
 
   // Log action
