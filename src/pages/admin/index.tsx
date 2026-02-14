@@ -201,7 +201,7 @@ export default function AdminDashboard() {
     };
 
     try {
-      if (editingGalleryItem) {
+      if (editingGalleryItem && editingGalleryItem.id) {
         await galleryService.updateGalleryItem(editingGalleryItem.id, itemData as any);
         await galleryService.logAction("update", "gallery_item", editingGalleryItem.id, itemData);
       } else {
@@ -318,6 +318,22 @@ export default function AdminDashboard() {
       const imageUrl = await (isGallery ? galleryService : menuService).uploadImage(file, isGallery ? "gallery" : "menu-items");
       if (isGallery && editingGalleryItem) {
         setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
+      } else if (isGallery && !editingGalleryItem) {
+        // For new gallery items, we need to store the URL temporarily
+        setEditingGalleryItem({ 
+          id: "", 
+          title: "", 
+          description: null, 
+          image_url: imageUrl,
+          allergens: null,
+          status: "draft",
+          display_order: 0,
+          restaurant_id: "",
+          created_at: "",
+          updated_at: ""
+        } as any);
+      } else if (!isGallery && editingItem) {
+        setEditingItem({ ...editingItem, image_url: imageUrl });
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -572,7 +588,7 @@ export default function AdminDashboard() {
 
                   return (
                     <Card key={category.id} className="p-6">
-                      <h3 className="text-xl font-semibold mb-6">
+                      <h3 className="text-2xl font-display text-primary mb-6">
                         {category.name} 
                       </h3>
                       <div className="space-y-4">
