@@ -52,6 +52,18 @@ interface MenuDuJour {
   is_active: boolean;
 }
 
+interface MenuDuJourItem {
+  id: string;
+  restaurant_id: string;
+  title: string;
+  description: string | null;
+  price: number | null;
+  status: "draft" | "published";
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -62,10 +74,12 @@ export default function AdminDashboard() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [menuDuJour, setMenuDuJour] = useState<MenuDuJour | null>(null);
+  const [menuDuJourItems, setMenuDuJourItems] = useState<MenuDuJourItem[]>([]);
   
   // Form states
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [editingGalleryItem, setEditingGalleryItem] = useState<GalleryItem | null>(null);
+  const [editingMenuDuJourItem, setEditingMenuDuJourItem] = useState<MenuDuJourItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isGalleryDialogOpen, setIsGalleryDialogOpen] = useState(false);
   const [isMenuDuJourDialogOpen, setIsMenuDuJourDialogOpen] = useState(false);
@@ -95,9 +109,10 @@ export default function AdminDashboard() {
 
   const loadData = async () => {
     try {
-      const [categoriesData, menuDuJourData, galleryData] = await Promise.all([
+      const [categoriesData, menuDuJourData, menuDuJourItemsData, galleryData] = await Promise.all([
         menuService.getCategoriesWithItems("all"),
         menuService.getMenuDuJour(),
+        menuService.getMenuDuJourItems("all"),
         galleryService.getGalleryItems("all")
       ]);
       
@@ -113,6 +128,7 @@ export default function AdminDashboard() {
       setMenuItems(allItems);
       setGalleryItems(galleryData as any);
       setMenuDuJour(menuDuJourData);
+      setMenuDuJourItems(menuDuJourItemsData as any);
     } catch (error) {
       console.error("Error loading data:", error);
     }
@@ -135,7 +151,7 @@ export default function AdminDashboard() {
       allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
       status: formData.get("status") as "draft" | "published",
       display_order: parseInt(formData.get("display_order") as string) || 0,
-      image_url: null,
+      image_url: editingItem?.image_url || null,
       is_halal: formData.get("is_halal") === "true"
     };
 
@@ -245,6 +261,49 @@ export default function AdminDashboard() {
       loadData();
     } catch (error) {
       console.error("Error deleting menu du jour:", error);
+      alert("Erreur lors de la suppression");
+    }
+  };
+
+  const handleSaveMenuDuJourItem = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    const itemData = {
+      title: formData.get("title") as string,
+      description: formData.get("description") as string || null,
+      price: parseFloat(formData.get("price") as string) || null,
+      status: formData.get("status") as "draft" | "published",
+      display_order: parseInt(formData.get("display_order") as string) || 0
+    };
+
+    try {
+      if (editingMenuDuJourItem) {
+        await menuService.updateMenuDuJourItem(editingMenuDuJourItem.id, itemData);
+        await menuService.logAction("update", "menu_du_jour_item", editingMenuDuJourItem.id, itemData);
+      } else {
+        await menuService.createMenuDuJourItem(itemData);
+        await menuService.logAction("create", "menu_du_jour_item", undefined, itemData);
+      }
+      
+      setIsMenuDuJourDialogOpen(false);
+      setEditingMenuDuJourItem(null);
+      loadData();
+    } catch (error) {
+      console.error("Error saving menu du jour item:", error);
+      alert("Erreur lors de l'enregistrement");
+    }
+  };
+
+  const handleDeleteMenuDuJourItem = async (id: string) => {
+    if (!confirm("Êtes-vous sûr de vouloir supprimer ce plat du jour ?")) return;
+    
+    try {
+      await menuService.deleteMenuDuJourItem(id);
+      await menuService.logAction("delete", "menu_du_jour_item", id);
+      loadData();
+    } catch (error) {
+      console.error("Error deleting menu du jour item:", error);
       alert("Erreur lors de la suppression");
     }
   };
@@ -831,99 +890,140 @@ export default function AdminDashboard() {
             <TabsContent value="menu-du-jour" className="space-y-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-serif">Menu du Jour</h2>
-                <div className="flex gap-2">
-                  <Dialog open={isMenuDuJourDialogOpen} onOpenChange={setIsMenuDuJourDialogOpen}>
-                    <DialogTrigger asChild>
-                      <Button>
-                        <Edit className="h-4 w-4 mr-2" />
-                        Modifier
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Modifier le Menu du Jour</DialogTitle>
-                      </DialogHeader>
-                      <form onSubmit={handleSaveMenuDuJour} className="space-y-4">
-                        <div>
-                          <Label htmlFor="title">Titre</Label>
-                          <Input
-                            id="title"
-                            name="title"
-                            defaultValue={menuDuJour?.title || ""}
-                            required
-                          />
-                        </div>
-
-                        <div>
-                          <Label htmlFor="description">Description</Label>
-                          <Textarea
-                            id="description"
-                            name="description"
-                            defaultValue={menuDuJour?.description || ""}
-                            rows={5}
-                            placeholder="Décrivez le menu du jour..."
-                          />
-                        </div>
-
-                        <div>
-                          <Label htmlFor="is_active">Statut</Label>
-                          <Select name="is_active" defaultValue={menuDuJour?.is_active ? "true" : "false"}>
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="true">Actif</SelectItem>
-                              <SelectItem value="false">Inactif</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div className="flex justify-end gap-2">
-                          <Button type="button" variant="outline" onClick={() => setIsMenuDuJourDialogOpen(false)}>
-                            Annuler
-                          </Button>
-                          <Button type="submit">
-                            <Save className="h-4 w-4 mr-2" />
-                            Enregistrer
-                          </Button>
-                        </div>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
-                  {menuDuJour && menuDuJour.is_active && (
-                    <Button variant="destructive" onClick={handleDeleteMenuDuJour}>
-                      <Trash2 className="h-4 w-4 mr-2" />
-                      Supprimer
+                <Dialog open={isMenuDuJourDialogOpen} onOpenChange={setIsMenuDuJourDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button onClick={() => setEditingMenuDuJourItem(null)}>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Nouveau plat du jour
                     </Button>
-                  )}
-                </div>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>
+                        {editingMenuDuJourItem ? "Modifier le plat du jour" : "Nouveau plat du jour"}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={handleSaveMenuDuJourItem} className="space-y-4">
+                      <div>
+                        <Label htmlFor="mdj_title">Nom du plat</Label>
+                        <Input
+                          id="mdj_title"
+                          name="title"
+                          defaultValue={editingMenuDuJourItem?.title}
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="mdj_description">Description</Label>
+                        <Textarea
+                          id="mdj_description"
+                          name="description"
+                          defaultValue={editingMenuDuJourItem?.description || ""}
+                          rows={3}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="mdj_price">Prix (€)</Label>
+                        <Input
+                          id="mdj_price"
+                          name="price"
+                          type="number"
+                          step="0.01"
+                          defaultValue={editingMenuDuJourItem?.price || ""}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="mdj_status">Statut</Label>
+                        <Select name="status" defaultValue={editingMenuDuJourItem?.status || "published"}>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="draft">Brouillon</SelectItem>
+                            <SelectItem value="published">Publié</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="mdj_display_order">Ordre d'affichage</Label>
+                        <Input
+                          id="mdj_display_order"
+                          name="display_order"
+                          type="number"
+                          defaultValue={editingMenuDuJourItem?.display_order || 0}
+                        />
+                      </div>
+
+                      <div className="flex justify-end gap-2">
+                        <Button type="button" variant="outline" onClick={() => setIsMenuDuJourDialogOpen(false)}>
+                          Annuler
+                        </Button>
+                        <Button type="submit">
+                          <Save className="h-4 w-4 mr-2" />
+                          Enregistrer
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               <Card>
                 <CardContent className="p-6">
-                  {menuDuJour && menuDuJour.title ? (
-                    <div>
-                      <div className="flex items-center gap-2 mb-4">
-                        <h3 className="font-serif text-xl">{menuDuJour.title}</h3>
-                        {menuDuJour.is_active ? (
-                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded flex items-center gap-1">
-                            <Eye className="h-3 w-3" />
-                            Visible
-                          </span>
-                        ) : (
-                          <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded flex items-center gap-1">
-                            <EyeOff className="h-3 w-3" />
-                            Masqué
-                          </span>
-                        )}
-                      </div>
-                      {menuDuJour.description && (
-                        <p className="text-muted-foreground whitespace-pre-line">{menuDuJour.description}</p>
-                      )}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">Aucun menu du jour configuré</p>
-                  )}
+                  <div className="space-y-2">
+                    {menuDuJourItems.length === 0 ? (
+                      <p className="text-muted-foreground text-sm">Aucun plat du jour</p>
+                    ) : (
+                      menuDuJourItems.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between p-3 border rounded hover:bg-accent/5">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h4 className="font-medium">{item.title}</h4>
+                              {item.status === "draft" && (
+                                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                  Brouillon
+                                </span>
+                              )}
+                              {item.status === "published" && (
+                                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                  Publié
+                                </span>
+                              )}
+                            </div>
+                            {item.price && (
+                              <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}€</p>
+                            )}
+                            {item.description && (
+                              <p className="text-sm text-muted-foreground/80 mt-1 italic">{item.description}</p>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                setEditingMenuDuJourItem(item);
+                                setIsMenuDuJourDialogOpen(true);
+                              }}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDeleteMenuDuJourItem(item.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

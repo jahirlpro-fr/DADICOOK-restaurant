@@ -149,9 +149,21 @@ export const menuService = {
 
   // Create menu item
   async createMenuItem(item: Omit<MenuItem, "id" | "created_at" | "updated_at">) {
+    // Get restaurant ID first
+    const { data: restaurant, error: restaurantError } = await supabase
+      .from("restaurants")
+      .select("id")
+      .limit(1)
+      .single();
+
+    if (restaurantError || !restaurant) {
+      console.error("Error fetching restaurant:", restaurantError);
+      throw new Error("Restaurant not found");
+    }
+
     const { data, error } = await supabase
       .from("menu_items")
-      .insert(item)
+      .insert({ ...item, restaurant_id: restaurant.id })
       .select()
       .single();
 
@@ -277,6 +289,81 @@ export const menuService = {
 
       if (error) throw error;
       return data;
+    }
+  },
+
+  // Get all menu du jour items
+  async getMenuDuJourItems(status: "published" | "draft" | "all" = "published") {
+    let query = supabase
+      .from("menu_du_jour_items")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (status !== "all") {
+      query = query.eq("status", status);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error("Error fetching menu du jour items:", error);
+      throw error;
+    }
+
+    return data || [];
+  },
+
+  // Create menu du jour item
+  async createMenuDuJourItem(item: { title: string; description?: string; price?: number; status?: "draft" | "published"; display_order?: number }) {
+    const { data: restaurant } = await supabase
+      .from("restaurants")
+      .select("id")
+      .limit(1)
+      .single();
+
+    if (!restaurant) throw new Error("Restaurant not found");
+
+    const { data, error } = await supabase
+      .from("menu_du_jour_items")
+      .insert({ ...item, restaurant_id: restaurant.id })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error creating menu du jour item:", error);
+      throw error;
+    }
+
+    return data;
+  },
+
+  // Update menu du jour item
+  async updateMenuDuJourItem(id: string, updates: { title?: string; description?: string; price?: number; status?: "draft" | "published"; display_order?: number }) {
+    const { data, error } = await supabase
+      .from("menu_du_jour_items")
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Error updating menu du jour item:", error);
+      throw error;
+    }
+
+    return data;
+  },
+
+  // Delete menu du jour item
+  async deleteMenuDuJourItem(id: string) {
+    const { error } = await supabase
+      .from("menu_du_jour_items")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error deleting menu du jour item:", error);
+      throw error;
     }
   },
 

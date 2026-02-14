@@ -85,10 +85,17 @@ export const galleryService = {
 
   // Create gallery item
   async createGalleryItem(item: Omit<GalleryItemInsert, "restaurant_id">): Promise<GalleryItem> {
-    // Get the first restaurant (assuming single restaurant for now, or handle dynamic ID)
-    const { data: restaurants } = await supabase.from("restaurants").select("id").limit(1).single();
+    // Get the first restaurant
+    const { data: restaurants, error: restaurantError } = await supabase
+      .from("restaurants")
+      .select("id")
+      .limit(1)
+      .single();
     
-    if (!restaurants) throw new Error("No restaurant found");
+    if (restaurantError || !restaurants) {
+      console.error("Error fetching restaurant:", restaurantError);
+      throw new Error("Restaurant not found");
+    }
 
     const { data, error } = await supabase
       .from("gallery_items")
@@ -112,7 +119,7 @@ export const galleryService = {
   async updateGalleryItem(id: string, updates: GalleryItemUpdate): Promise<GalleryItem> {
     const { data, error } = await supabase
       .from("gallery_items")
-      .update(updates)
+      .update({ ...updates, updated_at: new Date().toISOString() })
       .eq("id", id)
       .select()
       .single();
