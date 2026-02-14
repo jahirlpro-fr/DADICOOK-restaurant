@@ -492,7 +492,7 @@ export default function AdminDashboard() {
             {/* Gallery Tab */}
             <TabsContent value="galerie" className="space-y-8">
               <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-display text-primary">Gestion de la Galerie</h2>
+                <h2 className="text-2xl font-serif text-primary">Gestion de la Galerie</h2>
                 <Button
                   onClick={() => {
                     setEditingGalleryItem(null);
