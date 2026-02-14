@@ -4,6 +4,7 @@ import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import Footer from "@/components/Footer"
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -289,49 +290,7 @@ export default function Home() {
         <ReviewsCarousel />
 
         {/* Footer */}
-        <footer className="bg-primary text-primary-foreground py-12">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              {/* Contact */}
-              <div>
-                <h3 className="text-accent text-xl font-serif mb-4">Contact</h3>
-                <div className="space-y-2 text-accent/80">
-                  <p>+33 7 49 49 95 55</p>
-                  <p>contact@dadicook.fr</p>
-                </div>
-              </div>
-
-              {/* Horaires */}
-              <div>
-                <h3 className="text-accent text-xl font-serif mb-4">Horaires</h3>
-                <div className="space-y-1 text-accent/80 text-sm">
-                  <p>Mer-Jeu : 11h30-14h30, 19h-23h</p>
-                  <p>Ven : 19h-23h</p>
-                  <p>Sam-Dim : 11h30-14h30, 19h-23h</p>
-                  <p>Lun-Mar : Fermé</p>
-                </div>
-              </div>
-
-              {/* Liens */}
-              <div>
-                <h3 className="text-accent text-xl font-serif mb-4">Liens</h3>
-                <div className="space-y-2">
-                  <Link href="/mentions-legales" className="block text-accent/80 hover:text-accent transition-colors">
-                    Mentions légales
-                  </Link>
-                  <Link href="/politique-confidentialite" className="block text-accent/80 hover:text-accent transition-colors">
-                    Politique de confidentialité
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-accent/20 pt-8 text-center text-accent/60 text-sm">
-              <p>&copy; 2026 DADICOOK. Tous droits réservés.</p>
-            </div>
-          </div>
-        </footer>
-
+        <Footer />
         <CookieConsent />
       </div>
     </>
