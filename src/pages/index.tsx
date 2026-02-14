@@ -292,7 +292,7 @@ export default function Home() {
         {/* Social Media Section */}
         <section className="py-16 bg-gradient-to-b from-[#F5F1ED] to-white">
           <div className="container mx-auto px-4">
-            <h2 className="font-cormorant text-4xl md:text-5xl text-center mb-12 text-[#8B6F47]">
+            <h2 className="font-serif text-4xl md:text-5xl text-foreground text-center mb-12">
               Suivez-nous
             </h2>
             <div className="flex justify-center gap-6 max-w-4xl mx-auto">
