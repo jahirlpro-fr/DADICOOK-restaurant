@@ -190,8 +190,10 @@ export default function AdminDashboard() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
+    const categoryId = formData.get("category_id") as string;
+    
     const itemData = {
-      category_id: formData.get("category_id") as string || null,
+      category_id: categoryId === "uncategorized" ? null : categoryId,
       title: formData.get("title") as string,
       description: formData.get("description") as string || null,
       allergens: (formData.get("allergens") as string)?.split(",").map(a => a.trim()).filter(Boolean) || null,
@@ -787,15 +789,12 @@ export default function AdminDashboard() {
                   <form onSubmit={handleSaveGalleryItem} className="space-y-4">
                     <div>
                       <Label htmlFor="gallery_category_id">Catégorie</Label>
-                      <Select 
-                        name="category_id" 
-                        defaultValue={editingGalleryItem?.category_id || ""}
-                      >
+                      <Select name="category_id" defaultValue={editingGalleryItem?.category_id || "uncategorized"}>
                         <SelectTrigger>
                           <SelectValue placeholder="Sélectionner une catégorie" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">Non catégorisé</SelectItem>
+                          <SelectItem value="uncategorized">Non catégorisé</SelectItem>
                           {categories.map((cat) => (
                             <SelectItem key={cat.id} value={cat.id}>
                               {cat.name}
@@ -860,10 +859,7 @@ export default function AdminDashboard() {
 
                     <div>
                       <Label htmlFor="gallery_status">Statut</Label>
-                      <Select 
-                        name="status" 
-                        defaultValue={editingGalleryItem?.status || "draft"}
-                      >
+                      <Select name="status" defaultValue={editingGalleryItem?.status || "draft"}>
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
