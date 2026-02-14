@@ -508,7 +508,7 @@ export default function AdminDashboard() {
                   return (
                     <Card key={category.id}>
                       <CardHeader>
-                            <CardTitle className="text-xl text-primary ">{category.name}</CardTitle>
+                            <CardTitle className="text-xl text-primary">{category.name}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
