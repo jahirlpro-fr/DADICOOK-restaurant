@@ -57,7 +57,7 @@ export default function Contact() {
                 {/* Left Column - Contact Form */}
                 <div className="space-y-8">
                   <div>
-                    <h2 className="font-serif text-3xl text-accent mb-2">Envoyez-nous un message</h2>
+                    <h2 className="font-serif text-3xl text-muted-foreground mb-2">Envoyez-nous un message</h2>
                     <p className="text-muted-foreground">
                       Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.
                     </p>
