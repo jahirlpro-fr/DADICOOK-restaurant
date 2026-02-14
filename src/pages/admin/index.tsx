@@ -550,7 +550,7 @@ export default function AdminDashboard() {
                                       {item.title}
                                     </h4>
                                     {item.description && (
-                                      <p className="text-sm text-accent/70 italic">
+                                      <p className="text-sm text-muted-foreground/80 mt-1 italic">
                                         {item.description}
                                       </p>
                                     )}
