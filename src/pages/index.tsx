@@ -1,10 +1,10 @@
 import { SEO } from "@/components/SEO";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ReviewsCarousel } from "@/components/ReviewsCarousel";
+import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
-import Footer from "@/components/Footer"
 
 const structuredData = {
   "@context": "https://schema.org",
