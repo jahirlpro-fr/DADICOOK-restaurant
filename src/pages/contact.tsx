@@ -162,14 +162,14 @@ export default function Contact() {
                 {/* Right Column - Contact Info */}
                 <div className="space-y-8">
                   <div>
-                    <h2 className="font-serif text-3xl text-accent mb-6">Nos Coordonnées</h2>
+                    <h2 className="font-serif text-3xl text-primary mb-6">Nos Coordonnées</h2>
                   </div>
 
                   {/* Téléphone */}
                   <div className="flex items-start gap-4">
                     <Phone className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-serif text-xl text-accent mb-2">Téléphone</h3>
+                      <h3 className="font-serif text-xl text-primary mb-2">Téléphone</h3>
                       <a 
                         href="tel:+33749499555"
                         className="text-muted-foreground hover:text-accent transition-colors text-lg"
@@ -183,7 +183,7 @@ export default function Contact() {
                   <div className="flex items-start gap-4">
                     <Mail className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-serif text-xl text-accent mb-2">Email</h3>
+                      <h3 className="font-serif text-xl text-primary mb-2">Email</h3>
                       <a 
                         href="mailto:contact@dadicook.fr"
                         className="text-muted-foreground hover:text-accent transition-colors text-lg"
@@ -197,7 +197,7 @@ export default function Contact() {
                   <div className="flex items-start gap-4">
                     <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-serif text-xl text-accent mb-2">Adresse</h3>
+                      <h3 className="font-serif text-xl text-primary mb-2">Adresse</h3>
                       <p className="text-muted-foreground text-lg leading-relaxed">
                         26 Rue de l'Université<br />
                         34000 Montpellier<br />
@@ -208,7 +208,7 @@ export default function Contact() {
 
                   {/* Réservation */}
                   <div className="mt-12 p-8 bg-muted/30">
-                    <h3 className="font-serif text-2xl text-accent mb-4">Réserver une table</h3>
+                    <h3 className="font-serif text-2xl text-primary mb-4">Réserver une table</h3>
                     <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
                       Pour réserver une table, utilisez notre système de réservation en ligne via TheFork.
                     </p>
