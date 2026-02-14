@@ -308,7 +308,7 @@ export default function Home() {
               <span className="font-lato text-[#8B6F47] font-medium">Instagram</span>
             </a>
 
-
+<a
             href="https://www.facebook.com/dadicook/"
             target="_blank"
             rel="noopener noreferrer"
@@ -320,7 +320,7 @@ export default function Home() {
             <span className="font-lato text-[#8B6F47] font-medium">Facebook</span>
           </a>
 
-
+<a
           href="https://www.tiktok.com/@dadi_cook"
           target="_blank"
           rel="noopener noreferrer"
@@ -332,7 +332,7 @@ export default function Home() {
           <span className="font-lato text-[#8B6F47] font-medium">TikTok</span>
         </a>
 
-
+<a
         href="https://www.threads.net/@dadicook.restaurant/"
         target="_blank"
         rel="noopener noreferrer"
