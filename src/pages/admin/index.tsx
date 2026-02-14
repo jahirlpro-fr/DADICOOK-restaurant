@@ -590,7 +590,7 @@ export default function AdminDashboard() {
 
                   return (
                     <Card key={category.id} className="p-6">
-                          <h3 className="text-xl text-primary font-bold mb-6">
+                          <h3 className="text-xl text-primary font-semibold mb-6">
                         {category.name} 
                       </h3>
                       <div className="space-y-4">
