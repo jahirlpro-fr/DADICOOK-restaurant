@@ -317,29 +317,32 @@ export default function AdminDashboard() {
     setUploading(true);
     
     try {
-      const imageUrl = await (isGallery ? galleryService : menuService).uploadImage(file, isGallery ? "gallery" : "menu-items");
-      if (isGallery && editingGalleryItem) {
-        setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
-      } else if (isGallery && !editingGalleryItem) {
-        // For new gallery items, we need to store the URL temporarily
-        setEditingGalleryItem({ 
-          id: "", 
-          title: "", 
-          description: null, 
-          image_url: imageUrl,
-          allergens: null,
-          status: "draft",
-          display_order: 0,
-          restaurant_id: "",
-          created_at: "",
-          updated_at: ""
-        } as any);
-      } else if (!isGallery && editingItem) {
+      const service = isGallery ? galleryService : menuService;
+      const imageUrl = await service.uploadImage(file, isGallery ? "gallery" : "menu-items");
+      
+      if (isGallery) {
+        if (editingGalleryItem) {
+          setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
+        } else {
+          setEditingGalleryItem({ 
+            id: "", 
+            title: "", 
+            description: null, 
+            image_url: imageUrl,
+            allergens: null,
+            status: "draft",
+            display_order: 0,
+            restaurant_id: "",
+            created_at: "",
+            updated_at: ""
+          } as any);
+        }
+      } else if (editingItem) {
         setEditingItem({ ...editingItem, image_url: imageUrl });
       }
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Erreur lors de l'upload");
+      alert("Erreur lors de l'upload de l'image");
     } finally {
       setUploading(false);
     }

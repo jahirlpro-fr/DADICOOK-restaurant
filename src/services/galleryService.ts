@@ -151,10 +151,21 @@ export const galleryService = {
 
   // Upload image to local file system (uploads folder)
   async uploadImage(file: File, folder: string = "gallery"): Promise<string> {
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${folder}/image_${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", folder);
 
-    return `/uploads/${fileName}`;
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error("Upload failed");
+    }
+
+    const data = await response.json();
+    return data.url;
   },
 
   // Log admin action
