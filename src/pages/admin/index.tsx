@@ -310,43 +310,52 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, isGallery: boolean = false) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    
-    const file = e.target.files[0];
-    setUploading(true);
-    
-    try {
-      const service = isGallery ? galleryService : menuService;
-      const imageUrl = await service.uploadImage(file, isGallery ? "gallery" : "menu-items");
-      
-      if (isGallery) {
-        if (editingGalleryItem) {
-          setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
-        } else {
-          setEditingGalleryItem({ 
-            id: "", 
-            title: "", 
-            description: null, 
-            image_url: imageUrl,
-            allergens: null,
-            status: "draft",
-            display_order: 0,
-            restaurant_id: "",
-            created_at: "",
-            updated_at: ""
-          } as any);
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, isGallery: boolean = false) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+
+        const file = e.target.files[0];
+        setUploading(true);
+
+        try {
+            const service = isGallery ? galleryService : menuService;
+            const imageUrl = await service.uploadImage(file, isGallery ? "gallery" : "menu-items");
+
+            if (isGallery) {
+                if (editingGalleryItem && editingGalleryItem.id) {
+                    // Editing existing item
+                    setEditingGalleryItem({ ...editingGalleryItem, image_url: imageUrl });
+                } else {
+                    // Creating new item - set initial state with image
+                    setEditingGalleryItem({
+                        id: "",
+                        category_id: null,
+                        title: "",
+                        description: null,
+                        image_url: imageUrl,
+                        allergens: null,
+                        status: "draft",
+                        display_order: 0
+                    } as GalleryItem);
+                }
+            } else if (editingItem) {
+                setEditingItem({ ...editingItem, image_url: imageUrl });
+            }
+
+            // Force a re-render to show the image
+            setTimeout(() => {
+                const imgElement = document.querySelector('img[alt="Preview"]');
+                if (imgElement && imageUrl) {
+                    (imgElement as HTMLImageElement).src = imageUrl + '?t=' + Date.now();
+                }
+            }, 100);
+
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Erreur lors de l'upload de l'image");
+        } finally {
+            setUploading(false);
         }
-      } else if (editingItem) {
-        setEditingItem({ ...editingItem, image_url: imageUrl });
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Erreur lors de l'upload de l'image");
-    } finally {
-      setUploading(false);
-    }
-  };
+    };
 
   if (loading) {
     return (
