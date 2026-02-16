@@ -92,7 +92,7 @@ export default function MenuPage() {
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto text-center">
                 <p className="text-accent/80 uppercase tracking-[0.2em] text-xl mb-6 font-light">
-                  Découvrez nos créations
+                  SAVEURS DU MONDE
                 </p>
                 <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6">
                   Notre Menu
