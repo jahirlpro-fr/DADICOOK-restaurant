@@ -143,7 +143,7 @@ export default function MenuPage() {
                                                                       <h3 className="font-serif text-3xl text-primary flex-1">
                                                                           {item.title}
                                                                           {item.is_halal && (
-                                                                              <span className="text-accent ml-1">*</span>
+                                                                              <span className="text-muted-foreground ml-1">*</span>
                                                                           )}
                                                                       </h3>
                                                                       {item.price && (
