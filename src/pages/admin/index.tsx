@@ -586,10 +586,12 @@ export default function AdminDashboard() {
               </div>
 
               <div className="space-y-8">
-                {categories.map((category) => {
-                  const categoryGalleryItems = galleryItems.filter(
-                    (item) => item.category_id === category.id
-                  );
+                {categories
+                    .sort((a, b) => a.display_order - b.display_order)
+                    .map((category) => {
+                        const categoryGalleryItems = galleryItems
+                    .filter((item) => item.category_id === category.id)
+                    .sort((a, b) => a.display_order - b.display_order);
 
                   return (
                     <Card key={category.id} className="p-6">
