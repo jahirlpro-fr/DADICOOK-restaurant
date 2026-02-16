@@ -154,7 +154,7 @@ export default function MenuPage() {
                                                                   </div>
 
                                                                   {item.description && (
-                                                                      <p className="text-muted-foreground text-xl leading-relaxed mb-3">
+                                                                      <p className="text-muted-foreground text-xl leading-relaxed mb-3 font-light">
                                                                           {item.description}
                                                                       </p>
                                                                   )}
