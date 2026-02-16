@@ -85,7 +85,7 @@ export default function GaleriePage() {
                               <div className="h-px bg-accent/30 w-24"></div>
                           </div>
                           <p className="text-lg md:text-xl text-accent/90 leading-relaxed max-w-2xl mx-auto">
-                              Découvrez en images nos créations culinaires et l'ambiance chaleureuse de notre restaurant
+                              Plongez dans l'univers DADICOOK à travers nos créations, où l'art culinaire rencontre l'esthétique
                           </p>
                       </div>
                   </div>
