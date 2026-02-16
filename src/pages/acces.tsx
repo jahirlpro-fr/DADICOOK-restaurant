@@ -30,7 +30,7 @@ export default function Acces() {
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
               <div className="text-center space-y-6">
                 <p className="text-accent/80 uppercase tracking-[0.4em] text-xl font-light">
-                  Horaires & Accès
+                  VOTRE TABLE VOUS ATTEND
                 </p>
                 <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-accent mb-6 font-light tracking-tight">
                   Nous Trouver
@@ -41,7 +41,7 @@ export default function Acces() {
                   <div className="h-px bg-accent/30 w-24"></div>
                 </div>
                 <p className="text-accent/90 text-lg md:text-xl leading-relaxed font-light max-w-2xl mx-auto">
-                  Venez découvrir notre restaurant au cœur de Montpellier
+                  Facilement accessible au centre de Montpellier, DADICOOK vous ouvre ses portes pour un voyage culinaire unique
                 </p>
               </div>
             </div>
