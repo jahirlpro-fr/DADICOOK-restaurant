@@ -230,8 +230,8 @@ export default function QRMenuPage() {
                 {/* Halal Legend */}
                 {hasHalalItems && (
                   <div className="mt-12 pt-6 border-t border-muted/20 text-center">
-                    <p className="text-muted-foreground text-sm">
-                      <span className="text-accent">*</span> Viande 100% certifiée Halal
+                    <p className="text-muted-foreground text-lg">
+                      <span className="text-muted-foreground texte-lg">*</span> Viande 100% certifiée Halal
                     </p>
                   </div>
                 )}
