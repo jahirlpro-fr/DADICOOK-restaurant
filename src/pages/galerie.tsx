@@ -23,7 +23,8 @@ export default function GaleriePage() {
       
       // Fetch categories
       const categoriesData = await menuService.getAllCategories();
-      setCategories(categoriesData || []);
+      const sortedCategories = (categoriesData || []).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+      setCategories(sortedCategories);
 
       // Fetch all published gallery items
       const items = await galleryService.getGalleryItems("published");
@@ -99,48 +100,99 @@ export default function GaleriePage() {
               <p className="text-accent/60">Aucune image disponible pour le moment.</p>
             </div>
           ) : (
-            <div className="space-y-20 py-16">
-              {Object.entries(galleryItemsByCategory).map(([categoryId, items]) => (
-                <section key={categoryId} className="space-y-8">
-                  {/* Category Title */}
-                  <div className="text-center space-y-3">
-                    <h2 className="font-serif text-4xl md:text-4xl text-primary">
-                      {getCategoryName(categoryId)}
-                    </h2>
-                    <div className="flex items-center justify-center gap-4">
-                        <div className="h-px bg-primary w-24"></div>
-                        <div className="w-2 h-2 bg-primary rotate-45"></div>
-                        <div className="h-px bg-primary w-24"></div>
-                    </div>
-                  </div>
+                          <div className="space-y-20 py-16">
+                              {categories
+                                  .sort((a, b) => {
+                                      const aOrder = categories.find(c => c.id === a.id)?.display_order || 999;
+                                      const bOrder = categories.find(c => c.id === b.id)?.display_order || 999;
+                                      return aOrder - bOrder;
+                                  })
+                                  .filter(category => galleryItemsByCategory[category.id]?.length > 0)
+                                  .map(category => {
+                                      const items = galleryItemsByCategory[category.id];
 
-                  {/* Gallery Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {items.map((item) => (
-                      <div
-                        key={item.id}
-                        className="group relative aspect-square overflow-hidden bg-surface cursor-pointer"
-                        onClick={() => setSelectedImage(item)}
-                      >
-                        <img
-                          src={item.image_url}
-                          alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="absolute bottom-0 left-0 right-0 p-4">
-                            <h3 className="text-white font-display text-lg">
-                              {item.title}
-                            </h3>
+                                      return (
+                                          <section key={category.id} className="space-y-8">
+                                              {/* Category Title */}
+                                              <div className="text-center space-y-3">
+                                                  <h2 className="font-serif text-4xl md:text-4xl text-primary">
+                                                      {category.name}
+                                                  </h2>
+                                                  <div className="flex items-center justify-center gap-4">
+                                                      <div className="h-px bg-primary w-24"></div>
+                                                      <div className="w-2 h-2 bg-primary rotate-45"></div>
+                                                      <div className="h-px bg-primary w-24"></div>
+                                                  </div>
+                                              </div>
+
+                                              {/* Gallery Grid */}
+                                              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                                                  {items.map((item) => (
+                                                      <div
+                                                          key={item.id}
+                                                          className="group relative aspect-square overflow-hidden bg-surface cursor-pointer"
+                                                          onClick={() => setSelectedImage(item)}
+                                                      >
+                                                          <img
+                                                              src={item.image_url}
+                                                              alt={item.title}
+                                                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                              loading="lazy"
+                                                          />
+                                                          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                              <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                                  <h3 className="text-white font-display text-lg">
+                                                                      {item.title}
+                                                                  </h3>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  ))}
+                                              </div>
+                                          </section>
+                                      );
+                                  })
+                              }
+
+                              {/* Uncategorized items if any */}
+                              {galleryItemsByCategory["uncategorized"]?.length > 0 && (
+                                  <section className="space-y-8">
+                                      <div className="text-center space-y-3">
+                                          <h2 className="font-serif text-4xl md:text-4xl text-primary">
+                                              Autres
+                                          </h2>
+                                          <div className="flex items-center justify-center gap-4">
+                                              <div className="h-px bg-primary w-24"></div>
+                                              <div className="w-2 h-2 bg-primary rotate-45"></div>
+                                              <div className="h-px bg-primary w-24"></div>
+                                          </div>
+                                      </div>
+                                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                                          {galleryItemsByCategory["uncategorized"].map((item) => (
+                                              <div
+                                                  key={item.id}
+                                                  className="group relative aspect-square overflow-hidden bg-surface cursor-pointer"
+                                                  onClick={() => setSelectedImage(item)}
+                                              >
+                                                  <img
+                                                      src={item.image_url}
+                                                      alt={item.title}
+                                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                      loading="lazy"
+                                                  />
+                                                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                          <h3 className="text-white font-display text-lg">
+                                                              {item.title}
+                                                          </h3>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          ))}
+                                      </div>
+                                  </section>
+                              )}
                           </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
           )}
 
               {/* Reservation CTA */}
