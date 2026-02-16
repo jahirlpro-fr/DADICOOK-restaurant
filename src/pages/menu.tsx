@@ -195,7 +195,7 @@ export default function MenuPage() {
           {/* Reservation CTA */}
           <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4xl text-center">
-              <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-light">
+              <h2 className="font-serif text-4xl md:text-5xl text-primary mb-6 font-light">
                 Réservez votre Table
               </h2>
               <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
