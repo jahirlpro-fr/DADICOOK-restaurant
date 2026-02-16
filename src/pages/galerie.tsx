@@ -249,7 +249,7 @@ export default function GaleriePage() {
                 {selectedImage.title}
               </h3>
               {selectedImage.description && (
-                <p className="text-accent/80 text-base">
+                <p className="text-primary text-base">
                   {selectedImage.description}
                 </p>
               )}
