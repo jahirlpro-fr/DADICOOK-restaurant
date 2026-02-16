@@ -184,8 +184,8 @@ export default function MenuPage() {
               {/* Halal Legend */}
               {hasHalalItems && (
                 <div className="mt-16 pt-8 border-t border-muted/20 text-center">
-                  <p className="text-muted-foreground text-base">
-                    <span className="text-accent">*</span> Viande 100% certifiée Halal
+                  <p className="text-muted-foreground text-lg">
+                    <span className="text-muted-foreground">*</span> Viande 100% certifiée Halal
                   </p>
                 </div>
               )}
