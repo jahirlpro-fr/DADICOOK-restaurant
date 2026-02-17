@@ -125,7 +125,7 @@ export default function Home() {
             </div>
 
             {/* Navigation verticale */}
-            <nav className="flex-1 flex items-center justify-center mt-8 md:mt-0"">
+            <nav className="flex-1 flex items-center justify-center mt-8 md:mt-0">
               <ul className="flex flex-col items-center gap-3 md:gap-8 text-xl md:text-2xl font-light tracking-wider text-[#EDD5C8]">
                 {navItems.map((item) => (
                   <li key={item.href}>
