@@ -267,22 +267,22 @@ export default function Home() {
               du monde dans un cadre accueillant qui invite au partage.
             </p>
 
-            <div className="flex gap-4">
-              <Link 
-                href="/menu"
-                className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Voir le menu
-              </Link>
-              <Link 
-                href="https://module.lafourchette.com/fr_FR/module/463969-a9311"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Réserver une table
-              </Link>
-            </div>
+                      <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto">
+                          <Link
+                              href="/menu"
+                              className="px-6 md:px-8 py-2.5 md:py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-center text-sm md:text-base"
+                          >
+                              Voir le menu
+                          </Link>
+                          <Link
+                              href="https://module.lafourchette.com/fr_FR/module/463969-a9311"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-6 md:px-8 py-2.5 md:py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-center text-sm md:text-base"
+                          >
+                              Réserver une table
+                          </Link>
+                      </div>
           </div>
         </section>
 
