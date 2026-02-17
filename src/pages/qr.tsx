@@ -31,7 +31,8 @@ interface MenuDuJour {
 export default function QRMenuPage() {
   const [menuItems, setMenuItems] = useState<Record<string, any[]>>({});
   const [categories, setCategories] = useState<any[]>([]);
-  const [menuDuJour, setMenuDuJour] = useState<MenuDuJour | null>(null);
+  const [menuDuJour, setMenuDuJour] = useState < MenuDuJour | null > (null);
+  const [menuDuJourItems, setMenuDuJourItems] = useState < any[] > ([]);
   const [loading, setLoading] = useState(true);
   const [hasHalalItems, setHasHalalItems] = useState(false);
 
