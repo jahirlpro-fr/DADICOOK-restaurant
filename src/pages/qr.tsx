@@ -131,25 +131,50 @@ const fetchMenuData = async () => {
                   <div className="w-16 h-px bg-primary/20 mx-auto"></div>
                 </div>
 
-                {menuDuJour.description && (
-                  <p className="text-center text-muted-foreground mb-4 text-sm">
-                    {menuDuJour.description}
+{menuDuJour.description && (
+  <p className="text-center text-muted-foreground mb-4 text-sm">
+    {menuDuJour.description}
+  </p>
+)}
+
+{/* Affichage des plats du jour */}
+{menuDuJourItems.length > 0 && (
+  <div className="space-y-4 mt-6">
+    {menuDuJourItems
+      .sort((a, b) => a.display_order - b.display_order)
+      .map((item, index) => (
+        <div key={item.id}>
+          <div className="bg-background rounded-lg p-4 shadow-sm">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="font-serif text-xl text-primary">
+                  {item.title}
+                </h3>
+                {item.description && (
+                  <p className="text-muted-foreground text-sm mt-1 italic">
+                    {item.description}
                   </p>
                 )}
-
-                {menuDuJour.content && (
-                  <div className="bg-background rounded-lg p-6 shadow-sm">
-                    <p className="text-foreground whitespace-pre-line text-sm leading-relaxed">
-                      {menuDuJour.content}
-                    </p>
-                  </div>
-                )}
-
-                {menuDuJour.price && (
-                  <p className="text-center mt-4 font-serif text-2xl text-primary">
-                    {menuDuJour.price.toFixed(2)}€
-                  </p>
-                )}
+              </div>
+              {item.price && (
+                <span className="font-serif text-xl text-primary whitespace-nowrap">
+                  {item.price.toFixed(2)}€
+                </span>
+              )}
+            </div>
+          </div>
+          {index < menuDuJourItems.length - 1 && (
+            <div className="flex items-center justify-center gap-4 py-3">
+              <div className="h-px bg-primary/30 w-16"></div>
+              <div className="w-1.5 h-1.5 bg-primary/30 rotate-45"></div>
+              <div className="h-px bg-primary/30 w-16"></div>
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+)}
               </div>
             </section>
           )}
