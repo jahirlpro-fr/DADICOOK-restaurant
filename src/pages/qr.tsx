@@ -239,25 +239,6 @@ export default function QRMenuPage() {
             </div>
           </section>
 
-          {/* Reservation CTA */}
-          <section className="py-12 mt-12">
-            <div className="container mx-auto px-4 text-center">
-              <h2 className="font-serif text-3xl text-primary mb-4">
-                Réservez votre Table
-              </h2>
-              <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
-                Pour une expérience culinaire inoubliable
-              </p>
-              <a
-                href="https://www.thefork.fr/restaurant/dadicook-r815372"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-primary text-accent px-6 py-3 font-semibold hover:bg-primary/90 transition-all duration-300"
-              >
-                Réserver maintenant
-              </a>
-            </div>
-          </section>
         </main>
 
         {/* Footer minimal */}
