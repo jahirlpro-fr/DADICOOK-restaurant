@@ -40,11 +40,12 @@ export default function QRMenuPage() {
     fetchMenuData();
   }, []);
 
-  const fetchMenuData = async () => {
-    try {
-      const items = await menuService.getAllMenuItems();
-      const cats = await menuService.getAllCategories();
-      const dailyMenu = await menuService.getMenuDuJour();
+const fetchMenuData = async () => {
+  try {
+    const items = await menuService.getAllMenuItems();
+    const cats = await menuService.getAllCategories();
+    const dailyMenu = await menuService.getMenuDuJour();
+    const dailyItems = await menuService.getMenuDuJourItems("published");
       
       const grouped = items.reduce((acc: Record<string, any[]>, item: any) => {
         const catId = item.category_id;
@@ -59,6 +60,7 @@ export default function QRMenuPage() {
       setMenuItems(grouped);
       setCategories(cats);
       setMenuDuJour(dailyMenu);
+      setMenuDuJourItems(dailyItems);
       setHasHalalItems(hasHalal);
     } catch (error) {
       console.error("Error fetching menu:", error);
