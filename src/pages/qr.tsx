@@ -118,7 +118,7 @@ const fetchMenuData = async () => {
 
         <main className="py-8">
           {/* Menu du Jour Section */}
-          {menuDuJour && (
+          {menuDuJour && menuDuJourItems.length > 0 && (
             <section className="mb-12 bg-primary/5 py-8">
               <div className="container mx-auto px-4 max-w-4xl">
                 <div className="text-center mb-6">
