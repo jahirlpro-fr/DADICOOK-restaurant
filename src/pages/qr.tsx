@@ -222,9 +222,9 @@ export default function QRMenuPage() {
       {/* Séparateur (ne s'affiche pas après le dernier plat) */}
       {index < items.length - 1 && (
         <div className="flex items-center justify-center gap-4 py-6">
-          <div className="h-px bg-primary w-24"></div>
-          <div className="w-2 h-2 bg-primary rotate-45"></div>
-          <div className="h-px bg-primary w-24"></div>
+          <div className="h-px bg-primary/60 w-24"></div>
+          <div className="w-2 h-2 bg-primary/60 rotate-45"></div>
+          <div className="h-px bg-primary/60 w-24"></div>
         </div>
       )}
     </div>
