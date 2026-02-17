@@ -245,9 +245,7 @@ export default function QRMenuPage() {
         <footer className="bg-primary py-6 border-t border-accent/20">
           <div className="container mx-auto px-4 text-center">
             <p className="text-accent/80 text-xs">© 2026 DADICOOK - Tous droits réservés</p>
-            <p className="text-accent/90 text-sm max-w-md mx-auto">
-              Scannez pour commander ou découvrez notre carte ci-dessous
-            </p>
+
             
             {/* Halal Mention - Discrete */}
             <div className="flex justify-center mt-6">
