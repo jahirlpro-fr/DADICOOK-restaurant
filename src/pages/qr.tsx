@@ -187,40 +187,48 @@ export default function QRMenuPage() {
                           </div>
 
                           <div className="space-y-6">
-                            {items
-                              .sort((a, b) => a.display_order - b.display_order)
-                              .map((item) => (
-                                <div
-                                  key={item.id}
-                                  className="border-b border-muted/20 pb-4 last:border-0"
-                                >
-                                  <div className="flex items-start justify-between gap-4 mb-2">
-                                    <h3 className="font-serif text-xl text-primary flex-1">
-                                      {item.title}
-                                      {item.is_halal && (
-                                        <span className="text-muted-foreground ml-1">*</span>
-                                      )}
-                                    </h3>
-                                    {item.price && (
-                                      <span className="font-serif text-xl text-primary whitespace-nowrap">
-                                        {item.price.toFixed(2)}€
-                                      </span>
-                                    )}
-                                  </div>
+{items
+  .sort((a, b) => a.display_order - b.display_order)
+  .map((item, index) => (
+    <div key={item.id}>
+      <div className="pb-4">
+        <div className="flex items-start justify-between gap-4 mb-2">
+          <h3 className="font-serif text-xl text-primary flex-1">
+            {item.title}
+            {item.is_halal && (
+              <span className="text-muted-foreground ml-1">*</span>
+            )}
+          </h3>
+          {item.price && (
+            <span className="font-serif text-xl text-primary whitespace-nowrap">
+              {item.price.toFixed(2)}€
+            </span>
+          )}
+        </div>
 
-                                  {item.description && (
-                                    <p className="text-muted-foreground text-sm leading-relaxed mb-2">
-                                      {item.description}
-                                    </p>
-                                  )}
+        {item.description && (
+          <p className="text-muted-foreground text-sm leading-relaxed mb-2">
+            {item.description}
+          </p>
+        )}
 
-                                  {item.allergens && item.allergens.length > 0 && (
-                                    <p className="text-xs text-muted-foreground/60 italic">
-                                      Allergènes : {item.allergens.join(", ")}
-                                    </p>
-                                  )}
-                                </div>
-                              ))}
+        {item.allergens && item.allergens.length > 0 && (
+          <p className="text-xs text-muted-foreground/60 italic">
+            Allergènes : {item.allergens.join(", ")}
+          </p>
+        )}
+      </div>
+
+      {/* Séparateur (ne s'affiche pas après le dernier plat) */}
+      {index < items.length - 1 && (
+        <div className="flex items-center justify-center gap-4 py-6">
+          <div className="h-px bg-primary w-24"></div>
+          <div className="w-2 h-2 bg-primary rotate-45"></div>
+          <div className="h-px bg-primary w-24"></div>
+        </div>
+      )}
+    </div>
+  ))}
                           </div>
                         </div>
                       );
