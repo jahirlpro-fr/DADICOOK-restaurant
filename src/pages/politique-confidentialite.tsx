@@ -39,9 +39,9 @@ export default function PolitiqueConfidentialite() {
                     </p>
                     <ul className="list-none space-y-1 ml-4">
                       <li>DADICOOK</li>
-                      <li>123 Rue de la Gastronomie, 75001 Paris, France</li>
+                      <li>26 Rue de l'univeristé 34000 MONTPELLIER</li>
                       <li>Email : contact@dadicook.fr</li>
-                      <li>Téléphone : +33 0 00 00 00 00</li>
+                      <li>Téléphone : +33 </li>
                     </ul>
                   </div>
 
@@ -227,8 +227,8 @@ export default function PolitiqueConfidentialite() {
                     </p>
                     <ul className="list-none space-y-1 ml-4 mt-2">
                       <li>Email : contact@dadicook.fr</li>
-                      <li>Téléphone : +33 0 00 00 00 00</li>
-                      <li>Courrier : DADICOOK, 123 Rue de la Gastronomie, 75001 Paris, France</li>
+                      <li>Téléphone : +33 </li>
+                      <li>Courrier : DADICOOK, 26 Rue de l'univeristé 34000 MONTPELLIER</li>
                     </ul>
                   </div>
 
