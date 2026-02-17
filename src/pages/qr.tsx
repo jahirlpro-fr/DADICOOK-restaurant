@@ -272,7 +272,7 @@ export default function QRMenuPage() {
             <div className="flex justify-center mt-6">
               <div className="flex items-center gap-2 px-3 py-1.5 border border-accent/30 rounded-full bg-accent/10">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                <p className="text-accent/90 text-xs font-medium tracking-wide uppercase">Viandes certifiées Halal</p>
+                <p className="text-accent/90 text-lg font-medium tracking-wide uppercase">Viandes certifiées Halal</p>
               </div>
             </div>
           </div>
