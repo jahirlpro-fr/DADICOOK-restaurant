@@ -76,18 +76,18 @@ export function Header() {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-primary border-t border-secondary/20">
-          <div className="container space-y-1 py-4">
+          <div className="container space-y-1 py-4 flex flex-col items-center text-center">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-4 py-3 font-sans text-lg font-medium text-[#E8DCC4] hover:text-[#E8DCC4]/80 hover:bg-primary-dark transition-colors uppercase tracking-wide"
+                className="block px-4 py-3 font-sans text-lg font-medium text-[#E8DCC4] hover:text-[#E8DCC4]/80 hover:bg-primary-dark transition-colors uppercase tracking-wide w-full text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="px-4 pt-2">
+            <div className="px-4 pt-2 w-full flex justify-center">
               <Button asChild className="w-full bg-secondary text-primary hover:bg-secondary/90 rounded-none font-sans text-sm uppercase tracking-wide">
                 <a
                   href="https://www.thefork.fr/restaurant/dadicook-r815372"
