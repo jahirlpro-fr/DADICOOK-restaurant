@@ -92,8 +92,8 @@ export default function Home() {
             </div>
 
             {/* Logo centré */}
-            <div className="flex-1 flex flex-col items-center justify-center gap-6 px-4">
-              <div className="flex flex-col items-center gap-8">
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 px-4 mt-16 md:mt-0">
+              <div className="flex flex-col items-center gap-4 md:gap-8">
                 {/* LOGO1 - Version complète */}
                 <Image
                   src="/LOGO1.svg"
