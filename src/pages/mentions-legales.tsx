@@ -31,13 +31,13 @@ export default function MentionsLegales() {
                     </p>
                     <ul className="list-none space-y-1 ml-4">
                       <li>Raison sociale : DADICOOK</li>
-                      <li>Forme juridique : [À compléter]</li>
-                      <li>Capital social : [À compléter]</li>
-                      <li>Siège social : 123 Rue de la Gastronomie, 75001 Paris, France</li>
-                      <li>Numéro SIRET : [À compléter]</li>
-                      <li>RCS : [À compléter]</li>
+                      <li>Forme juridique : SARL</li>
+                      <li>Capital social : 500,00€</li>
+                      <li>Siège social : 26 Rue de l'univeristé 34000 MONTPELLIER</li>
+                      <li>Numéro SIRET : 98318001900017</li>
+                      <li>RCS : </li>
                       <li>Email : contact@dadicook.fr</li>
-                      <li>Téléphone : +33 0 00 00 00 00</li>
+                      <li>Téléphone : +33 </li>
                     </ul>
                   </div>
 
@@ -46,7 +46,7 @@ export default function MentionsLegales() {
                       2. Directeur de la publication
                     </h2>
                     <p>
-                      Le directeur de la publication du site est : [Nom du responsable]
+                      Le directeur de la publication du site est : Jeremy GABORY
                     </p>
                   </div>
 
