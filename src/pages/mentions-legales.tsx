@@ -148,7 +148,7 @@ export default function MentionsLegales() {
                     <ul className="list-none space-y-1 ml-4 mt-2">
                       <li>Par email : contact@dadicook.fr</li>
                       <li>Par téléphone : +33 0 00 00 00 00</li>
-                      <li>Par courrier : 123 Rue de la Gastronomie, 75001 Paris, France</li>
+                      <li>Par courrier : 26 Rue de l'univeristé 34000 MONTPELLIER</li>
                     </ul>
                   </div>
 
