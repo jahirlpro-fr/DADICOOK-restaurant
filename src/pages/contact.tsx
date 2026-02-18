@@ -215,7 +215,7 @@ export default function Contact() {
                     <a
                       href="https://www.thefork.fr/restaurant/dadicook-r815372"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="inline-block bg-primary text-primary-foreground px-8 py-4 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg"
                     >
                       Réserver maintenant
