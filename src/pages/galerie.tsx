@@ -7,6 +7,14 @@ import { X } from "lucide-react";
 import { galleryService, type GalleryItem } from "@/services/galleryService";
 import { menuService } from "@/services/menuService";
 
+const gallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Galerie DADICOOK",
+    "description": "Découvrez en images nos créations culinaires et l'ambiance chaleureuse de notre restaurant",
+    "inLanguage": "fr-FR"
+};
+
 export default function GaleriePage() {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [galleryItemsByCategory, setGalleryItemsByCategory] = useState<Record<string, GalleryItem[]>>({});
