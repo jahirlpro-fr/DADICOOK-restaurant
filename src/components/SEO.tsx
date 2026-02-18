@@ -5,6 +5,7 @@ export interface SEOProps {
   description?: string;
   image?: string;
   url?: string;
+  keywords?: string;
 }
 
 export function SEO({
@@ -12,6 +13,7 @@ export function SEO({
   description = "Découvrez DADICOOK, restaurant bistronomique proposant une cuisine du monde raffinée dans une ambiance chaleureuse et conviviale. Réservez votre table en ligne.",
   image = "/og-image.png",
   url = "https://www.dadicook.fr"
+  keywords = "restaurant montpellier, cuisine du monde, halal, bistronomique, réservation restaurant"
 }: SEOProps) {
   const fullImageUrl = image.startsWith("http") ? image : `https://www.dadicook.fr${image}`;
   const fullUrl = url.startsWith("http") ? url : `https://www.dadicook.fr${url}`;
@@ -20,6 +22,7 @@ export function SEO({
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
       
