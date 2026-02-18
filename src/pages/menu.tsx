@@ -5,6 +5,14 @@ import { useState, useEffect } from "react";
 import { menuService } from "@/services/menuService";
 import { Utensils } from "lucide-react";
 
+const menuSchema = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "Menu DADICOOK",
+    "description": "Cuisine du monde raffinée et authentique",
+    "inLanguage": "fr-FR"
+};
+
 interface MenuItem {
   id: string;
   title: string;
