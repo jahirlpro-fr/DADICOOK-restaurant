@@ -277,7 +277,7 @@ export default function Home() {
                           <Link
                               href="https://module.lafourchette.com/fr_FR/module/463969-a9311"
                               target="_blank"
-                              rel="noopener noreferrer"
+                              rel="noopener noreferrer nofollow"
                               className="px-6 md:px-8 py-2.5 md:py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-center text-sm md:text-base"
                           >
                               Réserver une table
