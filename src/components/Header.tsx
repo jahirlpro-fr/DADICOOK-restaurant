@@ -52,7 +52,7 @@ export function Header() {
             <a
               href="https://www.thefork.fr/restaurant/dadicook-r815372"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
             >
               Réserver
             </a>
