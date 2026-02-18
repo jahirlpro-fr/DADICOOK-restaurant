@@ -203,7 +203,7 @@ export default function Acces() {
               <a
                 href="https://www.thefork.fr/restaurant/dadicook-r815372"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="inline-block bg-primary text-primary-foreground px-12 py-5 font-semibold hover:bg-primary/90 transition-all duration-300 text-lg tracking-wide"
               >
                 Réserver une table
