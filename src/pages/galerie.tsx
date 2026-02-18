@@ -66,6 +66,13 @@ export default function GaleriePage() {
     return category?.name || "Autres";
   };
 
+    <Head>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(gallerySchema) }}
+        />
+    </Head>
+
   return (
     <>
       <SEO 
