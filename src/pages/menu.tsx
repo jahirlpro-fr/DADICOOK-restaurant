@@ -84,6 +84,13 @@ export default function MenuPage() {
     );
   }
 
+    <Head>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }}
+        />
+    </Head>
+
   return (
     <>
       <SEO 
