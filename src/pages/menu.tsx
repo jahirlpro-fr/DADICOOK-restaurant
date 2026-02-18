@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { useState, useEffect } from "react";
 import { menuService } from "@/services/menuService";
 import { Utensils } from "lucide-react";
+import { Head } from "next/head";
 
 const menuSchema = {
     "@context": "https://schema.org",
