@@ -32,7 +32,7 @@ export default function AdminLogin() {
         router.push("/admin");
       }
     } catch (err: any) {
-      setError(err.message || "Erreur de connexion");
+      setError("Email ou mot de passe incorrect");
     } finally {
       setLoading(false);
     }
