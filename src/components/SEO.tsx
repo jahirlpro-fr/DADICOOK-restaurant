@@ -12,7 +12,7 @@ export function SEO({
   title = "DADICOOK - Restaurant Bistronomique | Cuisine du Monde",
   description = "Découvrez DADICOOK, restaurant bistronomique proposant une cuisine du monde raffinée dans une ambiance chaleureuse et conviviale. Réservez votre table en ligne.",
   image = "/og-image.png",
-  url = "https://www.dadicook.fr"
+  url = "https://www.dadicook.fr",
   keywords = "restaurant montpellier, cuisine du monde, halal, bistronomique, réservation restaurant"
 }: SEOProps) {
   const fullImageUrl = image.startsWith("http") ? image : `https://www.dadicook.fr${image}`;
