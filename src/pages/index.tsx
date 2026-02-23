@@ -303,7 +303,7 @@ export default function Home() {
               className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
       >
                               <svg
-                                  style={{ width: '40px', height: '40px' }}
+                                  style={{ minwidth: '40px', minheight: '40px' }}
                                   className="text-[#8B6F47]"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
@@ -320,7 +320,7 @@ export default function Home() {
             className="flex items-center gap-3 px-8 py-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border border-[#8B6F47]/20"
 >
                               <svg
-                                  style={{ width: '40px', height: '40px' }}
+                                  style={{ minwidth: '40px', minheight: '40px' }}
                                   className="text-[#8B6F47]"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
