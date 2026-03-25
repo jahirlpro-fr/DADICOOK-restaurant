@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { galleryService, type GalleryItem } from "@/services/galleryService";
 import { menuService } from "@/services/menuService";
-import { Head } from "next/head";
+import Head from "next/head";
 
 const gallerySchema = {
     "@context": "https://schema.org",
