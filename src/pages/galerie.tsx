@@ -19,7 +19,7 @@ const gallerySchema = {
 export default function GaleriePage() {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [galleryItemsByCategory, setGalleryItemsByCategory] = useState<Record<string, GalleryItem[]>>({});
-  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
+  const [categories, setCategories] = useState < Array < { id: string; name: string; display_order?: number } >> ([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -67,12 +67,6 @@ export default function GaleriePage() {
     return category?.name || "Autres";
   };
 
-    <Head>
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(gallerySchema) }}
-        />
-    </Head>
 
   return (
     <>
@@ -80,7 +74,15 @@ export default function GaleriePage() {
         title="Galerie - DADICOOK"
         description="Découvrez en images nos créations culinaires, notre ambiance chaleureuse et nos plats signatures."
         image="/og-image.png"
-      />
+          />
+
+          <Head>
+              <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{ __html: JSON.stringify(gallerySchema) }}
+              />
+          </Head>
+
       
       <Header />
       
@@ -118,11 +120,7 @@ export default function GaleriePage() {
           ) : (
                           <div className="space-y-20 py-16">
                               {categories
-                                  .sort((a, b) => {
-                                      const aOrder = categories.find(c => c.id === a.id)?.display_order || 999;
-                                      const bOrder = categories.find(c => c.id === b.id)?.display_order || 999;
-                                      return aOrder - bOrder;
-                                  })
+                                  .sort((a, b) => (a.display_order || 999) - (b.display_order || 999))
                                   .filter(category => galleryItemsByCategory[category.id]?.length > 0)
                                   .map(category => {
                                       const items = galleryItemsByCategory[category.id];
