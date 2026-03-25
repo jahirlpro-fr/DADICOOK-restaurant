@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { useState, useEffect } from "react";
 import { menuService } from "@/services/menuService";
 import { Utensils } from "lucide-react";
-import { Head } from "next/head";
+import  Head  from "next/head";
 
 const menuSchema = {
     "@context": "https://schema.org",
@@ -85,19 +85,21 @@ export default function MenuPage() {
     );
   }
 
-    <Head>
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }}
-        />
-    </Head>
+
 
   return (
     <>
       <SEO 
         title="Menu - DADICOOK"
         description="Découvrez notre carte : entrées, plats, desserts et boissons. Une cuisine du monde raffinée et authentique."
-      />
+          />
+
+          <Head>
+              <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }}
+              />
+          </Head>
       
       <div className="min-h-screen bg-background">
         <Header />
